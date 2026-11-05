@@ -1,0 +1,91 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrInformePowerBi:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    Children:
+      - cntPantallaInformePowerBi:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpMenuLateralInformePowerBi:
+                Control: CanvasComponent
+                ComponentName: cmpMenuLateral
+                Properties:
+                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+            - cntPrincipalInformePowerBi:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpEncabezadoInformePowerBi:
+                      Control: CanvasComponent
+                      ComponentName: cmpEncabezado
+                      Properties:
+                        Height: =60
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        Width: =Max(Parent.Width, 300)
+                  - cntContenidoInformePowerBi:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - pbiInformeAdmin:
+                            Control: PowerBI@2.4.0
+                            Properties:
+                              AlignInContainer: =AlignInContainer.End
+                              BorderColor: =Colores.FondoSuave
+                              BorderStyle: =BorderStyle.None
+                              Height: =Parent.Height
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =0
+                              TileUrl: =""
+                              Width: =Parent.Width
+                              WorkspaceId: ="__my-workspace"

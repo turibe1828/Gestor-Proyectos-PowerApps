@@ -1,0 +1,480 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpComentarios:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Width: =300
+    Children:
+      - cntComentarios:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =15
+            PaddingBottom: =Espacio.L
+            PaddingLeft: =Espacio.L
+            PaddingRight: =Espacio.L
+            PaddingTop: =Espacio.M
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - lblComentariosTitulo:
+                Control: Label@2.5.1
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  Color: =Colores.Texto
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  FocusedBorderThickness: =4
+                  Font: =Font.'Lato Black'
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  Text: ="Comentarios"
+            - cntTipoComentario:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =30
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =1
+                  PaddingLeft: =1
+                  PaddingRight: =1
+                  PaddingTop: =1
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  X: =40
+                  Y: =40
+                Children:
+                  - cmbTipoComentario:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        BorderColor: =Color.Black
+                        BorderThickness: =1
+                        ChevronBackground: =RGBA(245, 245, 245, 1)
+                        ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                        ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                        ChevronFill: =RGBA(50, 49, 48, 1)
+                        ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                        ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                        Color: =Colores.Texto
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        DisplayFields: =["Value"]
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =Colores.FondoSuave
+                        FillPortions: =1
+                        FocusedBorderThickness: =1
+                        Font: =Font.Lato
+                        FontWeight: =FontWeight.Lighter
+                        HoverBorderColor: '=Color.Black '
+                        HoverColor: =RGBA(50, 49, 48, 1)
+                        HoverFill: =RGBA(245, 245, 245, 1)
+                        InputTextPlaceholder: ="Selecciona el tipo de comentario"
+                        IsSearchable: =false
+                        Items: =TiposComentario
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                        PaddingTop: =0
+                        PressedBorderColor: '=Color.Black '
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(0, 120, 212, 1)
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        SelectionColor: =RGBA(255, 255, 255, 1)
+                        SelectionFill: =RGBA(0, 120, 212, 1)
+                        Size: =Fuente.Pequena
+                        Tooltip: =
+                        Width: =Parent.Width
+                        X: =30
+                        Y: =lblFechaAsignacionTitulo.Y + lblFechaAsignacionTitulo.Height + 5
+            - cntNuevoComentario:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  DropShadow: =DropShadow.Semilight
+                  FillPortions: =0
+                  Height: =90
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =100
+                Children:
+                  - cntEntradaComentario:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Vertical
+                        RadiusBottomLeft: =10
+                        RadiusBottomRight: =10
+                        RadiusTopLeft: =10
+                        RadiusTopRight: =10
+                        Visible: =If(!IsBlank(cmbTipoComentario),true,false)
+                        Width: =Parent.Width
+                      Children:
+                        - lblTipoComentarioSeleccionado:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              Font: =Font.'Lato Black'
+                              Height: =Parent.Height*0.3
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              PaddingLeft: =Espacio.M
+                              Size: =Fuente.Pequena
+                              Text: =cmbTipoComentario.Selected.Value
+                              Width: =126
+                        - txtNuevoComentario:
+                            Control: Classic/TextInput@2.3.2
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =Color.White
+                              BorderThickness: =0
+                              Color: =Colores.Texto
+                              Default: =
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              Height: =Parent.Height*0.7
+                              HintText: ="Añadir comentario"
+                              HoverBorderColor: =
+                              HoverColor: =
+                              HoverFill: =
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =0
+                              Mode: =TextMode.MultiLine
+                              PaddingLeft: =Espacio.M
+                              PaddingRight: =Espacio.L
+                              PaddingTop: =Espacio.M
+                              PressedBorderColor: =Color.White
+                              PressedColor: =
+                              PressedFill: =
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =Fuente.Normal
+                              X: =40
+                              Y: =40
+                  - icoEnviarComentario:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Color: =MyTheme.Primary
+                        DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                        DisabledColor: =RGBA(225, 223, 221, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =30
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(16, 110, 190, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Icon: =Icon.Send
+                        OnSelect: |-
+                          =IfError(
+                              Collect(
+                                  ColComentarios,
+                                  Patch(
+                                      ComentariosProyectos,
+                                      Defaults(ComentariosProyectos),
+                                      {
+                                          ID: Max(ComentariosProyectos, ID) + 1,
+                                          Created: Now(),
+                                          'ID proyecto': varProyecto.ID,
+                                          Comentario: txtNuevoComentario.Text,
+                                          Tipo: cmbTipoComentario.Selected,
+                                          CreadoPersona: {
+                                              '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                              Claims: "i:0#.f|membership|" & Lower(CurrentUser.Mail),
+                                              DisplayName:CurrentUser.DisplayName,
+                                              Email: CurrentUser.Mail,
+                                              Department: CurrentUser.Department,
+                                              JobTitle: CurrentUser.JobTitle,
+                                              Picture: ""
+                                          }
+                                      }
+                                  )
+                              ),
+                              Notify("No se pudo guardar el comentario.", NotificationType.Error),
+                              Reset(txtNuevoComentario)
+                          );
+                        PaddingRight: =Espacio.XS
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedColor: =RGBA(16, 110, 190, 1)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Visible: =!IsBlank(txtNuevoComentario.Text)
+                        Width: =30
+                        X: =Parent.Width-Self.Width
+                        Y: =Parent.Height-Self.Height
+            - galComentarios:
+                Control: Gallery@2.15.0
+                Variant: VariableHeight
+                Properties:
+                  BorderColor: =Colores.FondoSuave
+                  Items: =SortByColumns(Filter(ColComentarios,'ID proyecto'=varProyecto.ID),"Created",SortOrder.Descending)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =200
+                Children:
+                  - cntComentario:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Height: =cntAutorComentario.Height + cntTipoComentarioItem.Height + cntTextoComentario.Height + 20
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =Espacio.XS
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.TemplateWidth
+                        X: =
+                        Y: =
+                      Children:
+                        - cntAutorComentario:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =25
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - imgFotoAutorComentario:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =20
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      =// Foto de Office 365 si la tiene; si no, avatar con iniciales; si no hay nombre, SampleImage
+                                      If(
+                                          !IsBlank(ThisItem.CreadoPersona.Email) && false,
+                                          SampleImage,
+                                          // Avatar: círculo SVG con las iniciales y un color estable por persona; sin nombre → SampleImage
+                                      With(
+                                          { _partes: Split(Trim(Coalesce(ThisItem.CreadoPersona.DisplayName, "")), " ") },
+                                          With(
+                                              { _ini: Upper(Left(First(_partes).Value, 1) & If(CountRows(_partes) > 1, Left(Last(_partes).Value, 1), "")) },
+                                              If(
+                                                  IsBlank(_ini),
+                                                  SampleImage,
+                                                  "data:image/svg+xml;utf8," & EncodeUrl(
+                                                      "<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><circle cx='40' cy='40' r='40' fill='" &
+                                                      Index(
+                                                          ["#2563EB", "#0E9F6E", "#D97706", "#7C3AED", "#DB2777", "#0891B2"],
+                                                          Mod(Coalesce(Find(Left(_ini, 1), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0) + Len(ThisItem.CreadoPersona.DisplayName), 6) + 1
+                                                      ).Value &
+                                                      "'/><text x='40' y='40' dy='0.35em' text-anchor='middle' font-family='Segoe UI, Arial, sans-serif' font-size='30' font-weight='600' fill='#FFFFFF'>" &
+                                                      _ini & "</text></svg>"
+                                                  )
+                                              )
+                                          )
+                                      )
+                                      )
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =20
+                              - cntDatosAutorComentario:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblAutorComentario:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          Height: =Parent.Height
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =Fuente.Mini
+                                          Text: |+
+                                            =ThisItem.CreadoPersona.DisplayName
+                                          Width: =Parent.Width
+                                    - lblFechaComentario:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          Height: =Parent.Height
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Size: =6
+                                          Text: |+
+                                            =ThisItem.Created
+                                          Width: =Parent.Width
+                        - cntTipoComentarioItem:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =0
+                              Height: =20
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - lblTipoComentarioItem:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =Colores.Texto
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Lato Black'
+                                    Height: =42
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PaddingRight: =Espacio.M
+                                    PaddingTop: =3
+                                    Size: =Fuente.Pequena
+                                    Text: =ThisItem.Tipo.Value
+                                    Width: =Parent.Width
+                                    X: =
+                        - cntTextoComentario:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              FillPortions: =0
+                              Height: =lblTextoComentario.Height
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                            Children:
+                              - lblTextoComentario:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =Colores.Blanco
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =Switch(ThisItem.Tipo.Value, "Avances", Color.LimeGreen, "Próximos pasos", Color.Orange, "Riesgos/Alertas", Color.Red, Color.Gray)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.Lato
+                                    Height: =42
+                                    PaddingLeft: =Espacio.M
+                                    PaddingRight: =Espacio.M
+                                    PaddingTop: =3
+                                    Size: =Fuente.Pequena
+                                    Text: =ThisItem.Comentario
+                                    Width: =Parent.Width
+                                    X: =

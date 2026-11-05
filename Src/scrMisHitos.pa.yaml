@@ -1,0 +1,1670 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrMisHitos:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =Reset(cmbEncargadoMisHitos);
+        Reset(cmbProyectoMisHitos);
+        Reset(cmbClienteMisHitos);
+        Reset(cmbEstadoMisHitos);
+        Reset(cmbSegmentoMisHitos);
+    Children:
+      - cntPantallaMisHitos:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpMenuLateralMisHitos:
+                Control: CanvasComponent
+                ComponentName: cmpMenuLateral
+                Properties:
+                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+            - cntPrincipalMisHitos:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpEncabezadoMisHitos:
+                      Control: CanvasComponent
+                      ComponentName: cmpEncabezado
+                      Properties:
+                        Height: =60
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        Width: =Max(Parent.Width, 300)
+                  - cntBarraHerramientasMisHitos:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 110, Max(60, Parent.Height * 0.08))
+                        LayoutDirection: =If(App.ActiveScreenSize <= ScreenSize.Medium, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - lblTituloMisHitos:
+                            Control: Label@2.5.1
+                            Properties:
+                              Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 45, Parent.Height)
+                              Align: =If(App.ActiveScreenSize <= ScreenSize.Medium, Align.Left, Align.Center)
+                              AlignInContainer: =AlignInContainer.Stretch
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), RGBA(50, 49, 48, 1), MyTheme.Primary)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Lato Black'
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =0
+                              OnSelect: |-
+                                =// Clic en el título con filtros rápidos activos: los quita
+                                Set(varFiltroRapidoH, Blank());
+                                Set(varEncFoco, Blank());
+                                Set(varEncFocoNombre, Blank())
+                              PaddingLeft: =Espacio.L
+                              Size: =If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), 14, 12)
+                              Text: |-
+                                ="Hitos" &
+                                If(
+                                    IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco),
+                                    "",
+                                    "  ·  " & Concat(Filter(Table({ t: varFiltroRapidoH }, { t: varEncFocoNombre }), !IsBlank(t)), t, " + ") & "  ✕"
+                                )
+                              Tooltip: =If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), "", "Clic para quitar los filtros rápidos")
+                              Width: =If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), 250, 380)
+                        - cntFiltrosMisHitos:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              BorderColor: =Blank()
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =Colores.Blanco
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =Espacio.XS
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =54
+                              LayoutMinWidth: =0
+                              PaddingRight: =Espacio.L
+                              PaddingTop: =Espacio.XS
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =If(App.ActiveScreenSize <= ScreenSize.Medium, Parent.Width, Parent.Width - lblTituloMisHitos.Width)
+                            Children:
+                              - txtBuscarMisHitos:
+                                  Control: TextInput@0.0.54
+                                  Properties:
+                                    BorderRadius: =4
+                                    Font: =Font.Lato
+                                    FontColor: =MyTheme.Gray
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Placeholder: ="Buscar"
+                                    TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                              - btnBuscarMisHitos:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AccessibleLabel: ="Quitar filtros"
+                                    Align: =Align.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BorderThickness: =0
+                                    FontColor: =RGBA(15, 108, 189, 1)
+                                    FontSize: =30
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                    Icon: ="Search"
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Text: =""
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =Self.Height
+                              - cmbEncargadoMisHitos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Encargado"
+                                    Items: =Distinct( UsuariosDemo,ThisRecord.DisplayName)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =30
+                                    PaddingBottom: =Espacio.M
+                                    PaddingTop: =Espacio.M
+                                    Visible: =false
+                                    Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                  Children:
+                                    - fldEncargadoMisHitos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        Properties:
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbProyectoMisHitos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Proyecto"
+                                    Items: =Distinct(ColProyectos, 'Nombre del proyecto')
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =30
+                                    PaddingBottom: =Espacio.M
+                                    PaddingTop: =Espacio.M
+                                    SelectMultiple: =true
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                  Children:
+                                    - fldProyectoMisHitos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbClienteMisHitos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Visible: =App.ActiveScreenSize >= ScreenSize.Large
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Cliente"
+                                    Items: =Distinct(ColProyectos, 'Nombre del Cliente')
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =30
+                                    PaddingBottom: =Espacio.M
+                                    PaddingTop: =Espacio.M
+                                    SelectMultiple: =true
+                                    Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                              - cmbEstadoMisHitos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Estado"
+                                    Items: =Distinct(ColHitos.Estado, ThisRecord.Estado.Value)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                  Children:
+                                    - fldEstadoMisHitos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbSegmentoMisHitos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Segmento"
+                                    Items: =Distinct(ColProyectos.Segmento, ThisRecord.Segmento.Value)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    SelectMultiple: =true
+                                    Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                    Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                  Children:
+                                    - fldSegmentoMisHitos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - btnQuitarFiltrosMisHitos:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AccessibleLabel: ="Quitar filtros"
+                                    Align: =Align.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BorderThickness: =0
+                                    FontColor: =RGBA(189, 49, 51, 1)
+                                    FontSize: =30
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                    Icon: ="Eraser"
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    OnSelect: |-
+                                      =Reset(txtBuscarMisHitos);
+                                      Reset(cmbProyectoMisHitos);
+                                      Reset(cmbEstadoMisHitos);
+                                      Reset(cmbEncargadoMisHitos);
+                                      Reset(cmbClienteMisHitos);
+                                      Reset(cmbSegmentoMisHitos);
+                                      // Filtros rápidos (chips, encargado y columna ampliada)
+                                      Set(varFiltroRapidoH, Blank());
+                                      Set(varEncFoco, Blank());
+                                      Set(varEncFocoNombre, Blank());
+                                      Set(varEstadoFocoH, Blank());
+                                    Text: =""
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =Self.Height
+                  - galVistasMisHitos:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =40
+                        Items: |-
+                          =// 1-2: pestañas de vista. 3-5: filtros rápidos (un clic filtra, otro clic lo quita)
+                          [
+                              {ID:1, title:"Tablero"},
+                              {ID:2, title:"Lista"},
+                              {ID:3, title:"Vencidos"},
+                              {ID:4, title:"Vence ≤ 7 d"},
+                              {ID:5, title:"Asignados a mí"}
+                          ]
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        TemplatePadding: =0
+                        TemplateSize: =120
+                      Children:
+                        - btnVistaMisHitos:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: |-
+                                =If(
+                                    ThisItem.ID <= 2, If(varVista = ThisItem.title, MyTheme.Primary, MyTheme.Gray),
+                                    varFiltroRapidoH = ThisItem.title, Color.White,
+                                    MyTheme.Gray
+                                )
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: =If(ThisItem.ID > 2 && varFiltroRapidoH = ThisItem.title, MyTheme.Primary, If(ThisItem.ID > 2, MyTheme.LightGray, RGBA(0, 0, 0, 0)))
+                              Font: =Font.'Lato Black'
+                              Height: =If(ThisItem.ID > 2, Parent.TemplateHeight - 8, Parent.TemplateHeight)
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =If(ThisItem.ID > 2 && varFiltroRapidoH = ThisItem.title, Color.White, MyTheme.Primary)
+                              HoverFill: =If(ThisItem.ID > 2, ColorFade(Self.Fill, -8%), Color.Transparent)
+                              OnSelect: |-
+                                =If(
+                                    ThisItem.ID <= 2,
+                                    Set(varVista, ThisItem.title),
+                                    Set(varFiltroRapidoH, If(varFiltroRapidoH = ThisItem.title, Blank(), ThisItem.title))
+                                )
+                              PressedBorderColor: =Color.Transparent
+                              PressedColor: =ColorFade(Self.HoverColor, -20%)
+                              PressedFill: =Color.Transparent
+                              RadiusBottomLeft: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusBottomRight: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusTopLeft: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusTopRight: =If(ThisItem.ID > 2, 16, 0)
+                              Size: =If(ThisItem.ID > 2, 11, 14)
+                              Text: =ThisItem.title
+                              Tooltip: =If(ThisItem.ID > 2, "Clic para filtrar; otro clic quita el filtro", "")
+                              Width: =If(ThisItem.ID > 2, Parent.TemplateWidth - 8, Parent.TemplateWidth)
+                              Y: =If(ThisItem.ID > 2, 4, 0)
+                  - galTableroHitos:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DelayItemLoading: =false
+                        Fill: =MyTheme.LightGray
+                        Items: |-
+                          =// Clic en el título de una columna: se muestra solo esa columna, a todo el ancho y en cuadrícula
+                          If(IsBlank(varEstadoFocoH), EstadosHito, Filter(EstadosHito, Value = varEstadoFocoH))
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =0
+                        TemplateSize: =If(IsBlank(varEstadoFocoH), If(App.ActiveScreenSize = ScreenSize.Small, Self.Width * 0.85, 290), Max(290, Self.Width))
+                        Visible: =varVista= "Tablero"
+                        Width: =Parent.Width
+                      Children:
+                        - lblColumnaTableroHitos:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =If(IsBlank(varEstadoFocoH), RGBA(50, 49, 48, 1), MyTheme.Primary)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Lato Black'
+                              HoverColor: =MyTheme.Primary
+                              OnSelect: =Set(varEstadoFocoH, If(IsBlank(varEstadoFocoH), ThisItem.Value, Blank()))
+                              Size: =Fuente.Media
+                              Text: =ThisItem.Value & "  (" & galTarjetasHitos.AllItemsCount & ")" & If(IsBlank(varEstadoFocoH), "", "   ‹ volver")
+                              Tooltip: =If(IsBlank(varEstadoFocoH), "Clic para ampliar esta columna", "Clic para volver a ver todas las columnas")
+                              Width: =Parent.TemplateWidth-Self.X
+                              X: =50
+                              Y: =15
+                        - btnColorColumnaHitos:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =Colores.Blanco
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =DisplayMode.View
+                              Fill: |-
+                                =Switch(
+                                    ThisItem.Value,
+                                    "Pendiente", MyTheme.LightBlue, 
+                                    "Completado",MyTheme.Green,
+                                    "En progreso",MyTheme.DarkBlue,
+                                    "Cancelado", MyTheme.Orange,
+                                    Color.Transparent
+                                )
+                              Font: =Font.'Segoe UI'
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =RGBA(16, 110, 190, 1)
+                              PressedBorderColor: =RGBA(0, 69, 120, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(16, 110, 190, 1)
+                              Text: =
+                              Width: =20
+                              X: =15
+                              Y: =15
+                        - galTarjetasHitos:
+                            Control: Gallery@2.15.0
+                            Variant: Vertical
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              DelayItemLoading: =false
+                              Height: =Parent.Height-Self.Y
+                              Items: |-
+                                =// Los filtros de proyecto se resuelven sobre ColProyectos (pocas filas) y los hitos se recorren UNA vez por ID de proyecto
+                                // (antes se buscaba el proyecto de cada hito: hitos × proyectos operaciones en cada filtro o tecla)
+                                With(
+                                    {
+                                        q: Trim(Lower(txtBuscarMisHitos.Value)),
+                                        _est: ForAll(cmbEstadoMisHitos.SelectedItems, Value),
+                                        _pro: ForAll(cmbProyectoMisHitos.SelectedItems, Lower(Value)),
+                                        _seg: ForAll(cmbSegmentoMisHitos.SelectedItems, Value),
+                                        _cli: ForAll(cmbClienteMisHitos.SelectedItems, Lower(Value)),
+                                        _esPM: UserRole.Value = "PM"
+                                    },
+                                    With(
+                                        {
+                                            _porProy: !IsEmpty(_pro) || !IsEmpty(_seg) || !IsEmpty(_cli),
+                                            // Proyectos que cumplen los filtros de proyecto / segmento / cliente
+                                            _idsProy: Filter(
+                                                ColProyectos,
+                                                IsEmpty(_pro) || Lower('Nombre del proyecto') in _pro,
+                                                IsEmpty(_seg) || Segmento.Value in _seg,
+                                                IsEmpty(_cli) || Lower('Nombre del Cliente') in _cli
+                                            ).ID,
+                                            // Proyectos cuyo caso CRM o cliente contienen el texto buscado
+                                            _idsTxt: Filter(ColProyectos, !IsBlank(q) && (q in Text(NumeroCaso) || q in Lower('Nombre del Cliente'))).ID
+                                        },
+                                        Filter(
+                                            ColHitos,
+                                            Estado.Value = ThisItem.Value,
+                                            // PM: en "Mis Hitos" solo ve los hitos que tiene asignados (ColHitos incluye todos los de sus proyectos para el avance)
+                                            !_esPM || Encargado.Email = dummie.Mail,
+                                            IsEmpty(_est) || Estado.Value in _est,
+                                            !_porProy || 'ID proyecto' in _idsProy,
+                                            IsBlank(q) || q in Lower('Nombre del hito') || 'ID proyecto' in _idsTxt,
+                                            // FILTRO-RAPIDO-HITOS (copia idéntica en galTablaHitos): chips y encargado
+                                            IsBlank(varFiltroRapidoH) || Switch(
+                                                varFiltroRapidoH,
+                                                "Vencidos", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin < Today(),
+                                                "Vence ≤ 7 d", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() && Fecha_Fin <= DateAdd(Today(), 7, TimeUnit.Days),
+                                                "Asignados a mí", Encargado.Email = dummie.Mail,
+                                                true
+                                            ),
+                                            IsBlank(varEncFoco) || Lower(Encargado.Email) = varEncFoco
+                                        )
+                                    )
+                                )
+                              ShowScrollbar: =false
+                              TemplatePadding: =15
+                              TemplateSize: =160
+                              Width: =Parent.TemplateWidth
+                              WrapCount: =If(IsBlank(varEstadoFocoH), 1, Max(1, RoundDown(Self.Width / 290, 0)))
+                              Y: =80
+                            Children:
+                              - cntTarjetaHito:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    Fill: =Colores.Blanco
+                                    Height: =Parent.TemplateHeight
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =Espacio.M
+                                    PaddingLeft: =Espacio.L
+                                    PaddingRight: =Espacio.L
+                                    PaddingTop: =Espacio.M
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - cntCabeceraTarjetaHito:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =35
+                                          LayoutMinWidth: =0
+                                          PaddingTop: =Espacio.M
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - lblNombreTarjetaHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Lato Black'
+                                                Height: =30
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: =Set(varHito, LookUp(ColHitos, ID = ThisItem.ID)); Navigate(scrFormularioHito, ScreenTransition.Fade)
+                                                Size: =Fuente.Normal
+                                                Text: =ThisItem.'Nombre del hito'
+                                                Wrap: =false
+                                          - btnAvanceTarjetaHito:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                Color: =Colores.Blanco
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                Fill: |-
+                                                  =// Avance del hito: verde completado, gris cancelado, rojo vencido, ámbar vence en ≤ 7 días, azul en curso
+                                                  If(
+                                                      ThisItem.Estado.Value = "Completado", ColorValue("#16A34A"),
+                                                      ThisItem.Estado.Value = "Cancelado", MyTheme.Gray,
+                                                      !IsBlank(ThisItem.Fecha_Fin) && ThisItem.Fecha_Fin < Today(), ColorValue("#DC2626"),
+                                                      !IsBlank(ThisItem.Fecha_Fin) && DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days) <= 7, ColorValue("#D97706"),
+                                                      MyTheme.Primary
+                                                  )
+                                                Font: =Font.'Segoe UI'
+                                                Height: =25
+                                                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =ColorFade(Self.Fill, -15%)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                OnSelect: |-
+                                                  =// Clic en el avance: ficha rápida del hito sin salir del tablero
+                                                  With(
+                                                      { _p: LookUp(ColProyectos, ID = ThisItem.'ID proyecto') },
+                                                      Notify(
+                                                          ThisItem.'Nombre del hito' &
+                                                          " · Proyecto: " & Coalesce(_p.'Nombre del proyecto', "—") &
+                                                          " · Cliente: " & Coalesce(_p.'Nombre del Cliente', "—") &
+                                                          " · Encargado: " & Coalesce(ThisItem.Encargado.DisplayName, "—") &
+                                                          " · Peso: " & Coalesce(ThisItem.Peso, 0) &
+                                                          " · Avance: " & Coalesce(ThisItem.Avance, 0) & " %",
+                                                          NotificationType.Information
+                                                      )
+                                                  )
+                                                PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(16, 110, 190, 1)
+                                                RadiusBottomLeft: =20
+                                                RadiusBottomRight: =20
+                                                RadiusTopLeft: =20
+                                                RadiusTopRight: =20
+                                                Size: =Fuente.Normal
+                                                Text: =Text(Coalesce(ThisItem.Avance, 0), "[$-es-ES]0%")
+                                                Width: =60
+                                    - lblDescripcionTarjetaHito:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          Height: =60
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinWidth: =0
+                                          Size: =Fuente.Mini
+                                          Text: =ThisItem.Descripción
+                                          VerticalAlign: =VerticalAlign.Top
+                                    - lblFechasTarjetaHito:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Right
+                                          AlignInContainer: =AlignInContainer.End
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: |-
+                                            =// Rojo vencido, ámbar si vence en 7 días o menos (solo hitos abiertos)
+                                            With(
+                                                { _d: If(IsBlank(ThisItem.Fecha_Fin) || ThisItem.Estado.Value in ["Completado", "Cancelado"], Blank(), DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days)) },
+                                                If(IsBlank(_d), RGBA(50, 49, 48, 1), _d < 0, ColorValue("#DC2626"), _d <= 7, ColorValue("#D97706"), RGBA(50, 49, 48, 1))
+                                            )
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          FontWeight: =FontWeight.Semibold
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          Size: =Fuente.Etiqueta
+                                          Text: |-
+                                            =Text(ThisItem.Fecha_Inicio, "mmm d") & " - " & Text(ThisItem.Fecha_Fin, "mmm d") &
+                                            With(
+                                                { _d: If(IsBlank(ThisItem.Fecha_Fin) || ThisItem.Estado.Value in ["Completado", "Cancelado"], Blank(), DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days)) },
+                                                If(IsBlank(_d), "", _d < 0, "  · Vencido", _d = 0, "  · Vence hoy", _d <= 7, "  · Vence en " & _d & " d", "")
+                                            )
+                              - btnAbrirTarjetaHito:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =Color.Transparent
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: '=Color.Transparent  '
+                                    Font: =Font.'Segoe UI'
+                                    Height: =Parent.TemplateHeight - Self.Y
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(190,190,240,0.1)
+                                    OnSelect: |-
+                                      =// Se toma el registro de ColHitos para que el formulario reciba siempre el tipo de registro de la lista
+                                      Set(varHito, LookUp(ColHitos, ID = ThisItem.ID)); Navigate(scrFormularioHito, ScreenTransition.Fade)
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =ColorFade(Self.HoverFill, -30%)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: =
+                                    Width: =Parent.TemplateWidth
+                                    Y: |-
+                                      =// Deja libre la cabecera de la tarjeta (nombre y avance) para que se pueda pulsar
+                                      48
+                  - cntTablaHitos:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =varVista="Lista"
+                        Width: =Parent.Width
+                      Children:
+                        - cntCabeceraTablaHitos:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =MyTheme.LightGray
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =1100
+                              PaddingLeft: =50
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Max(Parent.Width, 1100)
+                            Children:
+                              - cntColumnaHito:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaHito:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Hito"
+                                    - icoOrdenarHito:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna="Nombredelhito" && !varOrdenDescendente, Icon.ArrowUp,
+                                                varOrdenColumna="Nombredelhito" && varOrdenDescendente, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna, "Nombredelhito");
+
+                                            Set(varOrdenDescendente, If(varOrdenColumna="Nombredelhito",!varOrdenDescendente, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaInicioHitos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaInicioHitos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Inicio"
+                                    - icoOrdenarInicioHitos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna="Fecha_Inicio" && !varOrdenDescendente, Icon.ArrowUp,
+                                                varOrdenColumna="Fecha_Inicio" && varOrdenDescendente, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna, "Fecha_Inicio");
+
+                                            Set(varOrdenDescendente, If(varOrdenColumna="Fecha_Inicio",!varOrdenDescendente, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaFinHitos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaFinHitos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Fin"
+                                    - icoOrdenarFinHitos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna="Fecha_Fin" && !varOrdenDescendente, Icon.ArrowUp,
+                                                varOrdenColumna="Fecha_Fin" && varOrdenDescendente, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna, "Fecha_Fin");
+
+                                            Set(varOrdenDescendente, If(varOrdenColumna="Fecha_Fin",!varOrdenDescendente, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaEstadoHitos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaEstadoHitos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Estado"
+                                    - icoOrdenarEstadoHitos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna="EstadoValue" && !varOrdenDescendente, Icon.ArrowUp,
+                                                varOrdenColumna="EstadoValue" && varOrdenDescendente, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna, "EstadoValue");
+
+                                            Set(varOrdenDescendente, If(varOrdenColumna="EstadoValue",!varOrdenDescendente, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaClienteHitos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaClienteHitos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Cliente"
+                                    - icoOrdenarClienteHitos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna="NombreCliente" && !varOrdenDescendente, Icon.ArrowUp,
+                                                varOrdenColumna="NombreCliente" && varOrdenDescendente, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna, "NombreCliente");
+
+                                            Set(varOrdenDescendente, If(varOrdenColumna="NombreCliente",!varOrdenDescendente, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - lblColumnaEncargadoHitos:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    AutoHeight: =true
+                                    BorderColor: =MyTheme.LightGray
+                                    BorderThickness: =2
+                                    Color: =Colores.Texto
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =MyTheme.LightGray
+                                    FillPortions: =1
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Lato Black'
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                    PaddingLeft: =Espacio.M
+                                    Size: =Fuente.Normal
+                                    Text: ="Responsable"
+                        - galTablaHitos:
+                            Control: Gallery@2.15.0
+                            Variant: Vertical
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              Fill: =MyTheme.LightGray
+                              Items: |-
+                                =// Mismo filtro que el Tablero: los filtros de proyecto se resuelven sobre ColProyectos y los hitos se recorren una vez
+                                With(
+                                    {
+                                        q: Trim(Lower(txtBuscarMisHitos.Value)),
+                                        _est: ForAll(cmbEstadoMisHitos.SelectedItems, Value),
+                                        _pro: ForAll(cmbProyectoMisHitos.SelectedItems, Lower(Value)),
+                                        _seg: ForAll(cmbSegmentoMisHitos.SelectedItems, Value),
+                                        _cli: ForAll(cmbClienteMisHitos.SelectedItems, Lower(Value)),
+                                        _esPM: UserRole.Value = "PM"
+                                    },
+                                    With(
+                                        {
+                                            _porProy: !IsEmpty(_pro) || !IsEmpty(_seg) || !IsEmpty(_cli),
+                                            _idsProy: Filter(
+                                                ColProyectos,
+                                                IsEmpty(_pro) || Lower('Nombre del proyecto') in _pro,
+                                                IsEmpty(_seg) || Segmento.Value in _seg,
+                                                IsEmpty(_cli) || Lower('Nombre del Cliente') in _cli
+                                            ).ID,
+                                            _idsTxt: Filter(ColProyectos, !IsBlank(q) && (q in Text(NumeroCaso) || q in Lower('Nombre del Cliente'))).ID
+                                        },
+                                        With(
+                                            {
+                                                _base: Filter(
+                                                    ColHitos,
+                                                    // PM: en "Mis Hitos" solo ve los hitos que tiene asignados (ColHitos incluye todos los de sus proyectos para el avance)
+                                                    !_esPM || Encargado.Email = dummie.Mail,
+                                                    IsEmpty(_est) || Estado.Value in _est,
+                                                    !_porProy || 'ID proyecto' in _idsProy,
+                                                    IsBlank(q) || q in Lower('Nombre del hito') || 'ID proyecto' in _idsTxt,
+                                                    // FILTRO-RAPIDO-HITOS (copia idéntica en galTarjetasHitos): chips y encargado
+                                                    IsBlank(varFiltroRapidoH) || Switch(
+                                                        varFiltroRapidoH,
+                                                        "Vencidos", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin < Today(),
+                                                        "Vence ≤ 7 d", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() && Fecha_Fin <= DateAdd(Today(), 7, TimeUnit.Days),
+                                                        "Asignados a mí", Encargado.Email = dummie.Mail,
+                                                        true
+                                                    ),
+                                                    IsBlank(varEncFoco) || Lower(Encargado.Email) = varEncFoco
+                                                )
+                                            },
+                                            // El cliente solo se añade a todas las filas cuando se ordena por él; si no, cada fila lo busca al mostrarse (lblCeldaClienteHito)
+                                            If(
+                                                varOrdenColumna = "NombreCliente",
+                                                SortByColumns(
+                                                    AddColumns(_base, NombreCliente, LookUp(ColProyectos As p, p.ID = 'ID proyecto').'Nombre del Cliente', EstadoValue, Estado.Value),
+                                                    "NombreCliente",
+                                                    If(varOrdenDescendente, SortOrder.Descending, SortOrder.Ascending)
+                                                ),
+                                                SortByColumns(
+                                                    AddColumns(_base, NombreCliente, "", EstadoValue, Estado.Value),
+                                                    Coalesce(varOrdenColumna, "Nombredelhito"),
+                                                    If(varOrdenDescendente, SortOrder.Descending, SortOrder.Ascending)
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =1100
+                              TemplatePadding: =0
+                              TemplateSize: =50
+                              Width: =Max(Parent.Width, 1100)
+                            Children:
+                              - cntFilaTablaHito:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =MyTheme.LightGray
+                                    BorderThickness: =4
+                                    DropShadow: =DropShadow.None
+                                    Height: =50
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - cntCeldasTablaHito:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Fill: =MyTheme.LightGray
+                                          Height: =50
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - chkHitoCompletado:
+                                              Control: Classic/CheckBox@2.1.0
+                                              Properties:
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                CheckboxBackgroundFill: =Color.Transparent
+                                                CheckboxBorderColor: =Color.Transparent
+                                                CheckmarkFill: =RGBA(0, 120, 212, 1)
+                                                Color: =Colores.Texto
+                                                Default: =ThisItem.Estado.Value="Completado"
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(0, 0, 0, 0)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =Parent.Height
+                                                OnCheck: |-
+                                                  =// Completar: guarda el estado anterior (para poder restaurarlo), pone Avance 100 y recalcula el proyecto
+                                                  If(
+                                                      ThisItem.Estado.Value <> "Completado",
+                                                      RemoveIf(colEstadoPrevio, Tipo = "Hito" && ID = ThisItem.ID);
+                                                      Collect(colEstadoPrevio, { Tipo: "Hito", ID: ThisItem.ID, Estado: ThisItem.Estado.Value, Avance: Coalesce(ThisItem.Avance, 0) });
+                                                      If(
+                                                          IsError(
+                                                              Patch(
+                                                                  ColHitos,
+                                                                  LookUp(ColHitos, ID = ThisItem.ID),
+                                                                  Patch(Hitos, LookUp(Hitos, ID = ThisItem.ID), { Estado: { Value: "Completado" }, Avance: 100 })
+                                                              )
+                                                          ),
+                                                          Notify("No se pudo actualizar el estado del hito.", NotificationType.Error),
+                                                          With(
+                                                              { _idP: ThisItem.'ID proyecto' },
+                                                              // RECALC-PROGRESO: Progreso y SPI del proyecto _idP con TODOS sus hitos (copia idéntica en scrFormularioHito, cmpPopupEliminar, scrInicio y scrMisHitos)
+                                                  With(
+                                                      {
+                                                          _p: LookUp(Proyectos, ID = _idP),
+                                                          _h: Filter(Hitos, 'ID proyecto' = _idP)
+                                                      },
+                                                      With(
+                                                          {
+                                                              _t: Sum(_h, Coalesce(Peso, 0)),
+                                                              _c: Sum(_h, Coalesce(Peso, 0) * Coalesce(Avance, 0) / 100),
+                                                              _ini: _p.'Fecha creación caso aprovisionamiento ',
+                                                              _fin: _p.Fecha_Fin
+                                                          },
+                                                          With(
+                                                              {
+                                                                  _real: If(_t = 0, 0, Round(_c / _t, 2)),
+                                                                  _plan: If(
+                                                                      IsBlank(_ini) || IsBlank(_fin), Blank(),
+                                                                      Today() <= _ini, 0,
+                                                                      Today() >= _fin, 1,
+                                                                      DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _fin, TimeUnit.Days))
+                                                                  )
+                                                              },
+                                                              With(
+                                                                  {
+                                                                      _cambios: {
+                                                                          Progreso: _real * 100,
+                                                                          SPI: If(IsBlank(_plan), Blank(), _plan = 0, If(_real = 0, 1, 0), _real / _plan)
+                                                                      }
+                                                                  },
+                                                                  If(
+                                                                      !IsBlank(_p),
+                                                                      If(
+                                                                          IsError(Patch(Proyectos, _p, _cambios)),
+                                                                          Notify("No se pudo actualizar Progreso/SPI del proyecto.", NotificationType.Error),
+                                                                          If(
+                                                                              !IsBlank(LookUp(ColProyectos, ID = _idP)),
+                                                                              Patch(ColProyectos, LookUp(ColProyectos, ID = _idP), _cambios)
+                                                                          )
+                                                                      )
+                                                                  )
+                                                              )
+                                                          )
+                                                      )
+                                                  )
+                                                          )
+                                                      )
+                                                  )
+                                                OnUncheck: |-
+                                                  =// Desmarcar: vuelve al estado y avance anteriores (si se conocen en esta sesión); si no, "En progreso" sin tocar el avance
+                                                  If(
+                                                      ThisItem.Estado.Value = "Completado",
+                                                      With(
+                                                          { _prev: LookUp(colEstadoPrevio, Tipo = "Hito" && ID = ThisItem.ID) },
+                                                          If(
+                                                              IsError(
+                                                                  Patch(
+                                                                      ColHitos,
+                                                                      LookUp(ColHitos, ID = ThisItem.ID),
+                                                                      Patch(
+                                                                          Hitos,
+                                                                          LookUp(Hitos, ID = ThisItem.ID),
+                                                                          {
+                                                                              Estado: { Value: Coalesce(_prev.Estado, "En progreso") },
+                                                                              Avance: If(IsBlank(_prev), ThisItem.Avance, _prev.Avance)
+                                                                          }
+                                                                      )
+                                                                  )
+                                                              ),
+                                                              Notify("No se pudo actualizar el estado del hito.", NotificationType.Error),
+                                                              RemoveIf(colEstadoPrevio, Tipo = "Hito" && ID = ThisItem.ID);
+                                                              With(
+                                                                  { _idP: ThisItem.'ID proyecto' },
+                                                                  // RECALC-PROGRESO: Progreso y SPI del proyecto _idP con TODOS sus hitos (copia idéntica en scrFormularioHito, cmpPopupEliminar, scrInicio y scrMisHitos)
+                                                  With(
+                                                      {
+                                                          _p: LookUp(Proyectos, ID = _idP),
+                                                          _h: Filter(Hitos, 'ID proyecto' = _idP)
+                                                      },
+                                                      With(
+                                                          {
+                                                              _t: Sum(_h, Coalesce(Peso, 0)),
+                                                              _c: Sum(_h, Coalesce(Peso, 0) * Coalesce(Avance, 0) / 100),
+                                                              _ini: _p.'Fecha creación caso aprovisionamiento ',
+                                                              _fin: _p.Fecha_Fin
+                                                          },
+                                                          With(
+                                                              {
+                                                                  _real: If(_t = 0, 0, Round(_c / _t, 2)),
+                                                                  _plan: If(
+                                                                      IsBlank(_ini) || IsBlank(_fin), Blank(),
+                                                                      Today() <= _ini, 0,
+                                                                      Today() >= _fin, 1,
+                                                                      DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _fin, TimeUnit.Days))
+                                                                  )
+                                                              },
+                                                              With(
+                                                                  {
+                                                                      _cambios: {
+                                                                          Progreso: _real * 100,
+                                                                          SPI: If(IsBlank(_plan), Blank(), _plan = 0, If(_real = 0, 1, 0), _real / _plan)
+                                                                      }
+                                                                  },
+                                                                  If(
+                                                                      !IsBlank(_p),
+                                                                      If(
+                                                                          IsError(Patch(Proyectos, _p, _cambios)),
+                                                                          Notify("No se pudo actualizar Progreso/SPI del proyecto.", NotificationType.Error),
+                                                                          If(
+                                                                              !IsBlank(LookUp(ColProyectos, ID = _idP)),
+                                                                              Patch(ColProyectos, LookUp(ColProyectos, ID = _idP), _cambios)
+                                                                          )
+                                                                      )
+                                                                  )
+                                                              )
+                                                          )
+                                                      )
+                                                  )
+                                                              )
+                                                          )
+                                                      )
+                                                  )
+                                                PaddingBottom: =3
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(0, 0, 0, 0)
+                                                Text: =
+                                                Width: =50
+                                          - lblCeldaNombreHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Strikethrough: =ThisItem.Estado.Value="Completado"
+                                                Text: =ThisItem.'Nombre del hito'
+                                                Wrap: =false
+                                          - lblCeldaInicioHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =Text(ThisItem.Fecha_Inicio, "yyyy-mm-dd")
+                                          - lblCeldaFinHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: |-
+                                                  =// Rojo vencido, ámbar si vence en 7 días o menos (solo hitos abiertos)
+                                                  With(
+                                                      { _d: If(IsBlank(ThisItem.Fecha_Fin) || ThisItem.Estado.Value in ["Completado", "Cancelado"], Blank(), DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days)) },
+                                                      If(IsBlank(_d), RGBA(50, 49, 48, 1), _d < 0, ColorValue("#DC2626"), _d <= 7, ColorValue("#D97706"), RGBA(50, 49, 48, 1))
+                                                  )
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =Text(ThisItem.Fecha_Fin, "yyyy-mm-dd")
+                                          - lblCeldaEstadoHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: |-
+                                                  =// Color semántico del estado (los estados no previstos ya no quedan invisibles)
+                                                  Switch(
+                                                      ThisItem.Estado.Value,
+                                                      "Pendiente", ColorValue("#D97706"),
+                                                      "En progreso", MyTheme.Primary,
+                                                      "Completado", ColorValue("#16A34A"),
+                                                      "Stand By", ColorValue("#7C3AED"),
+                                                      "Cancelado", MyTheme.Gray,
+                                                      MyTheme.Gray
+                                                  )
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =ThisItem.Estado.Value
+                                          - lblCeldaClienteHito:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =Coalesce(ThisItem.NombreCliente, LookUp(ColProyectos, ID = ThisItem.'ID proyecto').'Nombre del Cliente')
+                                                Wrap: =false
+                                          - cntCeldaEncargadoHito:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                DropShadow: =DropShadow.None
+                                                Fill: =Colores.Blanco
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =125
+                                              Children:
+                                                - galFotoEncargado:
+                                                    Control: Gallery@2.15.0
+                                                    Variant: Horizontal
+                                                    Properties:
+                                                      BorderColor: =Colores.FondoSuave
+                                                      Height: =Parent.Height
+                                                      Items: |-
+                                                        =// Encargado del hito: foto, o avatar con iniciales, o SampleImage
+                                                        Table(
+                                                            {
+                                                                Email: ThisItem.Encargado.Email,
+                                                                Displayname: ThisItem.Encargado.DisplayName,
+                                                                UserPhoto: // Foto de Office 365 si la tiene; si no, avatar con iniciales; si no hay nombre, SampleImage
+                                                        If(
+                                                            // Foto desde la caché colFotos (App.OnStart): sin llamadas a Office 365 por fila
+                                                            !IsBlank(LookUp(colFotos, Mail = Lower(ThisItem.Encargado.Email))),
+                                                            LookUp(colFotos, Mail = Lower(ThisItem.Encargado.Email)).Foto,
+                                                            // Avatar: círculo SVG con las iniciales y un color estable por persona; sin nombre → SampleImage
+                                                        With(
+                                                            { _partes: Split(Trim(Coalesce(ThisItem.Encargado.DisplayName, "")), " ") },
+                                                            With(
+                                                                { _ini: Upper(Left(First(_partes).Value, 1) & If(CountRows(_partes) > 1, Left(Last(_partes).Value, 1), "")) },
+                                                                If(
+                                                                    IsBlank(_ini),
+                                                                    SampleImage,
+                                                                    "data:image/svg+xml;utf8," & EncodeUrl(
+                                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><circle cx='40' cy='40' r='40' fill='" &
+                                                                        Index(
+                                                                            ["#2563EB", "#0E9F6E", "#D97706", "#7C3AED", "#DB2777", "#0891B2"],
+                                                                            Mod(Coalesce(Find(Left(_ini, 1), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0) + Len(ThisItem.Encargado.DisplayName), 6) + 1
+                                                                        ).Value &
+                                                                        "'/><text x='40' y='40' dy='0.35em' text-anchor='middle' font-family='Segoe UI, Arial, sans-serif' font-size='30' font-weight='600' fill='#FFFFFF'>" &
+                                                                        _ini & "</text></svg>"
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        ),
+                                                                UserInitials: ""
+                                                            }
+                                                        )
+                                                      ShowScrollbar: =false
+                                                      TemplatePadding: =0
+                                                      TemplateSize: =50
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - imgFotoEncargado:
+                                                          Control: Image@2.2.3
+                                                          Properties:
+                                                            BorderColor: =If(varEncFoco = Lower(ThisItem.Email), MyTheme.Primary, RGBA(0, 0, 0, 0))
+                                                            BorderThickness: =If(varEncFoco = Lower(ThisItem.Email), 3, 0)
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledFill: =RGBA(0, 0, 0, 0)
+                                                            FocusedBorderThickness: =4
+                                                            Height: =35
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverFill: =
+                                                            Image: =ThisItem.UserPhoto
+                                                            OnSelect: |-
+                                                              =// Clic en el encargado: muestra solo sus hitos (otro clic, o clic en el título, lo quita)
+                                                              If(
+                                                                  varEncFoco = Lower(ThisItem.Email),
+                                                                  Set(varEncFoco, Blank()); Set(varEncFocoNombre, Blank()),
+                                                                  Set(varEncFoco, Lower(ThisItem.Email)); Set(varEncFocoNombre, ThisItem.Displayname);
+                                                                  Notify("Mostrando los hitos de " & ThisItem.Displayname, NotificationType.Information)
+                                                              )
+                                                            PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                            PressedFill: =RGBA(0, 0, 0, 0)
+                                                            RadiusBottomLeft: =25
+                                                            RadiusBottomRight: =25
+                                                            RadiusTopLeft: =25
+                                                            RadiusTopRight: =25
+                                                            Tooltip: |-
+                                                              =
+                                                              ThisItem.Displayname & " · clic para ver solo sus hitos"
+                                                            Width: =35
+                                                            X: =30
+                                                            Y: =(Parent.TemplateHeight-Self.Height)/2
+                                                      - btnInicialesEncargado:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            BorderStyle: =BorderStyle.None
+                                                            Color: =MyTheme.Primary
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledColor: =RGBA(161, 159, 157, 1)
+                                                            DisabledFill: =RGBA(242, 242, 241, 0)
+                                                            Fill: =RGBA(181, 206, 245,255)
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =35
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverColor: =RGBA(255, 255, 255, 1)
+                                                            HoverFill: =RGBA(16, 110, 190, 1)
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                                            PressedFill: =RGBA(16, 110, 190, 1)
+                                                            RadiusBottomLeft: =25
+                                                            RadiusBottomRight: =25
+                                                            RadiusTopLeft: =25
+                                                            RadiusTopRight: =25
+                                                            Text: =IfError(ThisItem.UserInitials,"NA")
+                                                            Tooltip: =ThisItem.Displayname
+                                                            Visible: =false
+                                                            Width: =35
+                                                            X: =30
+                                                            Y: =(Parent.Height-Self.Height)/ 2
+                                    - btnAbrirFilaHito:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =Colores.Blanco
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          DisabledFill: =RGBA(242, 242, 241, 0)
+                                          Fill: '=Color.Transparent  '
+                                          Font: =Font.'Segoe UI'
+                                          Height: =50
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(255, 255, 255, 1)
+                                          HoverFill: =RGBA(190,190,240,0.1)
+                                          OnSelect: '=Set(varHito, LookUp(ColHitos, ID=ThisItem.ID)); Navigate(scrFormularioHito,ScreenTransition.Fade); '
+                                          PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                          PressedColor: =RGBA(255, 255, 255, 1)
+                                          PressedFill: =ColorFade(Self.HoverFill, -30%)
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Text: =
+                                          Width: =Parent.Width-Self.X-cntCeldaEncargadoHito.Width
+                                          X: =50
+      - cmpPopupAgregarMisHitos:
+          Control: CanvasComponent
+          ComponentName: cmpPopupAgregar
+          Properties:
+            Fill: =Colores.Velo
+            Height: =App.Height
+            Visible: =varAgregar
+            Width: =App.Width

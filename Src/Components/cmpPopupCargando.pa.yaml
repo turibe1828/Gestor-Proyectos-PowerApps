@@ -1,0 +1,112 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpPopupCargando:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Fill: =Colores.Velo
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - cntPopupCargando:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Bold
+            Fill: =Colores.Blanco
+            Height: =Min(App.Width* 95%,450)
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Min(App.Width* 95%,400)
+            X: =(Parent.Width-Self.Width)/2
+            Y: =(Parent.Height-Self.Height)/2
+          Children:
+            - recSeparadorPopupCargando:
+                Control: Rectangle@2.3.0
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DisabledFill: =RGBA(161, 159, 157, 1)
+                  DisplayMode: =DisplayMode.Disabled
+                  Fill: =RGBA(220,220,220,1)
+                  FocusedBorderThickness: =4
+                  Height: =1
+                  HoverFill: =RGBA(0, 120, 212, 1)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  PressedFill: =RGBA(0, 120, 212, 1)
+                  Width: =Parent.Width
+                  Y: =Parent.Height-Self.Height
+            - cntContenidoPopupCargando:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =Espacio.M
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =Espacio.L
+                  PaddingLeft: =40
+                  PaddingRight: =40
+                  PaddingTop: =Espacio.L
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - imgCargando:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =ImagenCargando
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                  - spnCargando:
+                      Control: Spinner@1.4.6
+                      Properties:
+                        Appearance: ='Spinner.Appearance'.Primary
+                        Height: =Parent.Height*0.15
+                        LabelPosition: ='Spinner.LabelPosition'.After
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        SpinnerSize: ='Spinner.SpinnerSize'.Huge
+                        Width: =Parent.Width*0.15
+                  - lblCargando:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Font: =Font.Lato
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =Fuente.Titulo
+                        Text: ="Cargando, espera un momento..."
+                        Weight: ='TextCanvas.Weight'.Bold

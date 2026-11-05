@@ -1,0 +1,571 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpMenuLateral:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Height: =App.Height
+      Width: =If(VarMenu, 200,70)
+    Children:
+      - cntMenuLateral:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Vertical
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cntCabeceraMenu:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =60
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cntBotonMenu:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        PaddingLeft: =Espacio.L
+                        PaddingRight: =Espacio.L
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =70
+                      Children:
+                        - imgIconoMenu:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              FocusedBorderThickness: =4
+                              Height: =Parent.Height
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Image: ="data:image/svg+xml;utf8," & EncodeUrl(Substitute(MyIcons.Menu, "currentColor", MyTheme.GrayText))
+                              PaddingLeft: =Espacio.L
+                              PaddingRight: =Espacio.L
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =70
+                        - btnAlternarMenu:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =Colores.Blanco
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: =Color.Transparent
+                              Font: =Font.'Segoe UI'
+                              Height: =35
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =Color.Transparent
+                              OnSelect: =Set(VarMenu, !VarMenu);
+                              PressedBorderColor: =RGBA(0, 69, 120, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =Color.Transparent
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Text: =
+                              Width: =50
+                              X: =10
+                              Y: =12
+                  - lblMenuTitulo:
+                      Control: Label@2.5.1
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =MyTheme.Primary
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FillPortions: =1
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Lato Black'
+                        Height: =0
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Size: =16
+                        Text: ="Menu"
+                        Visible: =If(VarMenu, true, false)
+            - galOpcionesMenu:
+                Control: Gallery@2.15.0
+                Variant: Vertical
+                Properties:
+                  BorderColor: =Colores.FondoSuave
+                  BorderStyle: =BorderStyle.None
+                  DelayItemLoading: =false
+                  FillPortions: =0
+                  Height: =IfError(Self.AllItemsCount * Self.TemplateHeight, 0)
+                  Items: =MenuItems
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  ShowScrollbar: =false
+                  TemplatePadding: =0
+                  TemplateSize: =40
+                Children:
+                  - cntOpcionMenu:
+                      Control: GroupContainer@1.5.0
+                      Variant: ManualLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.TemplateHeight-6
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Width: =Parent.TemplateWidth-20
+                        X: =(Parent.TemplateWidth-Self.Width) / 2
+                        Y: =(Parent.TemplateHeight-Self.Height) / 2
+                      Children:
+                        - cntContenidoOpcionMenu:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Height: =Parent.Height
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width
+                            Children:
+                              - imgIconoOpcionMenu:
+                                  Control: Image@2.2.3
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledFill: =RGBA(0, 0, 0, 0)
+                                    FocusedBorderThickness: =4
+                                    Height: =25
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverFill: =RGBA(0, 0, 0, 0)
+                                    Image: |-
+                                      =With(
+                                          {
+                                              // 1) Banderas de estado para simplificar la lógica:
+                                              isCalendarioActive: App.ActiveScreen = scrCronogramaHitos || App.ActiveScreen = scrCronogramaProyectos,
+                                              isCalendarioItem: ThisItem.ID = 4 || ThisItem.Screen = scrCronogramaHitos || ThisItem.Screen = scrCronogramaProyectos
+                                          },
+                                          "data:image/svg+xml;utf8," &
+                                          EncodeUrl(
+                                              Substitute(
+                                                  // 2) Selección del SVG (relleno vs contorno)
+                                                  If(
+                                                      isCalendarioActive,
+                                                          // Si alguna pantalla de calendario está activa:
+                                                          // - El item Calendario usa IconFill
+                                                          // - Los demás conservan lógica estándar (activo relleno, inactivo contorno)
+                                                          If(
+                                                              isCalendarioItem,
+                                                              ThisItem.IconFill,
+                                                              If(App.ActiveScreen = ThisItem.Screen, ThisItem.IconFill, ThisItem.Icon)
+                                                          ),
+                                                      // Si no es pantalla calendario:
+                                                      If(App.ActiveScreen = ThisItem.Screen, ThisItem.IconFill, ThisItem.Icon)
+                                                  ),
+                                                  // 3) Sustitución de color dentro del SVG
+                                                  "currentColor",
+                                                  If(
+                                                      // Cuando esté activa la pantalla de calendario,
+                                                      // y el item es el Calendario, pintar azul
+                                                      isCalendarioActive && isCalendarioItem,
+                                                      "#0078D4", // azul Fluent
+                                                      // Resto sigue el tema
+                                                      If(
+                                                          App.ActiveScreen = ThisItem.Screen,
+                                                          MyTheme.PrimaryText,
+                                                          MyTheme.GrayText
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                    PressedFill: =RGBA(0, 0, 0, 0)
+                                    Tooltip: =ThisItem.Name
+                                    Width: =50
+                              - lblNombreOpcionMenu:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: |-
+                                      =With(
+                                          {
+                                              // A) Detecta si alguna pantalla de calendario está activa
+                                              isCalendarioActive: App.ActiveScreen = scrCronogramaHitos || App.ActiveScreen = scrCronogramaProyectos,
+                                              // B) Identifica el item Cronograma con tolerancia:
+                                              //    por Name, por ID, o por Screen
+                                              isCronogramaItem: ThisItem.Name = "Cronograma" 
+                                                                || ThisItem.ID = 4 
+                                                                || ThisItem.Screen = scrCronogramaHitos 
+                                                                || ThisItem.Screen = scrCronogramaProyectos
+                                          },
+                                          If(
+                                              // 1) Si está activa la pantalla de calendario y este label es el de Cronograma → azul primario
+                                              isCalendarioActive && isCronogramaItem,
+                                              MyTheme.Primary,
+                                              // 2) En cualquier otro caso, respeta la lógica general (activo = primario, inactivo = gris)
+                                              If(
+                                                  App.ActiveScreen = ThisItem.Screen,
+                                                  MyTheme.Primary,
+                                                  MyTheme.Gray
+                                              )
+                                          )
+                                      )
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.Lato
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =25
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Size: =Fuente.Pequena
+                                    Text: =ThisItem.Name
+                                    Visible: =VarMenu
+                        - btnNavegarOpcionMenu:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =Colores.Blanco
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: '=Color.Transparent  '
+                              Font: =Font.'Segoe UI'
+                              Height: =Parent.Height
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =RGBA(190,190,240,0.1)
+                              OnSelect: =Navigate(ThisItem.Screen, ScreenTransition.Fade); Set(varProyecto,Blank()); If(App.ActiveScreenSize = ScreenSize.Small, Set(VarMenu, false));
+                              PressedBorderColor: =RGBA(0, 69, 120, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =ColorFade(Self.HoverFill, -30%)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Text: =
+                              Tooltip: =lblNombreOpcionMenu.Text
+                              Width: =Parent.Width
+            - cntOpcionPowerBi:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Max(40, Parent.Height*0.0443)
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width-20
+                Children:
+                  - cntContenidoOpcionPowerBi:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        PaddingTop: =Espacio.S
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - imgIconoPowerBi:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =MyTheme.LightGray
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              Fill: =
+                              FocusedBorderThickness: =4
+                              Height: =25
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Image: ="data:image/svg+xml;utf8," & EncodeUrl(Substitute(MyIcons.powerBi, "currentColor", MyTheme.GrayText))
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =50
+                        - lblPowerBi:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =MyTheme.Gray
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Bold
+                              Height: =25
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              Size: =Fuente.Pequena
+                              Text: ="PowerBI"
+                              Visible: =VarMenu
+                              Width: =Parent.Width-imgIconoPowerBi.Width
+                  - btnAbrirPowerBi:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: '=Color.Transparent  '
+                        Font: =Font.'Segoe UI'
+                        Height: =Parent.Height
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(190,190,240,0.1)
+                        OnSelect: |+
+                          =Launch("https://example.com/informe-demo")
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =RGBA(0, 69, 120, 1)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.HoverFill, -30%)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Text: =
+                        Tooltip: ="Power Bi"
+                        Width: =Parent.Width
+            - cntOpcionPowerBiAdmin:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Max(40, Parent.Height*0.0443)
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Visible: =varAccesoTotal
+                  Width: =Parent.Width-20
+                Children:
+                  - cntContenidoOpcionPowerBiAdmin:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        PaddingTop: =Espacio.S
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: |+
+                          =true
+                        Width: =Parent.Width
+                      Children:
+                        - imgIconoPowerBiAdmin:
+                            Control: Image@2.2.3
+                            Properties:
+                              BorderColor: =MyTheme.LightGray
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              Fill: =
+                              FocusedBorderThickness: =4
+                              Height: =25
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Image: |
+                                ="data:image/svg+xml;utf8," & EncodeUrl(Substitute(If(App.ActiveScreen=scrInformePowerBi ,MyIcons.powerBiFill, MyIcons.powerBi), "currentColor",If(App.ActiveScreen=scrInformePowerBi, MyTheme.PrimaryText, MyTheme.GrayText))) 
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =50
+                        - lblPowerBiAdmin:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =If(App.ActiveScreen=scrInformePowerBi, MyTheme.Primary, MyTheme.Gray)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Bold
+                              Height: =25
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              Size: =Fuente.Pequena
+                              Text: ="PowerBI Admin"
+                              Visible: =VarMenu
+                              Width: =Parent.Width-imgIconoPowerBiAdmin.Width
+                  - btnIrInformePowerBi:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: '=Color.Transparent  '
+                        Font: =Font.'Segoe UI'
+                        Height: =Parent.Height
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(190,190,240,0.1)
+                        OnSelect: =Navigate(scrInformePowerBi, ScreenTransition.Fade); If(App.ActiveScreenSize = ScreenSize.Small, Set(VarMenu, false))
+                        PressedBorderColor: =RGBA(0, 69, 120, 1)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.HoverFill, -30%)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Text: =
+                        Tooltip: ="Power Bi Admin"
+                        Width: =Parent.Width
+            - cntLogoMenu:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  Height: =Parent.Height*0.3
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Parent.Width
+                Children:
+                  - cntContenidoLogoMenu:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Height: =Parent.Height*0.98
+                        LayoutAlignItems: =LayoutAlignItems.End
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        PaddingTop: =Espacio.S
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - imgLogoMenu:
+                            Control: Image@2.2.3
+                            Properties:
+                              AlignInContainer: =AlignInContainer.End
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              Fill: =Colores.Blanco
+                              FocusedBorderThickness: =4
+                              Height: =50
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Image: =ImagenLogo
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =50
+      - recBordeMenu:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(161, 159, 157, 1)
+            Fill: =RGBA(220,220,220,1)
+            FocusedBorderThickness: =4
+            Height: =Parent.Height
+            HoverFill: =RGBA(0, 120, 212, 1)
+            PressedFill: =RGBA(0, 120, 212, 1)
+            Width: =1
+            X: =Parent.Width-Self.Width

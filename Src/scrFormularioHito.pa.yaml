@@ -1,0 +1,1588 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrFormularioHito:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =Set(VarOpcionesEstadoHitos, Filter(EstadosHito, Value in ["Pendiente","En progreso","Completado","Cancelado"]));
+        Set(varSkipRecalc, false);
+        // Suma de pesos del proyecto del hito (sin notificar al abrir; el aviso sale al cambiar el peso).
+        // ColHitos contiene todos los hitos del proyecto para cualquier rol.
+        With(
+            { proyectoId: Coalesce(varHito.'ID proyecto', varProyecto.ID) },
+            Set(
+                varTotalPeso,
+                Round(Sum(Filter(ColHitos, 'ID proyecto' = proyectoId), Coalesce(Peso, 0)), 2)
+            )
+        );
+        Set(varErrorPeso, varTotalPeso > 100)
+    Children:
+      - cntPantallaFormHito:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            PaddingLeft: =Espacio.L
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cntEncabezadoFormHito:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =70
+                  LayoutAlignItems: =LayoutAlignItems.End
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =Espacio.M
+                  PaddingRight: =Espacio.L
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Min(800,Parent.Width)
+                Children:
+                  - icoCerrarFormHito:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Color: =MyTheme.Primary
+                        DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                        DisabledColor: =RGBA(225, 223, 221, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =30
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(16, 110, 190, 1)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Icon: =Icon.Cancel
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =ResetForm(frmHito); Set(varHito,Blank()); Back();
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedColor: =RGBA(16, 110, 190, 1)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =30
+                  - lblTituloFormHito:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =MyTheme.Primary
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FillPortions: =1
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Lato Black'
+                        Height: =70
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =60
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =Fuente.Titulo
+                        Text: =If(IsBlank(varHito.'Nombre del hito'),"Hito",varHito.'Nombre del hito')
+                        Width: =200
+                  - icoEliminarHito:
+                      Control: Classic/Icon@2.5.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        Color: =Color.Red
+                        DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                        DisabledColor: =RGBA(225, 223, 221, 1)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =45
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =MyTheme.Gray
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Icon: =Icon.Trash
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =Set(varEliminar,true);
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedColor: =ColorFade(Self.HoverColor, -20%)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Visible: =!IsBlank(varHito)
+                        Width: =45
+            - frmHito:
+                Control: Form@2.4.4
+                Variant: Classic
+                Layout: Vertical
+                Properties:
+                  AlignInContainer: =AlignInContainer.SetByContainer
+                  BorderColor: =Colores.FondoSuave
+                  DataSource: =Hitos
+                  Item: =varHito
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  NumberOfColumns: =2
+                  OnFailure: |-
+                    =Notify(
+                        If(IsBlank(Self.Error), "Error guardando el hito", Self.Error),
+                        NotificationType.Error
+                    )
+                  OnSuccess: |-
+                    =// Progreso y SPI del proyecto con TODOS sus hitos. El proyecto sale del registro guardado (no de varProyecto).
+                    With(
+                        { _idP: Self.LastSubmit.'ID proyecto' },
+                        // RECALC-PROGRESO: Progreso y SPI del proyecto _idP con TODOS sus hitos (copia idéntica en scrFormularioHito, cmpPopupEliminar, scrInicio y scrMisHitos)
+                    With(
+                        {
+                            _p: LookUp(Proyectos, ID = _idP),
+                            _h: Filter(Hitos, 'ID proyecto' = _idP)
+                        },
+                        With(
+                            {
+                                _t: Sum(_h, Coalesce(Peso, 0)),
+                                _c: Sum(_h, Coalesce(Peso, 0) * Coalesce(Avance, 0) / 100),
+                                _ini: _p.'Fecha creación caso aprovisionamiento ',
+                                _fin: _p.Fecha_Fin
+                            },
+                            With(
+                                {
+                                    _real: If(_t = 0, 0, Round(_c / _t, 2)),
+                                    _plan: If(
+                                        IsBlank(_ini) || IsBlank(_fin), Blank(),
+                                        Today() <= _ini, 0,
+                                        Today() >= _fin, 1,
+                                        DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _fin, TimeUnit.Days))
+                                    )
+                                },
+                                With(
+                                    {
+                                        _cambios: {
+                                            Progreso: _real * 100,
+                                            SPI: If(IsBlank(_plan), Blank(), _plan = 0, If(_real = 0, 1, 0), _real / _plan)
+                                        }
+                                    },
+                                    If(
+                                        !IsBlank(_p),
+                                        If(
+                                            IsError(Patch(Proyectos, _p, _cambios)),
+                                            Notify("No se pudo actualizar Progreso/SPI del proyecto.", NotificationType.Error),
+                                            If(
+                                                !IsBlank(LookUp(ColProyectos, ID = _idP)),
+                                                Patch(ColProyectos, LookUp(ColProyectos, ID = _idP), _cambios)
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                    );
+                    // Colección local: alta o actualización del hito guardado
+                    If(
+                        IsBlank(LookUp(ColHitos, ID = Self.LastSubmit.ID)),
+                        Collect(ColHitos, Self.LastSubmit),
+                        Patch(ColHitos, LookUp(ColHitos, ID = Self.LastSubmit.ID), Self.LastSubmit)
+                    );
+                    Set(varHito, Blank());
+                    Back();
+                    Notify("Hito guardado", NotificationType.Success)
+                  Width: =Min(800,Parent.Width)
+                Children:
+                  - crdProyectoHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicTextualEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="IDproyecto"
+                        Default: =ThisItem.'ID proyecto'
+                        DisplayMode: =DisplayMode.View
+                        DisplayName: ="Proyecto"
+                        Height: =138
+                        Required: =false
+                        Update: =Value(cmbProyectoHito.Selected.ID)
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =0
+                      Children:
+                        - lblProyectoHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: ="Proyecto"
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - cmbProyectoHito:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), MyTheme.LightGray, Color.Red)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =Colores.Texto
+                              DefaultSelectedItems: =If(!IsBlank(varHito),LookUp(Proyectos, ID=ThisItem.'ID proyecto'), LookUp(Proyectos,ID=varProyecto.ID))
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayFields: =["Nombredelproyecto"]
+                              DisplayMode: =Parent.DisplayMode
+                              Fill: =Colores.FondoSuave
+                              FocusedBorderColor: =MyTheme.Gray
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              InputTextPlaceholder: ="Selecciona el proyecto"
+                              Items: =ShowColumns(Proyectos,'Nombre del proyecto', ID)
+                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                              PressedBorderColor: =MyTheme.Primary
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SearchFields: =["Nombredelproyecto"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblEstadoHitoTitulo.Y + lblEstadoHitoTitulo.Height + 5
+                        - lblProyectoHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =cmbProyectoHito.Y + cmbProyectoHito.Height
+                        - lblProyectoHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblProyectoHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblProyectoHitoTitulo.Y
+                  - crdNombreHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicTextualEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Nombredelhito"
+                        Default: =ThisItem.'Nombre del hito'
+                        DisplayMode: =If(frmHito.Mode=FormMode.Edit,DisplayMode.View,DisplayMode.Edit)
+                        DisplayName: ="Nombre del hito"
+                        Height: =138
+                        MaxLength: =255
+                        Required: =If(!IsBlank(txtNombreHito) || !IsBlank(cmbProductoHito),false,true)
+                        Update: |-
+                          =If(
+                              !IsBlank(Trim(txtNombreHito.Text)),
+                              Trim(txtNombreHito.Text),
+                              cmbProductoHito.Selected.Value
+                          )
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =1
+                      Children:
+                        - txtNombreHito:
+                            Control: Classic/TextInput@2.3.2
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), MyTheme.LightGray, Color.Red)
+                              Color: =Colores.Texto
+                              Default: =Parent.Default
+                              DelayOutput: =true
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =Parent.DisplayMode
+                              FocusedBorderColor: =MyTheme.Primary
+                              FocusedBorderThickness: =3
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              Height: =cmbProductoHito.Height
+                              HintText: ="Ingresa el nombre del hito"
+                              HoverBorderColor: =MyTheme.Primary
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              MaxLength: =Parent.MaxLength
+                              PaddingLeft: =Espacio.XS
+                              PressedBorderColor: =MyTheme.Primary
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Visible: =cmbSegmentoHito.Selected.Value="Otros"|| !IsBlank(txtNombreHito.Text)
+                              Width: =cmbProductoHito.Width
+                              X: =If(cmbSegmentoHito.Visible=true, cmbProductoHito.X, cmbSegmentoHito.X)
+                              Y: =cmbProductoHito.Y
+                        - cmbProductoHito:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayFields: =["Value"]
+                              Fill: =Colores.FondoSuave
+                              Font: =Font.Lato
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              InputTextPlaceholder: ="Selecciona el hito"
+                              Items: =If(cmbSegmentoHito.Selected.Value="Software",["DESARROLLO WEB","APP MÓVIL","INTEGRACIÓN","ANALÍTICA"],["CONSULTORÍA","SOPORTE","CAPACITACIÓN","MANTENIMIENTO"])
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SearchFields: =["Value"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =Fuente.Normal
+                              Visible: =cmbSegmentoHito.Selected.Value="Software"||cmbSegmentoHito.Selected.Value="Servicios"
+                              Width: =Parent.Width/2-72
+                              X: =(Parent.Width-Self.Width)-40
+                              Y: =(Parent.Height-Self.Height)-40
+                        - cntTitulosNombreHito:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Height: =38
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Parent.Width
+                              X: =
+                              Y: =
+                            Children:
+                              - lblProductoHitoTitulo:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =Color.Black
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.Lato
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PaddingLeft: =Espacio.XL
+                                    Text: ="Nombre del producto"
+                                    Visible: =frmHito.Mode<>FormMode.Edit
+                                    Width: =Parent.Width/2
+                                    Wrap: =false
+                                    X: =30
+                                    Y: =10
+                              - lblNombreHitoTitulo:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AutoHeight: =true
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    BorderThickness: =2
+                                    Color: =Color.Black
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.Lato
+                                    FontWeight: =FontWeight.Semibold
+                                    Height: =34
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    PaddingLeft: =32
+                                    Text: ="Nombre del hito"
+                                    Visible: =cmbSegmentoHito.Selected.Value="Software"||cmbSegmentoHito.Selected.Value="Servicios"||cmbSegmentoHito.Selected.Value="Otros"|| !IsBlank(txtNombreHito.Text)
+                                    Width: =Parent.Width/2
+                                    Wrap: =false
+                                    X: =(Parent.Width-Self.Width)-40
+                                    Y: =10
+                        - cmbSegmentoHito:
+                            Control: Classic/ComboBox@2.4.0
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayFields: =["Value"]
+                              Fill: =Colores.FondoSuave
+                              Font: =Font.Lato
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              InputTextPlaceholder: ="Selecciona el producto"
+                              Items: =["Software","Servicios", "Otros"]
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SearchFields: =["Value"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =Fuente.Normal
+                              Visible: =frmHito.Mode<>FormMode.Edit
+                              X: =30
+                              Y: =(Parent.Height-Self.Height)-40
+                        - lblNombreHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =txtNombreHito.Y + txtNombreHito.Height
+                        - lblNombreHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblProductoHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblProductoHitoTitulo.Y
+                  - crdDescripcionHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicTextualMultilineEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Descripci_x00f3_n"
+                        Default: =ThisItem.Descripción
+                        DisplayName: ="Descripción"
+                        Required: =false
+                        Update: =txtDescripcionHito.Text
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =2
+                      Children:
+                        - lblDescripcionHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - txtDescripcionHito:
+                            Control: Classic/TextInput@2.3.2
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                              Color: =Colores.Texto
+                              Default: '=Parent.Default '
+                              DelayOutput: =true
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =Parent.DisplayMode
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              Height: =80
+                              HintText: ="Ingresa la descripcion del hito"
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              Mode: =TextMode.MultiLine
+                              PaddingLeft: =Espacio.XS
+                              PressedBorderColor: =RGBA(0, 120, 212, 1)
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblDescripcionHitoTitulo.Y + lblDescripcionHitoTitulo.Height + 5
+                        - lblDescripcionHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =txtDescripcionHito.Y + txtDescripcionHito.Height
+                        - lblDescripcionHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblDescripcionHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblDescripcionHitoTitulo.Y
+                  - crdEncargadoHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicComboBoxMultiSelectEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Encargado"
+                        Default: =ThisItem.Encargado
+                        DisplayName: ="Encargado"
+                        Required: =true
+                        Update: =cmbEncargadoHito.Selected
+                        Width: =Parent.Width
+                        X: =0
+                        Y: =3
+                      Children:
+                        - lblEncargadoHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Size: =Fuente.Normal
+                              Text: ="Responsable del hito"
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - cmbEncargadoHito:
+                            Control: Classic/ComboBox@2.4.0
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =Colores.Texto
+                              DefaultSelectedItems: |-
+                                =// Encargado guardado; si el hito no tiene, el primer responsable del proyecto de origen
+                                If(IsBlank(ThisItem.Encargado.Email), First(varProyecto.Responsable), ThisItem.Encargado)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayFields: =["DisplayName","Email","Picture"]
+                              DisplayMode: =Parent.DisplayMode
+                              Fill: =Colores.FondoSuave
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              InputTextPlaceholder: ="Selecciona el responsable"
+                              Items: =UsuariosDemo
+                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SearchFields: =["DisplayName"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblEncargadoHitoTitulo.Y + lblEncargadoHitoTitulo.Height + 5
+                        - lblEncargadoHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =cmbEncargadoHito.Y + cmbEncargadoHito.Height
+                        - lblEncargadoHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblEncargadoHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblEncargadoHitoTitulo.Y
+                  - crdEstadoHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicComboBoxEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Estado"
+                        Default: =ThisItem.Estado
+                        DisplayMode: =DisplayMode.Edit
+                        DisplayName: ="Estado"
+                        Required: =true
+                        Update: =cmbEstadoHito.Selected
+                        Width: =If(Parent.Width/2 < 400, Parent.Width, Parent.Width/2)
+                        X: =0
+                        Y: =4
+                      Children:
+                        - lblEstadoHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - cmbEstadoHito:
+                            Control: Classic/ComboBox@2.4.0
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                              ChevronBackground: =RGBA(245, 245, 245, 1)
+                              ChevronDisabledBackground: =RGBA(242, 242, 241, 0)
+                              ChevronDisabledFill: =RGBA(161, 159, 157, 1)
+                              ChevronFill: =RGBA(50, 49, 48, 1)
+                              ChevronHoverBackground: =RGBA(245, 245, 245, 1)
+                              ChevronHoverFill: =RGBA(50, 49, 48, 1)
+                              Color: =Colores.Texto
+                              Default: =Parent.Default
+                              DefaultSelectedItems: |-
+                                =// Un hito cancelado conserva su estado; en el resto, el estado se deriva del avance
+                                If(
+                                    ThisItem.Estado.Value = "Cancelado",
+                                    LookUp(VarOpcionesEstadoHitos, Value = "Cancelado"),
+                                    Value(Int(txtAvanceHito.Text)) = 100,
+                                    LookUp(VarOpcionesEstadoHitos, Value = "Completado"),
+                                    Value(Int(txtAvanceHito.Text)) > 0,
+                                    LookUp(VarOpcionesEstadoHitos, Value = "En progreso"),
+                                    LookUp(VarOpcionesEstadoHitos, Value = "Pendiente")
+                                )
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayFields: =["Value"]
+                              DisplayMode: =DisplayMode.View
+                              Fill: =Colores.FondoSuave
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(245, 245, 245, 1)
+                              InputTextPlaceholder: ="Selecciona el estado"
+                              IsSearchable: =false
+                              Items: =VarOpcionesEstadoHitos
+                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                              PressedBorderColor: =RGBA(16, 110, 190, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(0, 120, 212, 1)
+                              SearchFields: =["Value"]
+                              SelectMultiple: =false
+                              SelectionColor: =RGBA(255, 255, 255, 1)
+                              SelectionFill: =RGBA(0, 120, 212, 1)
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblEstadoHitoTitulo.Y + lblEstadoHitoTitulo.Height + 5
+                        - lblEstadoHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =cmbEstadoHito.Y + cmbEstadoHito.Height
+                        - lblEstadoHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblEstadoHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblEstadoHitoTitulo.Y
+                  - crdPesoHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicNumberEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Peso"
+                        Default: =Coalesce(ThisItem.Peso, 0)
+                        DisplayMode: =DisplayMode.Edit
+                        DisplayName: ="Peso"
+                        Required: =true
+                        Update: =Value(txtPesoHito.Text)
+                        Width: =If(Parent.Width/2 < 400, Parent.Width, Parent.Width/2)
+                        X: =1
+                        Y: =4
+                      Children:
+                        - lblPesoHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - txtPesoHito:
+                            Control: Classic/TextInput@2.3.2
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                              Color: =Colores.Texto
+                              Default: =Parent.Default
+                              DelayOutput: =true
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =Parent.DisplayMode
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              Format: =TextFormat.Number
+                              HintText: ="Ingresa el % de peso que representa el hito"
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              OnChange: |-
+                                =// Si venimos de un Reset, ignoramos solo esta ejecución (evita notificaciones y recálculo indeseados)
+                                If(
+                                    Coalesce(varSkipRecalc, false),
+                                    Set(varSkipRecalc, false);
+                                    Blank(),
+                                    With(
+                                        {
+                                            // Proyecto elegido en el formulario (o el del hito / el de origen)
+                                            proyectoId: Coalesce(cmbProyectoHito.Selected.ID, ThisItem.'ID proyecto', varProyecto.ID),
+                                            idActual: ThisItem.ID,
+                                            // SOLO usamos el valor del mismo control que cambió
+                                            valor19: Coalesce(Value(Self.Text), 0)
+                                        },
+                                        // Una sola consulta a la fuente de datos con los hitos del proyecto
+                                        With(
+                                            { _hitos: Filter(Hitos, 'ID proyecto' = proyectoId) },
+                                            // Total = pesos del proyecto - peso GUARDADO de este hito + el valor que se está escribiendo
+                                            Set(
+                                                varTotalPeso,
+                                                Round(
+                                                    Sum(_hitos, Coalesce(Peso, 0))
+                                                    - If(IsBlank(idActual), 0, Coalesce(LookUp(_hitos, ID = idActual, Peso), 0))
+                                                    + valor19,
+                                                    2
+                                                )
+                                            )
+                                        );
+                                        Set(varErrorPeso, varTotalPeso > 100);
+
+                                        // Notificaciones
+                                        If(
+                                            varTotalPeso > 100,
+                                            Notify(
+                                                "Te excediste por " & Text(varTotalPeso - 100, "[$-es-ES]0%") &
+                                                ". Peso actual del hito: " & Text(valor19, "[$-es-ES]0%"),
+                                                NotificationType.Error,2000
+                                            );
+                                            // Ignorar SOLO la siguiente ejecución (la que dispara el Reset)
+                                            Set(varSkipRecalc, true);
+                                            Reset(Self),
+                                            varTotalPeso < 100,
+                                            Notify(
+                                                "Te faltan " & Text(100 - varTotalPeso, "[$-es-ES]0%") &
+                                                " para llegar a 100%. Peso actual del hito: " & Text(valor19, "[$-es-ES]0%"),
+                                                NotificationType.Warning,2000
+                                            ),
+                                            Notify(
+                                                "¡Perfecto! El total de pesos es 100%. Peso actual del hito: " & Text(valor19, "[$-es-ES]0%"),
+                                                NotificationType.Success,2000
+                                            )
+                                        )
+                                    )
+                                )
+                              PaddingLeft: =Espacio.XS
+                              PressedBorderColor: =RGBA(0, 120, 212, 1)
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblPesoHitoTitulo.Y + lblPesoHitoTitulo.Height + 5
+                        - lblPesoHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: |+
+                                =
+                                "La suma de los pesos es mayor a 100"
+                              Visible: =If(varTotalPeso > 100, true,false)
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =txtPesoHito.Y + txtPesoHito.Height
+                        - lblPesoHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblPesoHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblPesoHitoTitulo.Y
+                  - crdAvanceHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicNumberEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Avance"
+                        Default: =ThisItem.Avance
+                        DisplayName: ="Avance"
+                        Required: =false
+                        Update: =Value(txtAvanceHito.Text)
+                        Visible: =frmHito.Mode=FormMode.Edit
+                        Width: =If(Parent.Width/2 < 400, Parent.Width, Parent.Width/2)
+                        X: =0
+                        Y: =5
+                      Children:
+                        - lblAvanceHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - txtAvanceHito:
+                            Control: Classic/TextInput@2.3.2
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                              Color: =Colores.Texto
+                              Default: =Parent.Default
+                              DelayOutput: =true
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =If(ThisItem.Avance=100,DisplayMode.View,DisplayMode.Edit)
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              Format: =TextFormat.Number
+                              HintText: ="Ingresa el % de avance del hito"
+                              HoverBorderColor: =RGBA(16, 110, 190, 1)
+                              HoverColor: =RGBA(50, 49, 48, 1)
+                              HoverFill: =RGBA(255, 255, 255, 1)
+                              PaddingLeft: =Espacio.XS
+                              PressedBorderColor: =RGBA(0, 120, 212, 1)
+                              PressedColor: =RGBA(50, 49, 48, 1)
+                              PressedFill: =RGBA(255, 255, 255, 1)
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Size: =Fuente.Normal
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblAvanceHitoTitulo.Y + lblAvanceHitoTitulo.Height + 5
+                        - lblAvanceHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: |-
+                                =With({ v: txtAvanceHito.Text },
+                                    If(
+                                        IsBlank(v), "",
+                                        !IsNumeric(v), "Debe ser un número.",
+                                        Value(v) < 0, "El mínimo permitido es 0.",
+                                        Value(v) > 100, "El máximo permitido es 100.",
+                                        ""
+                                    )
+                                )
+                              Visible: |-
+                                =With(
+                                    { v: txtAvanceHito.Text },
+                                    // Muestra error si no está vacío y es NO numérico o está fuera de [0,100]
+                                    !IsBlank(v) && ( !IsNumeric(v) || Value(v) < 0 || Value(v) > 100 )
+                                )
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =txtAvanceHito.Y + txtAvanceHito.Height
+                        - lblAvanceHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblAvanceHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblAvanceHitoTitulo.Y
+                  - crdFechaInicioHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicDateEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Fecha_Inicio"
+                        Default: =ThisItem.Fecha_Inicio
+                        DisplayName: ="Fecha inicio"
+                        Required: =true
+                        Update: =dtpFechaInicioHito.SelectedDate
+                        Width: =If(Parent.Width/2 < 400, Parent.Width, Parent.Width/2)
+                        X: =1
+                        Y: =5
+                      Children:
+                        - lblFechaInicioHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: ="Fecha inicio"
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - dtpFechaInicioHito:
+                            Control: Classic/DatePicker@2.6.0
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), MyTheme.LightGray, Color.Red)
+                              BorderThickness: =3
+                              Color: =Colores.Texto
+                              DefaultDate: =Parent.Default
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =Parent.DisplayMode
+                              EndYear: =Year(Today())+100
+                              Fill: =Colores.FondoSuave
+                              FocusedBorderColor: =MyTheme.Primary
+                              FocusedBorderThickness: =3
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              IconBackground: =RGBA(0, 120, 212, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              InputTextPlaceholder: ="Selecciona fecha inicio"
+                              IsEditable: =true
+                              OnChange: |-
+                                =If(
+                                   !IsBlank(dtpFechaFinHito.SelectedDate),
+                                   If(dtpFechaFinHito.SelectedDate < dtpFechaInicioHito.SelectedDate,
+                                   Notify("La fecha de fin no puede ser menor que la fecha de inicio", NotificationType.Error);
+                                   Reset(dtpFechaInicioHito);
+                                )
+                                )
+                              PaddingBottom: =0
+                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                              Size: =Fuente.Normal
+                              StartYear: =1899
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblFechaInicioHitoTitulo.Y + lblFechaInicioHitoTitulo.Height + 5
+                        - lblFechaInicioHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =dtpFechaInicioHito.Y + dtpFechaInicioHito.Height
+                        - lblFechaInicioHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblFechaInicioHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblFechaInicioHitoTitulo.Y
+                  - crdFechaFinHito:
+                      Control: TypedDataCard@1.0.7
+                      Variant: ClassicDateEdit
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        DataField: ="Fecha_Fin"
+                        Default: =ThisItem.Fecha_Fin
+                        DisplayName: ="Fecha fin"
+                        Required: =true
+                        Update: =dtpFechaFinHito.SelectedDate
+                        Width: =If(Parent.Width/2 < 400, Parent.Width, Parent.Width/2)
+                        X: =0
+                        Y: =6
+                      Children:
+                        - lblFechaFinHitoTitulo:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldName
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Color.Black
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Semibold
+                              Height: =34
+                              PaddingLeft: =0
+                              Text: ="Fecha fin"
+                              Width: =Parent.Width - 60
+                              Wrap: =false
+                              X: =30
+                              Y: =10
+                        - dtpFechaFinHito:
+                            Control: Classic/DatePicker@2.6.0
+                            MetadataKey: FieldValue
+                            Properties:
+                              BorderColor: =If(IsBlank(Parent.Error), MyTheme.LightGray, Color.Red)
+                              BorderThickness: =3
+                              Color: =Colores.Texto
+                              DefaultDate: =Parent.Default
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =Parent.DisplayMode
+                              EndYear: =Year(Today())+100
+                              Fill: =Colores.FondoSuave
+                              FocusedBorderColor: '=MyTheme.Primary     '
+                              FocusedBorderThickness: =3
+                              Font: =Font.Lato
+                              FontWeight: =FontWeight.Lighter
+                              IconBackground: =RGBA(0, 120, 212, 1)
+                              IconFill: =RGBA(255, 255, 255, 1)
+                              InputTextPlaceholder: ="Selecciona fecha fin"
+                              IsEditable: =true
+                              OnChange: |-
+                                =// Regla: la fecha fin no puede ser anterior a la fecha inicio ni a hoy
+                                If(
+                                    !IsBlank(dtpFechaFinHito.SelectedDate) && dtpFechaFinHito.SelectedDate < dtpFechaInicioHito.SelectedDate,
+                                    Notify("La fecha de fin no puede ser menor que la fecha de inicio", NotificationType.Error);
+                                    Reset(dtpFechaFinHito),
+                                    !IsBlank(dtpFechaFinHito.SelectedDate) && dtpFechaFinHito.SelectedDate < Today() && dtpFechaFinHito.SelectedDate <> Parent.Default,
+                                    Notify("La fecha de fin no puede ser anterior a hoy", NotificationType.Error);
+                                    Reset(dtpFechaFinHito)
+                                )
+                              PaddingBottom: =0
+                              PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                              Size: =Fuente.Normal
+                              StartYear: =1899
+                              Tooltip: =Parent.DisplayName
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =lblFechaFinHitoTitulo.Y + lblFechaFinHitoTitulo.Height + 5
+                        - lblFechaFinHitoError:
+                            Control: Label@2.5.1
+                            MetadataKey: ErrorMessage
+                            Properties:
+                              AutoHeight: =true
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Error
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(168, 0, 0, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =10
+                              Live: =Live.Assertive
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Text: =Parent.Error
+                              Visible: =Parent.DisplayMode=DisplayMode.Edit
+                              Width: =Parent.Width - 60
+                              X: =30
+                              Y: =dtpFechaFinHito.Y + dtpFechaFinHito.Height
+                        - lblFechaFinHitoObligatorio:
+                            Control: Label@2.5.1
+                            MetadataKey: FieldRequired
+                            Properties:
+                              Align: =Align.Center
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =Colores.Texto
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Segoe UI'
+                              FontWeight: =FontWeight.Semibold
+                              Height: =lblFechaFinHitoTitulo.Height
+                              PaddingLeft: =0
+                              Text: ="*"
+                              Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                              Width: =30
+                              Wrap: =false
+                              Y: =lblFechaFinHitoTitulo.Y
+            - cntBotonesFormHito:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =70
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =Espacio.XL
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - btnCancelarFormHito:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =MyTheme.Gray
+                        Color: =MyTheme.Gray
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: =Color.Transparent
+                        FocusedBorderThickness: =2
+                        Font: =Font.Lato
+                        Height: =35
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =ColorFade(Self.Color, -20%)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =ResetForm(frmHito); Set(varHito,Blank()); Back();
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Pequena
+                        Text: ="Cancelar"
+                        Width: =100
+                  - btnGuardarHito:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(Self.Fill, -15%)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        DisplayMode: |-
+                          =If(
+                              // 1) Form inválido por reglas del formulario
+                              !frmHito.Valid
+                              // 2) Validación de rango personalizada (txtAvanceHito)
+                              || With(
+                                  { v: txtAvanceHito.Text },
+                                  !IsBlank(v) && ( !IsNumeric(v) || Value(v) < 0 || Value(v) > 100 )
+                              )
+                              // 3) NUEVO: Error por suma de pesos > 100 (variable global que ya seteamos)
+                              || varErrorPeso,
+                              DisplayMode.Disabled,
+                              DisplayMode.Edit
+                          )
+                        Fill: =MyTheme.Primary
+                        Font: =Font.Lato
+                        Height: =35
+                        HoverBorderColor: =Self.Color
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =// Fechas: fin >= inicio siempre; fin >= hoy cuando el hito es nuevo o se cambia su fecha fin
+                          With(
+                              { _ini: dtpFechaInicioHito.SelectedDate, _fin: dtpFechaFinHito.SelectedDate },
+                              If(
+                                  !IsBlank(_ini) && !IsBlank(_fin) && _fin < _ini,
+                                  Notify("La fecha de fin no puede ser menor que la fecha de inicio", NotificationType.Error),
+                                  !IsBlank(_fin) && _fin < Today() && (frmHito.Mode = FormMode.New || _fin <> varHito.Fecha_Fin),
+                                  Notify("La fecha de fin no puede ser anterior a hoy", NotificationType.Error),
+                                  SubmitForm(frmHito)
+                              )
+                          )
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Pequena
+                        Text: ="Guardar"
+                        Width: =100
+      - cmpPopupEliminarFormHito:
+          Control: CanvasComponent
+          ComponentName: cmpPopupEliminar
+          Properties:
+            Fill: =Colores.Velo
+            Height: =App.Height
+            Visible: =varEliminar
+            Width: =App.Width

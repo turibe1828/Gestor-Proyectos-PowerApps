@@ -1,0 +1,1007 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrAprobaciones:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    Children:
+      - cntPantallaAprobaciones:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpMenuLateralAprobaciones:
+                Control: CanvasComponent
+                ComponentName: cmpMenuLateral
+                Properties:
+                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+            - cntPrincipalAprobaciones:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMinHeight: =16
+                  LayoutMinWidth: =16
+                Children:
+                  - cntEncabezadoAprobaciones:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        Fill: =Colores.Blanco
+                        FillPortions: =0
+                        Height: =60
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - cmpEncabezadoAprobaciones:
+                            Control: CanvasComponent
+                            ComponentName: cmpEncabezado
+                            Properties:
+                              Height: =Parent.Height
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              Width: =Parent.Width
+                  - cntContenidoAprobaciones:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        Fill: =Colores.FondoSuave
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        LayoutWrap: =true
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - cntFormularioSolicitud:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              Fill: =Colores.Blanco
+                              FillPortions: =7
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =16
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =15
+                              PaddingLeft: =15
+                              PaddingRight: =15
+                              PaddingTop: =15
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - lblTituloSolicitud:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: ='TextCanvas.Align'.End
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =20
+                                    Text: ="Solicitar cambio"
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                                    Width: =180
+                              - frmSolicitudCambio:
+                                  Control: Form@2.4.4
+                                  Variant: Classic
+                                  Layout: Vertical
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.SetByContainer
+                                    BorderColor: =Colores.FondoSuave
+                                    DataSource: =Proyectos
+                                    Item: =varProyecto
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =400
+                                    NumberOfColumns: =2
+                                    OnFailure: |-
+                                      =Notify(
+                                          If(IsBlank(Self.Error), "Error enviando el formulario", Self.Error),
+                                          NotificationType.Error
+                                      )
+                                    OnSuccess: |
+                                      =Notify("Proyecto guardado", NotificationType.Success);
+                                      ResetForm(frmSolicitudCambio);
+                                      Set(varProyecto, Blank());
+                                      Back();
+                                    Width: =Parent.Width
+                                  Children:
+                                    - crdNumeroCasoSolicitud:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicNumberEdit
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="NumeroCaso"
+                                          Default: =ThisItem.NumeroCaso
+                                          DisplayMode: '=If(frmSolicitudCambio.Mode=FormMode.Edit,DisplayMode.View,DisplayMode.Edit) '
+                                          DisplayName: ="Número de caso"
+                                          Required: =false
+                                          Update: =Value(txtNumeroCasoSolicitud.Text)
+                                          Width: =Parent.Width
+                                          X: =0
+                                          Y: =0
+                                        Children:
+                                          - lblNumeroCasoSolicitudTitulo:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: ="Número de caso"
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - txtNumeroCasoSolicitud:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =Colores.Texto
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.Lato
+                                                Format: =TextFormat.Number
+                                                HintText: ="Ingrese el número de caso que corresponde"
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Size: =Fuente.Normal
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width/2
+                                                X: =30
+                                                Y: =lblNumeroCasoSolicitudTitulo.Y + lblNumeroCasoSolicitudTitulo.Height + 5
+                                          - lblNumeroCasoSolicitudError:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =txtNumeroCasoSolicitud.Y + txtNumeroCasoSolicitud.Height
+                                          - lblNumeroCasoSolicitudObligatorio:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblNumeroCasoSolicitudTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblNumeroCasoSolicitudTitulo.Y
+                                    - crdNombreClienteSolicitud:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicTextualEdit
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="NombredelCliente"
+                                          Default: =ThisItem.'Nombre del Cliente'
+                                          DisplayName: ="Nombre del cliente"
+                                          MaxLength: =255
+                                          Required: =false
+                                          Update: =txtNombreClienteSolicitud.Text
+                                          Width: =Parent.Width
+                                          X: =0
+                                          Y: =1
+                                        Children:
+                                          - lblNombreClienteSolicitudTitulo:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - txtNombreClienteSolicitud:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =Colores.Texto
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.'Segoe UI'
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                MaxLength: =Parent.MaxLength
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =lblNombreClienteSolicitudTitulo.Y + lblNombreClienteSolicitudTitulo.Height + 5
+                                          - lblNombreClienteSolicitudError:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =txtNombreClienteSolicitud.Y + txtNombreClienteSolicitud.Height
+                                          - lblNombreClienteSolicitudObligatorio:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblNombreClienteSolicitudTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblNombreClienteSolicitudTitulo.Y
+                                    - crdNombreProyectoSolicitud:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicTextualEdit
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="Nombredelproyecto"
+                                          Default: =ThisItem.'Nombre del proyecto'
+                                          DisplayMode: =If(frmSolicitudCambio.Mode=FormMode.Edit,DisplayMode.View,DisplayMode.Edit)
+                                          DisplayName: ="Nombre del proyecto"
+                                          MaxLength: =255
+                                          Required: =true
+                                          Update: =txtNombreProyectoSolicitud.Text
+                                          Visible: =!IsBlank(txtNumeroCasoSolicitud.Text)
+                                          Width: =Parent.Width
+                                          X: =0
+                                          Y: =2
+                                        Children:
+                                          - lblNombreProyectoSolicitudTitulo:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Color.Black
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - txtNombreProyectoSolicitud:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =Colores.Texto
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Lighter
+                                                HintText: ="Ingresa el nombre del proyecto"
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                MaxLength: =Parent.MaxLength
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Size: =Fuente.Normal
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =lblNombreProyectoSolicitudTitulo.Y + lblNombreProyectoSolicitudTitulo.Height + 5
+                                          - lblNombreProyectoSolicitudError:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =txtNombreProyectoSolicitud.Y + txtNombreProyectoSolicitud.Height
+                                          - lblNombreProyectoSolicitudObligatorio:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblNombreProyectoSolicitudTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblNombreProyectoSolicitudTitulo.Y
+                                    - crdDescripcionSolicitud:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicTextualMultilineEdit
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="Descripci_x00f3_n"
+                                          Default: =ThisItem.Descripción
+                                          DisplayMode: =DisplayMode.View
+                                          DisplayName: ="Descripción"
+                                          Required: =false
+                                          Update: =txtDescripcionSolicitud.Text
+                                          Visible: =!IsBlank(txtNumeroCasoSolicitud.Text)
+                                          Width: =Parent.Width
+                                          X: =0
+                                          Y: =3
+                                        Children:
+                                          - lblDescripcionSolicitudObligatorio:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblDescripcionSolicitudTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblDescripcionSolicitudTitulo.Y
+                                          - lblDescripcionSolicitudTitulo:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Color.Black
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - txtDescripcionSolicitud:
+                                              Control: Classic/TextInput@2.3.2
+                                              MetadataKey: FieldValue
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =Colores.Texto
+                                                Default: =Parent.Default
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Lighter
+                                                Height: =80
+                                                HintText: ="Ingresa la descripción del proyecto"
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                Mode: =TextMode.MultiLine
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Size: =Fuente.Normal
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =lblDescripcionSolicitudTitulo.Y + lblDescripcionSolicitudTitulo.Height + 5
+                                          - lblDescripcionSolicitudError:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =txtDescripcionSolicitud.Y + txtDescripcionSolicitud.Height
+                                    - crdNuevaFechaFin:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: ClassicDateEdit
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="Fecha_Fin"
+                                          Default: =ThisItem.Fecha_Fin
+                                          DisplayName: ="Fecha fin"
+                                          Required: =false
+                                          Update: =dtpNuevaFechaFin.SelectedDate
+                                          Visible: =!IsBlank(txtNumeroCasoSolicitud.Text)
+                                          Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width, Parent.Width / 2)
+                                          X: =0
+                                          Y: =4
+                                        Children:
+                                          - lblNuevaFechaFinTitulo:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldName
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Color.Black
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: ="Fecha fin"
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - lblNuevaFechaFinError:
+                                              Control: Label@2.5.1
+                                              MetadataKey: ErrorMessage
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =dtpNuevaFechaFin.Y + dtpNuevaFechaFin.Height
+                                          - lblNuevaFechaFinObligatorio:
+                                              Control: Label@2.5.1
+                                              MetadataKey: FieldRequired
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblNuevaFechaFinTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblNuevaFechaFinTitulo.Y
+                                          - dtpNuevaFechaFin:
+                                              Control: DatePicker@0.0.46
+                                              Properties:
+                                                Font: =Font.Lato
+                                                FontSize: =13
+                                                Format: ='DatePickerCanvas.Format'.Short
+                                                Height: =40
+                                                OnChange: |-
+                                                  =// Regla: la fecha fin solicitada no puede ser anterior al inicio del proyecto ni a hoy
+                                                  If(
+                                                      !IsBlank(Self.SelectedDate) && Self.SelectedDate < varProyecto.'Fecha creación caso aprovisionamiento ',
+                                                      Notify("La fecha de fin no puede ser menor que la fecha de inicio del proyecto", NotificationType.Error);
+                                                      Reset(Self),
+                                                      !IsBlank(Self.SelectedDate) && Self.SelectedDate < Today(),
+                                                      Notify("La fecha de fin no puede ser anterior a hoy", NotificationType.Error);
+                                                      Reset(Self)
+                                                  )
+                                                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                                                PaddingRight: =Espacio.XS
+                                                Placeholder: ="Seleccciona una fecha"
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =lblNuevaFechaFinTitulo.Y + lblNuevaFechaFinTitulo.Height + 5
+                                    - crdJustificacion:
+                                        Control: TypedDataCard@1.0.7
+                                        Variant: BlankCard
+                                        Properties:
+                                          BorderColor: =Colores.FondoSuave
+                                          DataField: ="Justificacion"
+                                          DisplayMode: =If(IsBlank(dtpNuevaFechaFin.SelectedDate),DisplayMode.View,DisplayMode.Edit)
+                                          Height: =98
+                                          Required: =true
+                                          Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width, Parent.Width / 2)
+                                          X: =1
+                                          Y: =4
+                                        Children:
+                                          - lblJustificacionTitulo:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =34
+                                                PaddingLeft: =0
+                                                Text: ="Justificación"
+                                                Width: =Parent.Width - 60
+                                                Wrap: =false
+                                                X: =30
+                                                Y: =10
+                                          - txtJustificacion:
+                                              Control: Classic/TextInput@2.3.2
+                                              Properties:
+                                                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                                                Color: =Colores.Texto
+                                                Default: =
+                                                DelayOutput: =true
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                DisplayMode: =Parent.DisplayMode
+                                                Fill: =RGBA(145, 145, 145, 0.1)
+                                                Font: =Font.Lato
+                                                Height: =100
+                                                HintText: ="ingresar motivo de solicitud"
+                                                HoverBorderColor: =RGBA(16, 110, 190, 1)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(255, 255, 255, 1)
+                                                Mode: =TextMode.MultiLine
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 120, 212, 1)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(255, 255, 255, 1)
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Size: =Fuente.Normal
+                                                Tooltip: =Parent.DisplayName
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =lblJustificacionTitulo.Y + lblJustificacionTitulo.Height + 5
+                                          - lblJustificacionError:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AutoHeight: =true
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Error
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(168, 0, 0, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =10
+                                                Live: =Live.Assertive
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Text: =Parent.Error
+                                                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                                                Width: =Parent.Width - 60
+                                                X: =30
+                                                Y: =txtJustificacion.Y + txtJustificacion.Height
+                                          - lblJustificacionObligatorio:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                Align: =Align.Center
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                FontWeight: =FontWeight.Semibold
+                                                Height: =lblJustificacionTitulo.Height
+                                                PaddingLeft: =0
+                                                Text: ="*"
+                                                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                                                Width: =30
+                                                Wrap: =false
+                                                Y: =lblJustificacionTitulo.Y
+                              - cntBotonesSolicitud:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0
+                                    Height: =Max(45, Parent.Height * 0.05)
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =Espacio.XL
+                                    LayoutJustifyContent: =LayoutJustifyContent.End
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    PaddingLeft: =Espacio.S
+                                    PaddingRight: =Espacio.S
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - btnCancelarSolicitud:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =MyTheme.Gray
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          DisabledFill: =RGBA(242, 242, 241, 0)
+                                          Fill: =Color.Transparent
+                                          FocusedBorderThickness: =2
+                                          Font: =Font.Lato
+                                          Height: =30
+                                          HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                                          HoverColor: =ColorFade(Self.Color, -20%)
+                                          HoverFill: =ColorFade(Self.Fill, -10%)
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          OnSelect: =ResetForm(frmSolicitudCambio); Back();
+                                          PressedBorderColor: =Self.Color
+                                          PressedColor: =RGBA(255, 255, 255, 1)
+                                          PressedFill: =ColorFade(Self.Fill, -20%)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =Fuente.Pequena
+                                          Text: ="Cancelar"
+                                          Width: =100
+                                    - btnEnviarSolicitud:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =ColorFade(Self.Fill, -15%)
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =Colores.Blanco
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          DisabledFill: =RGBA(242, 242, 241, 0)
+                                          Fill: =MyTheme.Primary
+                                          Font: =Font.Lato
+                                          Height: =30
+                                          HoverBorderColor: =Self.Color
+                                          HoverColor: =RGBA(255, 255, 255, 1)
+                                          HoverFill: =ColorFade(Self.Fill, -10%)
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          OnSelect: |-
+                                            =With(
+                                                { _fecha: dtpNuevaFechaFin.SelectedDate },
+                                                If(
+                                                    IsBlank(Supervisor),
+                                                    Notify("No tienes un supervisor asignado en la lista Roles; no se puede enviar la solicitud.", NotificationType.Error),
+                                                    IsBlank(_fecha) || IsBlank(Trim(txtJustificacion.Text)),
+                                                    Notify("Selecciona la nueva fecha fin y escribe la justificación.", NotificationType.Warning),
+                                                    _fecha < varProyecto.'Fecha creación caso aprovisionamiento ',
+                                                    Notify("La fecha de fin no puede ser menor que la fecha de inicio del proyecto", NotificationType.Error),
+                                                    _fecha < Today(),
+                                                    Notify("La fecha de fin no puede ser anterior a hoy", NotificationType.Error),
+                                                    IfError(
+                                                        /* MODO DEMO: la solicitud se guarda en una colección local (en la versión real la envía un flujo de aprobación) */ Collect(colSolicitudesDemo, { Solicitante: CurrentUser.Mail, Supervisor: Supervisor, NuevaFechaFin: _fecha, IDProyecto: varProyecto.ID, Justificacion: txtJustificacion.Text }),
+                                                        Notify("No se pudo enviar la solicitud. Intenta de nuevo.", NotificationType.Error),
+                                                        Notify("Enviado", NotificationType.Success, 2000);
+                                                        ResetForm(frmSolicitudCambio);
+                                                        Set(varProyecto, Blank());
+                                                        Navigate(scrMisProyectos, ScreenTransition.Fade)
+                                                    )
+                                                )
+                                            )
+                                          PressedBorderColor: =Self.Color
+                                          PressedColor: =RGBA(255, 255, 255, 1)
+                                          PressedFill: =ColorFade(Self.Fill, -20%)
+                                          RadiusBottomLeft: =8
+                                          RadiusBottomRight: =8
+                                          RadiusTopLeft: =8
+                                          RadiusTopRight: =8
+                                          Size: =Fuente.Pequena
+                                          Text: ="Enviar"
+                                          Width: =100
+                        - cntPanelSupervisor:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =Colores.Blanco
+                              FillPortions: =2
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =16
+                              LayoutMinHeight: =16
+                              LayoutMinWidth: =16
+                              PaddingBottom: =Espacio.S
+                              PaddingRight: =Espacio.S
+                              PaddingTop: =15
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Visible: =App.ActiveScreenSize > ScreenSize.Small
+                            Children:
+                              - lblSupervisorTitulo:
+                                  Control: Text@0.0.51
+                                  Properties:
+                                    Align: ='TextCanvas.Align'.End
+                                    AlignInContainer: =AlignInContainer.Center
+                                    LayoutMinHeight: =16
+                                    LayoutMinWidth: =16
+                                    Size: =20
+                                    Text: ="Supervisor"
+                                    Weight: ='TextCanvas.Weight'.Semibold
+                                    Width: =Parent.Width*0.5
+                              - galSupervisores:
+                                  Control: Gallery@2.15.0
+                                  Variant: Vertical
+                                  Properties:
+                                    AccessibleLabel: ="Reviewers gallery"
+                                    BorderColor: =Colores.FondoSuave
+                                    Items: |-
+                                      =// Supervisor del usuario actual, desde la colección de roles (sin consultas a la fuente de datos ni al directorio)
+                                      With(
+                                          { _sup: LookUp(ColRoles, Nombre.Email = CurrentUser.Mail).Supervisor },
+                                          If(!IsBlank(_sup.Email), Table(_sup))
+                                      )
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =Parent.Width
+                                    TabIndex: =0
+                                    TemplatePadding: =0
+                                    TemplateSize: =If(scrAprobaciones.Size = ScreenSize.Small, 80, 140)
+                                  Children:
+                                    - recLineaSupervisor:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          DisabledFill: =RGBA(161, 159, 157, 1)
+                                          DisplayMode: =DisplayMode.Disabled
+                                          Fill: =RGBA(214, 221, 224, 1)
+                                          FocusedBorderThickness: =4
+                                          Height: =30
+                                          HoverFill: =RGBA(0, 120, 212, 1)
+                                          OnSelect: =Select(Parent)
+                                          PressedFill: =RGBA(0, 120, 212, 1)
+                                          Width: =2
+                                          X: =bdgEstadoSupervisor.X + (bdgEstadoSupervisor.Width / 2)
+                                    - bdgEstadoSupervisor:
+                                        Control: Badge@0.0.24
+                                        Properties:
+                                          AccessibleLabel: ="Review status badge"
+                                          BasePaletteColor: =RGBA(156, 220, 79, 1)
+                                          Content: =1
+                                          Height: =47
+                                          Width: =49
+                                          X: =20
+                                          Y: =((Parent.TemplateHeight - Self.Height) / 2) - 32
+                                    - lblNombreSupervisor:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Height: =26
+                                          Text: =ThisItem.DisplayName
+                                          Weight: ='TextCanvas.Weight'.Semibold
+                                          Width: =Parent.TemplateWidth-Self.X
+                                          X: =bdgEstadoSupervisor.X + bdgEstadoSupervisor.Width + 10
+                                          Y: =bdgEstadoSupervisor.Y
+                                    - lblCorreoSupervisor:
+                                        Control: Text@0.0.51
+                                        Properties:
+                                          Height: =Parent.TemplateHeight / 2 - 5
+                                          Text: =ThisItem.Email
+                                          VerticalAlign: =VerticalAlign.Top
+                                          Width: =lblNombreSupervisor.Width
+                                          X: =lblNombreSupervisor.X
+                                          Y: =lblNombreSupervisor.Y + lblNombreSupervisor.Height

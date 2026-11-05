@@ -1,0 +1,1348 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrCronogramaProyectos:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =Reset(cmbResponsableCronoProyectos);
+        Reset(cmbClienteCronoProyectos);
+        Reset(cmbEstadoCronoProyectos);
+        Reset(cmbSegmentoCronoProyectos);
+        Set(CronogramaX,211.4);
+        // Reconstruye semanas, meses y barras con los desplazamientos actuales (también al volver de scrCronogramaHitos)
+        Select(btnRecalcularCronogramaProyectos)
+    Children:
+      - cntPantallaCronoProyectos:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpMenuLateralCronoProyectos:
+                Control: CanvasComponent
+                ComponentName: cmpMenuLateral
+                Properties:
+                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+            - cntPrincipalCronoProyectos:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpEncabezadoCronoProyectos:
+                      Control: CanvasComponent
+                      ComponentName: cmpEncabezado
+                      Properties:
+                        Height: =60
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        Width: =Max(Parent.Width, 300)
+                  - cntContenidoCronoProyectos:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                      Children:
+                        - cntBarraHerramientasCronoProyectos:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              DropShadow: =DropShadow.None
+                              FillPortions: =1.5
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - cntHerramientasCronoProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.Width
+                                    X: =
+                                  Children:
+                                    - cntFiltrosCronoProyectos:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderColor: =Blank()
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Fill: =Colores.Blanco
+                                          Height: =60
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =Espacio.XS
+                                          LayoutJustifyContent: =LayoutJustifyContent.End
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingRight: =Espacio.L
+                                          PaddingTop: =Espacio.XS
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - txtBuscarCronoProyectos:
+                                              Control: TextInput@0.0.54
+                                              Properties:
+                                                BorderRadius: =4
+                                                Font: =Font.Lato
+                                                FontColor: =MyTheme.Gray
+                                                FontSize: =12
+                                                Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                Placeholder: ="Buscar Proyecto"
+                                                TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                                Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                                          - btnBuscarCronoProyectos:
+                                              Control: Button@0.0.45
+                                              Properties:
+                                                AccessibleLabel: ="Quitar filtros"
+                                                Align: =Align.Center
+                                                Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                                BorderThickness: =0
+                                                FontColor: =RGBA(15, 108, 189, 1)
+                                                FontSize: =30
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                                Icon: ="Search"
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                Text: =""
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                Width: =Self.Height
+                                          - cmbResponsableCronoProyectos:
+                                              Control: ComboBox@0.0.51
+                                              Properties:
+                                                Font: =Font.Lato
+                                                FontSize: =12
+                                                Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                                InputTextPlaceholder: ="PM"
+                                                Items: =ForAll(ColRoles, Nombre)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =30
+                                                SelectMultiple: =true
+                                                Visible: =varAccesoTotal && App.ActiveScreenSize > ScreenSize.Small
+                                                Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                              Children:
+                                                - fldResponsableCronoProyectos:
+                                                    Control: ComboBoxDataField@1.5.0
+                                                    Variant: textualColumn
+                                                    IsLocked: true
+                                                    Properties:
+                                                      FieldDisplayName: ="DisplayName"
+                                                      FieldName: ="DisplayName"
+                                                      FieldType: ="s"
+                                                      Order: =1
+                                          - cmbClienteCronoProyectos:
+                                              Control: ComboBox@0.0.51
+                                              Properties:
+                                                Visible: =App.ActiveScreenSize >= ScreenSize.Large
+                                                AlignInContainer: =AlignInContainer.Center
+                                                Font: =Font.Lato
+                                                FontSize: =12
+                                                Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                                InputTextPlaceholder: ="Cliente"
+                                                Items: =Distinct(ColProyectos, 'Nombre del Cliente')
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =30
+                                                SelectMultiple: =true
+                                                Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                          - cmbEstadoCronoProyectos:
+                                              Control: ComboBox@0.0.51
+                                              Properties:
+                                                Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                                Font: =Font.Lato
+                                                FontSize: =12
+                                                Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                                InputTextPlaceholder: ="Estado"
+                                                Items: =Distinct(ColProyectos.Estado, ThisRecord.Estado.Value)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                              Children:
+                                                - fldEstadoCronoProyectos:
+                                                    Control: ComboBoxDataField@1.5.0
+                                                    Variant: textualColumn
+                                                    IsLocked: true
+                                                    Properties:
+                                                      FieldDisplayName: ="Value"
+                                                      FieldName: ="Value"
+                                                      FieldType: ="s"
+                                                      Order: =1
+                                          - cmbSegmentoCronoProyectos:
+                                              Control: ComboBox@0.0.51
+                                              Properties:
+                                                Font: =Font.Lato
+                                                FontSize: =12
+                                                Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                                InputTextPlaceholder: ="Segmento"
+                                                Items: =Distinct(ColProyectos.Segmento, ThisRecord.Segmento.Value)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                SelectMultiple: =true
+                                                Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                                Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                              Children:
+                                                - fldSegmentoCronoProyectos:
+                                                    Control: ComboBoxDataField@1.5.0
+                                                    Variant: textualColumn
+                                                    IsLocked: true
+                                                    Properties:
+                                                      FieldDisplayName: ="Value"
+                                                      FieldName: ="Value"
+                                                      FieldType: ="s"
+                                                      Order: =1
+                                          - btnQuitarFiltrosCronoProyectos:
+                                              Control: Button@0.0.45
+                                              Properties:
+                                                AccessibleLabel: ="Quitar filtros"
+                                                Align: =Align.Center
+                                                Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                                BorderThickness: =0
+                                                FontColor: =RGBA(189, 49, 51, 1)
+                                                FontSize: =30
+                                                FontWeight: =FontWeight.Bold
+                                                Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                                Icon: ="Eraser"
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                OnSelect: |-
+                                                  =Reset(txtBuscarCronoProyectos);
+                                                  Reset(cmbEstadoCronoProyectos);
+                                                  Reset(cmbResponsableCronoProyectos);
+                                                  Reset(cmbSegmentoCronoProyectos);
+                                                  Reset(cmbClienteCronoProyectos)
+                                                Text: =""
+                                                VerticalAlign: =VerticalAlign.Middle
+                                                Width: =Self.Height
+                                    - cntNavegacionCronoProyectos:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =Parent.Height
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - cntNavegacionFondoCronoProyectos:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                              Children:
+                                                - cntPeriodoCronoProyectos:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      Height: =Parent.Height
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutJustifyContent: =LayoutJustifyContent.End
+                                                      PaddingRight: =15
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Visible: =varVista1="Semana"||varVista1="Mes"
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - galVistaPeriodoCronoProyectos:
+                                                          Control: Gallery@2.15.0
+                                                          Variant: Horizontal
+                                                          Properties:
+                                                            BorderColor: =Colores.FondoSuave
+                                                            BorderStyle: =BorderStyle.None
+                                                            Height: =40
+                                                            Items: |-
+                                                              =[
+                                                                  {ID:1, title:"Mes"},
+                                                                  {ID:2, title:"Semana"}
+                                                              ]
+                                                            LayoutMaxHeight: =
+                                                            LayoutMaxWidth: =
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            TemplatePadding: =0
+                                                            TemplateSize: =130
+                                                          Children:
+                                                            - btnVistaPeriodoCronoProyectos:
+                                                                Control: Classic/Button@2.2.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  Color: =If(varVista1=ThisItem.title, MyTheme.Primary, MyTheme.Gray)
+                                                                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                  DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                  DisabledFill: =RGBA(242, 242, 241, 0)
+                                                                  Fill: =RGBA(0, 0, 0, 0)
+                                                                  Font: =Font.'Lato Black'
+                                                                  Height: =Parent.TemplateHeight
+                                                                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                                  HoverColor: =MyTheme.Primary
+                                                                  HoverFill: =Color.Transparent
+                                                                  OnSelect: =Set(varVista1,ThisItem.title)
+                                                                  PressedBorderColor: =Color.Transparent
+                                                                  PressedColor: =ColorFade(Self.HoverColor, -20%)
+                                                                  PressedFill: =Color.Transparent
+                                                                  RadiusBottomLeft: =0
+                                                                  RadiusBottomRight: =0
+                                                                  RadiusTopLeft: =0
+                                                                  RadiusTopRight: =0
+                                                                  Size: =Fuente.Media
+                                                                  Text: =ThisItem.title
+                                                                  Width: =Parent.TemplateWidth
+                                                      - icoPeriodoAnteriorCronoProyectos:
+                                                          Control: Classic/Icon@2.5.0
+                                                          Properties:
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            Color: =RGBA(0, 120, 212, 1)
+                                                            DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                                            DisabledColor: =RGBA(225, 223, 221, 1)
+                                                            DisabledFill: =RGBA(0, 0, 0, 0)
+                                                            FocusedBorderThickness: =4
+                                                            Height: =30
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverColor: =RGBA(16, 110, 190, 1)
+                                                            HoverFill: =RGBA(0, 0, 0, 0)
+                                                            Icon: =Icon.BackArrow
+                                                            LayoutMaxHeight: =
+                                                            LayoutMaxWidth: =
+                                                            OnSelect: =If(varVista1 = "Semana", Set(varSemanaOffset, Coalesce(varSemanaOffset, 0) - 4), Set(varMesOffset, Coalesce(varMesOffset, 0) - 1)); Select(btnRecalcularCronogramaProyectos)
+                                                            PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                            PressedColor: =RGBA(16, 110, 190, 1)
+                                                            PressedFill: =RGBA(0, 0, 0, 0)
+                                                            Width: =30
+                                                      - btnPeriodoActualCronoProyectos:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.Stretch
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            BorderStyle: =BorderStyle.None
+                                                            Color: =RGBA(0, 0, 0, 1)
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledColor: =RGBA(161, 159, 157, 1)
+                                                            DisabledFill: =RGBA(242, 242, 241, 0)
+                                                            Fill: '=Color.Transparent  '
+                                                            Font: =Font.Lato
+                                                            Height: =Parent.Height
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverColor: =ColorFade(Self.Color,15%)
+                                                            HoverFill: =ColorFade(RGBA(0,0,0,0.00001),15%)
+                                                            LayoutMaxHeight: =
+                                                            LayoutMaxWidth: =
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            OnSelect: =If(varVista1 = "Semana", Set(varSemanaOffset, 0), Set(varMesOffset, 0)); Select(btnRecalcularCronogramaProyectos)
+                                                            PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                                            PressedFill: =ColorFade(Self.HoverFill, -30%)
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Text: |+
+                                                              =IfError( If(varVista1="Semana", Upper(Left(Text(VarDiaActual, "mmmm yyyy", "es-ES"), 1)) &
+                                                              Mid(Text(VarDiaActual, "mmmm yyyy", "es-ES"), 2),"Semestre " &
+                                                              If(Month(VarMesActual) <= 6, 1, 2) &
+                                                              " " &
+                                                              Text(Year(VarMesActual))),Blank())
+                                                            Width: =If(App.ActiveScreenSize = ScreenSize.Small, 120, 180)
+                                                      - icoPeriodoSiguienteCronoProyectos:
+                                                          Control: Classic/Icon@2.5.0
+                                                          Properties:
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            Color: =RGBA(0, 120, 212, 1)
+                                                            DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                                            DisabledColor: =RGBA(225, 223, 221, 1)
+                                                            DisabledFill: =RGBA(0, 0, 0, 0)
+                                                            FocusedBorderThickness: =4
+                                                            Height: =30
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverColor: =RGBA(16, 110, 190, 1)
+                                                            HoverFill: =RGBA(0, 0, 0, 0)
+                                                            Icon: =Icon.NextArrow
+                                                            LayoutMaxHeight: =
+                                                            LayoutMaxWidth: =
+                                                            OnSelect: =If(varVista1 = "Semana", Set(varSemanaOffset, Coalesce(varSemanaOffset, 0) + 4), Set(varMesOffset, Coalesce(varMesOffset, 0) + 1)); Select(btnRecalcularCronogramaProyectos)
+                                                            PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                            PressedColor: =RGBA(16, 110, 190, 1)
+                                                            PressedFill: =RGBA(0, 0, 0, 0)
+                                                            Width: =30
+                        - cntGanttCronoProyectos:
+                            Control: GroupContainer@1.5.0
+                            Variant: ManualLayout
+                            Properties:
+                              Width: =Max(Parent.Width, 900)
+                              AlignInContainer: =AlignInContainer.Start
+                              DropShadow: =DropShadow.None
+                              FillPortions: =10
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                            Children:
+                              - cntGanttColumnaCronoProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    DropShadow: =DropShadow.None
+                                    Height: =Parent.Height
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Visible: =varVista1="Semana" || varVista1="Mes"
+                                    Width: =Parent.Width
+                                  Children:
+                                    - cntCabeceraGanttCronoProyectos:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Fill: =Colores.Velo
+                                          FillPortions: =1.5
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingBottom: =Espacio.XS
+                                          PaddingLeft: =Espacio.XS
+                                          PaddingRight: =Espacio.XS
+                                          PaddingTop: =Espacio.XS
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - cntCabeceraFilaCronoProyectos:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: AutoLayout
+                                              Properties:
+                                                DropShadow: =DropShadow.None
+                                                Height: =Parent.Height
+                                                LayoutDirection: =LayoutDirection.Horizontal
+                                                PaddingLeft: =Espacio.XS
+                                                PaddingRight: =Espacio.XS
+                                                PaddingTop: =Espacio.XS
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =Parent.Width
+                                                X: =
+                                              Children:
+                                                - cntCabeceraTituloCronoProyectos:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      Fill: =RGBA(255, 255, 255, 255)
+                                                      FillPortions: =1.516
+                                                      Height: =Parent.Height-Parent.PaddingBottom-Parent.PaddingRight-Parent.PaddingTop
+                                                      LayoutMaxHeight: =70
+                                                      LayoutMaxWidth: =
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                    Children:
+                                                      - lblCabeceraProyecto:
+                                                          Control: Label@2.5.1
+                                                          Properties:
+                                                            Align: =Align.Center
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            BorderStyle: =BorderStyle.None
+                                                            BorderThickness: =2
+                                                            Color: =Colores.Texto
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledColor: =RGBA(161, 159, 157, 1)
+                                                            Fill: =RGBA(0,0,0,0)
+                                                            Font: =Font.Lato
+                                                            FontWeight: =FontWeight.Bold
+                                                            Height: =Parent.Height
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            Size: =Fuente.Subtitulo
+                                                            Text: ="Proyecto"
+                                                            Width: =Parent.Width
+                                                - cntCabeceraSemanasCronoProyectos:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      AlignInContainer: =AlignInContainer.Center
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =7
+                                                      Height: =Parent.Height-Parent.PaddingBottom-Parent.PaddingRight
+                                                      LayoutMaxHeight: =
+                                                      LayoutMaxWidth: =
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingLeft: =Espacio.XS
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Visible: =varVista1="Semana"
+                                                    Children:
+                                                      - cntSemanasColumnaCronoProyectos:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =MyTheme.LightGray
+                                                            Height: =Parent.Height
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Width: =Parent.Width
+                                                            X: =
+                                                          Children:
+                                                            - cntSemanasFondoCronoProyectos:
+                                                                Control: GroupContainer@1.5.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  AlignInContainer: =AlignInContainer.Center
+                                                                  DropShadow: =DropShadow.None
+                                                                  LayoutMaxHeight: =
+                                                                  LayoutMaxWidth: =
+                                                                  LayoutMinHeight: =0
+                                                                  LayoutMinWidth: =0
+                                                                  RadiusBottomLeft: =0
+                                                                  RadiusBottomRight: =0
+                                                                  RadiusTopLeft: =0
+                                                                  RadiusTopRight: =0
+                                                                  Width: =Parent.Width
+                                                                Children:
+                                                                  - galSemanasCronoProyectos:
+                                                                      Control: Gallery@2.15.0
+                                                                      Variant: Horizontal
+                                                                      Properties:
+                                                                        BorderColor: =Colores.FondoSuave
+                                                                        Height: =Parent.Height
+                                                                        Items: =coleccion_semanas
+                                                                        ShowScrollbar: =false
+                                                                        TemplatePadding: =
+                                                                        TemplateSize: =Parent.Width / Max(1, galSemanasCronoProyectos.AllItemsCount)
+                                                                        Width: =Parent.Width
+                                                                        X: =
+                                                                      Children:
+                                                                        - cntSemanaCronoProyectos:
+                                                                            Control: GroupContainer@1.5.0
+                                                                            Variant: AutoLayout
+                                                                            Properties:
+                                                                              DropShadow: =DropShadow.None
+                                                                              Fill: =RGBA(0,0,0,0)
+                                                                              Height: =Parent.TemplateHeight
+                                                                              LayoutDirection: =LayoutDirection.Horizontal
+                                                                              RadiusBottomLeft: =0
+                                                                              RadiusBottomRight: =0
+                                                                              RadiusTopLeft: =0
+                                                                              RadiusTopRight: =0
+                                                                              Width: =Parent.TemplateWidth
+                                                                            Children:
+                                                                              - recDivisorSemanaCronoProyectos:
+                                                                                  Control: Rectangle@2.3.0
+                                                                                  Properties:
+                                                                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    BorderStyle: =BorderStyle.None
+                                                                                    BorderThickness: =2
+                                                                                    DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                                    Fill: =MyTheme.Gray
+                                                                                    FocusedBorderThickness: =4
+                                                                                    Height: =Parent.Height
+                                                                                    HoverFill: =RGBA(0, 120, 212, 1)
+                                                                                    PressedFill: =RGBA(0, 120, 212, 1)
+                                                                                    Width: =1
+                                                                                    X: =cntSemanaCronoHitos.Width
+                                                                              - lblSemanaCronoProyectos:
+                                                                                  Control: Label@2.5.1
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AlignInContainer: =AlignInContainer.Stretch
+                                                                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    BorderStyle: =BorderStyle.None
+                                                                                    BorderThickness: =2
+                                                                                    Color: =Colores.Texto
+                                                                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                                    FillPortions: =1
+                                                                                    FocusedBorderThickness: =4
+                                                                                    Font: =Font.Lato
+                                                                                    FontWeight: =FontWeight.Bold
+                                                                                    LayoutMaxHeight: =
+                                                                                    LayoutMaxWidth: =
+                                                                                    LayoutMinHeight: =0
+                                                                                    LayoutMinWidth: =0
+                                                                                    Text: =ThisItem.RangoTexto
+                                                - cntCabeceraMesesCronoProyectos:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: ManualLayout
+                                                    Properties:
+                                                      BorderStyle: =BorderStyle.None
+                                                      DropShadow: =DropShadow.None
+                                                      FillPortions: =7
+                                                      LayoutMaxHeight: =
+                                                      LayoutMaxWidth: =
+                                                      LayoutMinHeight: =0
+                                                      LayoutMinWidth: =0
+                                                      PaddingLeft: =Espacio.XS
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Visible: =varVista1="Mes"
+                                                    Children:
+                                                      - cntMesesColumnaCronoProyectos:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =MyTheme.LightGray
+                                                            Height: =Parent.Height
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                            Width: =Parent.Width
+                                                            X: =
+                                                          Children:
+                                                            - cntMesesFondoCronoProyectos:
+                                                                Control: GroupContainer@1.5.0
+                                                                Variant: ManualLayout
+                                                                Properties:
+                                                                  DropShadow: =DropShadow.None
+                                                                  LayoutMaxHeight: =
+                                                                  LayoutMaxWidth: =
+                                                                  LayoutMinHeight: =0
+                                                                  LayoutMinWidth: =0
+                                                                  RadiusBottomLeft: =0
+                                                                  RadiusBottomRight: =0
+                                                                  RadiusTopLeft: =0
+                                                                  RadiusTopRight: =0
+                                                                Children:
+                                                                  - galMesesCronoProyectos:
+                                                                      Control: Gallery@2.15.0
+                                                                      Variant: Horizontal
+                                                                      Properties:
+                                                                        BorderColor: =Colores.FondoSuave
+                                                                        Height: =Parent.Height
+                                                                        Items: =coleccion_meses
+                                                                        ShowScrollbar: =false
+                                                                        TemplatePadding: =
+                                                                        TemplateSize: =Parent.Width / Max(1, galMesesCronoProyectos.AllItemsCount)
+                                                                        Width: =Parent.Width
+                                                                        X: =
+                                                                      Children:
+                                                                        - cntMesCronoProyectos:
+                                                                            Control: GroupContainer@1.5.0
+                                                                            Variant: AutoLayout
+                                                                            Properties:
+                                                                              DropShadow: =DropShadow.None
+                                                                              Fill: =RGBA(0,0,0,0)
+                                                                              Height: =Parent.TemplateHeight
+                                                                              LayoutDirection: =LayoutDirection.Horizontal
+                                                                              RadiusBottomLeft: =0
+                                                                              RadiusBottomRight: =0
+                                                                              RadiusTopLeft: =0
+                                                                              RadiusTopRight: =0
+                                                                              Width: =Parent.TemplateWidth
+                                                                            Children:
+                                                                              - recDivisorMesCronoProyectos:
+                                                                                  Control: Rectangle@2.3.0
+                                                                                  Properties:
+                                                                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    BorderStyle: =BorderStyle.None
+                                                                                    BorderThickness: =2
+                                                                                    DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                                    Fill: =MyTheme.Gray
+                                                                                    FocusedBorderThickness: =4
+                                                                                    Height: =Parent.Height
+                                                                                    HoverFill: =RGBA(0, 120, 212, 1)
+                                                                                    PressedFill: =RGBA(0, 120, 212, 1)
+                                                                                    Width: =1
+                                                                                    X: =cntSemanaCronoHitos.Width
+                                                                              - lblMesCronoProyectos:
+                                                                                  Control: Label@2.5.1
+                                                                                  Properties:
+                                                                                    Align: =Align.Center
+                                                                                    AlignInContainer: =AlignInContainer.Stretch
+                                                                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    BorderStyle: =BorderStyle.None
+                                                                                    BorderThickness: =2
+                                                                                    Color: =Colores.Texto
+                                                                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                                    FillPortions: =1
+                                                                                    FocusedBorderThickness: =4
+                                                                                    Font: =Font.Lato
+                                                                                    FontWeight: =FontWeight.Bold
+                                                                                    LayoutMaxHeight: =
+                                                                                    LayoutMaxWidth: =
+                                                                                    LayoutMinHeight: =0
+                                                                                    LayoutMinWidth: =0
+                                                                                    Text: =ThisItem.MesTexto
+                                    - recSeparadorCronoProyectos:
+                                        Control: Rectangle@2.3.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          DisabledFill: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.Gray
+                                          FocusedBorderThickness: =4
+                                          Height: =1
+                                          HoverFill: =RGBA(0, 120, 212, 1)
+                                          LayoutMinHeight: =16
+                                          LayoutMinWidth: =0
+                                          PressedFill: =RGBA(0, 120, 212, 1)
+                                          Width: =Parent.Width-5
+                                    - cntFilasGanttCronoProyectos:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: ManualLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          FillPortions: =7
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingRight: =Espacio.XS
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                        Children:
+                                          - galProyectosGantt:
+                                              Control: Gallery@2.15.0
+                                              Variant: Vertical
+                                              Properties:
+                                                BorderColor: =Colores.FondoSuave
+                                                Fill: =Colores.Velo
+                                                Height: =Parent.Height
+                                                Items: |-
+                                                  =// ColProyectos ya viene filtrada por rol desde la carga
+                                                  With(
+                                                      {
+                                                          _txt: txtBuscarCronoProyectos.Value,
+                                                          _est: cmbEstadoCronoProyectos.Selected.Value,
+                                                          _resp: ForAll(cmbResponsableCronoProyectos.SelectedItems, Lower(Claims)),
+                                                          _seg: ForAll(cmbSegmentoCronoProyectos.SelectedItems, Lower(Value)),
+                                                          _cli: ForAll(cmbClienteCronoProyectos.SelectedItems, Lower(Value))
+                                                      },
+                                                      Filter(
+                                                          ColProyectos,
+                                                          IsBlank(_est) || Estado.Value = _est,
+                                                          IsBlank(_txt) || _txt in 'Nombre del proyecto' || _txt in Text(NumeroCaso) || _txt in 'Nombre del Cliente',
+                                                          IsEmpty(_resp) || CountIf(Responsable, Lower(Claims) in _resp) > 0,
+                                                          IsEmpty(_seg) || Lower(Segmento.Value) in _seg,
+                                                          IsEmpty(_cli) || Lower('Nombre del Cliente') in _cli
+                                                      )
+                                                  )
+                                                ShowScrollbar: =false
+                                                TemplatePadding: =
+                                                TemplateSize: =70
+                                                Width: =Parent.Width
+                                                X: =
+                                              Children:
+                                                - cntFilaProyectoGantt:
+                                                    Control: GroupContainer@1.5.0
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      DropShadow: =DropShadow.None
+                                                      Height: =Parent.TemplateHeight
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutJustifyContent: =LayoutJustifyContent.Center
+                                                      PaddingLeft: =Espacio.XS
+                                                      PaddingRight: =Espacio.XS
+                                                      RadiusBottomLeft: =0
+                                                      RadiusBottomRight: =0
+                                                      RadiusTopLeft: =0
+                                                      RadiusTopRight: =0
+                                                      Width: =Parent.TemplateWidth
+                                                      X: =
+                                                      Y: =
+                                                    Children:
+                                                      - cntDatosProyectoGantt:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: AutoLayout
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.SetByContainer
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =Colores.Blanco
+                                                            FillPortions: =1.52
+                                                            Height: =Parent.Height
+                                                            LayoutAlignItems: =LayoutAlignItems.Center
+                                                            LayoutDirection: =LayoutDirection.Vertical
+                                                            LayoutMinHeight: =16
+                                                            LayoutMinWidth: =16
+                                                            PaddingBottom: =Espacio.S
+                                                            PaddingLeft: =Espacio.S
+                                                            PaddingRight: =Espacio.S
+                                                            PaddingTop: =Espacio.S
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                          Children:
+                                                            - lblClienteProyectoGantt:
+                                                                Control: Label@2.5.1
+                                                                Properties:
+                                                                  Align: =Align.Center
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  Color: =Colores.Texto
+                                                                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                  DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                  FillPortions: =1
+                                                                  FocusedBorderThickness: =4
+                                                                  Font: =Font.Lato
+                                                                  Height: =Parent.Height/2
+                                                                  LayoutMinHeight: =0
+                                                                  Text: =ThisItem.'Nombre del Cliente'
+                                                                  Tooltip: =ThisItem.'Nombre del Cliente'
+                                                                  Width: =Parent.Width
+                                                                  Wrap: =false
+                                                                  X: =
+                                                                  Y: =
+                                                            - lblNombreProyectoGantt:
+                                                                Control: Label@2.5.1
+                                                                Properties:
+                                                                  Align: =Align.Center
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  Color: =MyTheme.Gray
+                                                                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                  DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                  FillPortions: =1
+                                                                  FocusedBorderThickness: =4
+                                                                  Font: =Font.Lato
+                                                                  Height: =Parent.Height/2
+                                                                  LayoutMinHeight: =0
+                                                                  Size: =9
+                                                                  Text: =ThisItem.'Nombre del proyecto'
+                                                                  Tooltip: =ThisItem.'Nombre del proyecto'
+                                                                  Width: =Parent.Width
+                                                                  Wrap: =false
+                                                                  X: =
+                                                                  Y: =
+                                                      - cntBarrasProyectoGantt:
+                                                          Control: GroupContainer@1.5.0
+                                                          Variant: ManualLayout
+                                                          Properties:
+                                                            AlignInContainer: =AlignInContainer.SetByContainer
+                                                            BorderStyle: =BorderStyle.None
+                                                            DropShadow: =DropShadow.None
+                                                            Fill: =MyTheme.LightGray
+                                                            FillPortions: =7
+                                                            Height: =Parent.Height
+                                                            LayoutMaxHeight: =
+                                                            LayoutMaxWidth: =
+                                                            LayoutMinHeight: =0
+                                                            LayoutMinWidth: =0
+                                                            RadiusBottomLeft: =0
+                                                            RadiusBottomRight: =0
+                                                            RadiusTopLeft: =0
+                                                            RadiusTopRight: =0
+                                                          Children:
+                                                            - galBarraProyectoGantt:
+                                                                Control: Gallery@2.15.0
+                                                                Variant: Vertical
+                                                                Properties:
+                                                                  BorderColor: =Colores.FondoSuave
+                                                                  Height: =Parent.Height
+                                                                  Items: |-
+                                                                    =// Barra del proyecto en la ventana visible (por ID: los nombres pueden repetirse)
+                                                                    If(
+                                                                        varVista1 = "Semana",
+                                                                        LookUp(Coll_SubCollection_Semanas, ID = ThisItem.ID),
+                                                                        LookUp(Coll_subCollectionMes, ID = ThisItem.ID)
+                                                                    )
+                                                                  ShowScrollbar: =false
+                                                                  TemplatePadding: =0
+                                                                  TemplateSize: =40
+                                                                  Width: =Parent.Width
+                                                                  Y: =(Parent.Height-Self.Height)/2
+                                                                Children:
+                                                                  - btnBarraProyectoGantt:
+                                                                      Control: Classic/Button@2.2.0
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 0, 0, 0)
+                                                                        BorderStyle: =BorderStyle.None
+                                                                        Color: =Colores.Blanco
+                                                                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                                        DisabledColor: =RGBA(161, 159, 157, 1)
+                                                                        DisabledFill: =RGBA(242, 242, 241, 0)
+                                                                        Fill: |-
+                                                                          =// Barra del cronograma: rojo si el proyecto está vencido; si no, color por estado
+                                                                          If(
+                                                                              !IsBlank(ThisItem.Fecha_Fin) && ThisItem.Fecha_Fin < Today() && !(ThisItem.Estado.Value in ["Completado", "Cancelado"]),
+                                                                              ColorValue("#DC2626"),
+                                                                              Switch(ThisItem.Estado.Value, "Completado", ColorValue("#16A34A"), "En progreso", MyTheme.DarkBlue, "Cancelado", MyTheme.Gray, "Stand By", ColorValue("#7C3AED"), MyTheme.Primary)
+                                                                          )
+                                                                        Font: =Font.'Segoe UI'
+                                                                        Height: =Parent.Height*50%
+                                                                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                                        HoverColor: =RGBA(255, 255, 255, 1)
+                                                                        HoverFill: =ColorFade(Self.Fill,-10%)
+                                                                        OnSelect: =Set(varProyecto,ThisItem); Navigate(scrCronogramaHitos,ScreenTransition.Fade); Set(varVista2,varVista1);
+                                                                        PaddingBottom: =0
+                                                                        PaddingLeft: =0
+                                                                        PaddingRight: =0
+                                                                        PaddingTop: =0
+                                                                        PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                                        PressedColor: =RGBA(255, 255, 255, 1)
+                                                                        PressedFill: =ColorFade(Self.Fill,-20%)
+                                                                        RadiusBottomLeft: =0
+                                                                        RadiusBottomRight: =0
+                                                                        RadiusTopLeft: =0
+                                                                        RadiusTopRight: =0
+                                                                        Text: =
+                                                                        Tooltip: |-
+                                                                          ="Fecha creación caso aprovisionamiento: "& ThisItem.'Fecha creación caso aprovisionamiento ' &", Fecha de finalización: " &ThisItem.Fecha_Fin
+                                                                        Width: |-
+                                                                          =IfError(If(
+                                                                              varVista1 = "Semana",
+
+                                                                              With(
+                                                                                  {
+                                                                                      semWidth: Parent.Width / Max(1, CountRows(coleccion_semanas)),
+                                                                                      ventIni: First(coleccion_semanas).Inicio,
+                                                                                      ventFin: Last(coleccion_semanas).Fin
+                                                                                  },
+                                                                                  With(
+                                                                                      {
+                                                                                          iniClip: Max(ThisItem.'Fecha creación caso aprovisionamiento ', ventIni),
+                                                                                          finClip: Min(ThisItem.Fecha_Fin, ventFin)
+                                                                                      },
+                                                                                      If(
+                                                                                          iniClip > finClip,
+                                                                                          0,
+                                                                                          semWidth *
+                                                                                          Max(
+                                                                                              1,
+                                                                                              DateDiff(
+                                                                                                  DateAdd(iniClip, -Weekday(iniClip, StartOfWeek.MondayZero), TimeUnit.Days),
+                                                                                                  DateAdd(finClip, -Weekday(finClip, StartOfWeek.MondayZero), TimeUnit.Days),
+                                                                                                  TimeUnit.Days
+                                                                                              ) / 7 + 1
+                                                                                          )
+                                                                                      )
+                                                                                  )
+                                                                              ),
+
+                                                                              With(
+                                                                                  {
+                                                                                      mesWidth: Parent.Width / Max(1, CountRows(coleccion_meses)),
+                                                                                      ventIni: First(coleccion_meses).InicioMes,
+                                                                                      ventFin: Last(coleccion_meses).FinMes
+                                                                                  },
+                                                                                  With(
+                                                                                      {
+                                                                                          iniClip: Max(ThisItem.'Fecha creación caso aprovisionamiento ', ventIni),
+                                                                                          finClip: Min(ThisItem.Fecha_Fin, ventFin)
+                                                                                      },
+                                                                                      If(
+                                                                                          iniClip > finClip,
+                                                                                          0,
+                                                                                          mesWidth *
+                                                                                          Max(
+                                                                                              1,
+                                                                                              DateDiff(
+                                                                                                  Date(
+                                                                                                      Year(iniClip),
+                                                                                                      Month(iniClip),
+                                                                                                      1
+                                                                                                  ),
+                                                                                                  Date(
+                                                                                                      Year(finClip),
+                                                                                                      Month(finClip),
+                                                                                                      1
+                                                                                                  ),
+                                                                                                  TimeUnit.Months
+                                                                                              ) + 1
+                                                                                          )
+                                                                                      )
+                                                                                  )
+                                                                              )
+                                                                          ),Blank())
+                                                                        X: |-
+                                                                          =IfError(If(
+                                                                              varVista1 = "Semana",
+
+                                                                              With(
+                                                                                  {
+                                                                                      semWidth: Parent.Width / Max(1, CountRows(coleccion_semanas)),
+                                                                                      ventIni: First(coleccion_semanas).Inicio,
+                                                                                      totalCols: CountRows(coleccion_semanas)
+                                                                                  },
+                                                                                  With(
+                                                                                      {
+                                                                                          lunesIni:
+                                                                                              DateAdd(
+                                                                                                  ThisItem.'Fecha creación caso aprovisionamiento ',
+                                                                                                  -Weekday(ThisItem.'Fecha creación caso aprovisionamiento ', StartOfWeek.MondayZero),
+                                                                                                  TimeUnit.Days
+                                                                                              )
+                                                                                      },
+                                                                                      semWidth *
+                                                                                      Max(
+                                                                                          0,
+                                                                                          Min(
+                                                                                              totalCols - 1,
+                                                                                              Int(
+                                                                                                  DateDiff(
+                                                                                                      ventIni,
+                                                                                                      lunesIni,
+                                                                                                      TimeUnit.Days
+                                                                                                  ) / 7
+                                                                                              )
+                                                                                          )
+                                                                                      )
+                                                                                  )
+                                                                              ),
+
+                                                                              With(
+                                                                                  {
+                                                                                      mesWidth: Parent.Width / Max(1, CountRows(coleccion_meses)),
+                                                                                      ventIni: First(coleccion_meses).InicioMes,
+                                                                                      totalCols: CountRows(coleccion_meses)
+                                                                                  },
+                                                                                  With(
+                                                                                      {
+                                                                                          mesIni:
+                                                                                              Date(
+                                                                                                  Year(ThisItem.'Fecha creación caso aprovisionamiento '),
+                                                                                                  Month(ThisItem.'Fecha creación caso aprovisionamiento '),
+                                                                                                  1
+                                                                                              )
+                                                                                      },
+                                                                                      mesWidth *
+                                                                                      Max(
+                                                                                          0,
+                                                                                          Min(
+                                                                                              totalCols - 1,
+                                                                                              DateDiff(
+                                                                                                  ventIni,
+                                                                                                  mesIni,
+                                                                                                  TimeUnit.Months
+                                                                                              )
+                                                                                          )
+                                                                                      )
+                                                                                  )
+                                                                              )
+                                                                          ),Blank())
+                                                                        Y: =(Parent.Height-Self.Height)/2
+                                                                  - rtgHitoFechaAsignacion:
+                                                                      Control: Star@2.4.0
+                                                                      Variant: 5Points
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 0, 0, 0)
+                                                                        Fill: =Color.White
+                                                                        Height: =25
+                                                                        OnSelect: =Select(Parent)
+                                                                        Tooltip: |-
+                                                                          ="Fecha asignación: " & ThisItem.'Fecha asignación'
+                                                                        Visible: =false
+                                                                        Width: =25
+                                                                        X: =243
+                                                                        Y: =(Parent.Height-Self.Height)/2
+                                                                  - rtgHitoFechaFirmaContrato:
+                                                                      Control: Star@2.4.0
+                                                                      Variant: 8Points
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 0, 0, 0)
+                                                                        Fill: =Color.White
+                                                                        Height: =25
+                                                                        OnSelect: =Select(Parent)
+                                                                        Tooltip: |-
+                                                                          ="Fecha firma contrato: "&ThisItem.'Fecha firma contrato'
+                                                                        Visible: =false
+                                                                        Width: =25
+                                                                        X: =879
+                                                                        Y: =(Parent.Height-Self.Height)/2
+                                                                  - rtgHitoFechaKickOff:
+                                                                      Control: Star@2.4.0
+                                                                      Variant: 12Points
+                                                                      Properties:
+                                                                        BorderColor: =RGBA(0, 0, 0, 0)
+                                                                        Fill: =Color.White
+                                                                        Height: =25
+                                                                        OnSelect: =Select(Parent)
+                                                                        Tooltip: |-
+                                                                          ="Fecha kick off cliente: "&ThisItem.'Fecha Kick off Cliente'
+                                                                        Visible: =false
+                                                                        Width: =25
+                                                                        X: =510
+                                                                        Y: =(Parent.Height-Self.Height)/2
+                                                            - recDivisorInicioProyectoGantt:
+                                                                Control: Rectangle@2.3.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                  Fill: =MyTheme.Gray
+                                                                  FocusedBorderThickness: =4
+                                                                  Height: =Parent.Height
+                                                                  Width: =1
+                                                            - recDivisorPrimeroProyectoGantt:
+                                                                Control: Rectangle@2.3.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                  Fill: =MyTheme.Gray
+                                                                  FocusedBorderThickness: =4
+                                                                  Height: =Parent.Height
+                                                                  Width: =1
+                                                                  X: =Parent.Width * 1 / Max(1, If(varVista1 = "Semana", CountRows(coleccion_semanas), CountRows(coleccion_meses)))
+                                                            - recDivisorSegundoProyectoGantt:
+                                                                Control: Rectangle@2.3.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                  Fill: =MyTheme.Gray
+                                                                  FocusedBorderThickness: =4
+                                                                  Height: =Parent.Height
+                                                                  Width: =1
+                                                                  X: =Parent.Width * 2 / Max(1, If(varVista1 = "Semana", CountRows(coleccion_semanas), CountRows(coleccion_meses)))
+                                                            - recDivisorTerceroProyectoGantt:
+                                                                Control: Rectangle@2.3.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                  Fill: =MyTheme.Gray
+                                                                  FocusedBorderThickness: =4
+                                                                  Height: =Parent.Height
+                                                                  Width: =1
+                                                                  X: =Parent.Width * 3 / Max(1, If(varVista1 = "Semana", CountRows(coleccion_semanas), CountRows(coleccion_meses)))
+                                                            - recDivisorCuartoProyectoGantt:
+                                                                Control: Rectangle@2.3.0
+                                                                Properties:
+                                                                  BorderColor: =RGBA(0, 0, 0, 0)
+                                                                  BorderStyle: =BorderStyle.None
+                                                                  BorderThickness: =2
+                                                                  DisabledFill: =RGBA(161, 159, 157, 1)
+                                                                  Fill: =MyTheme.Gray
+                                                                  FocusedBorderThickness: =4
+                                                                  Height: =Parent.Height
+                                                                  Width: =1
+                                                                  X: =Parent.Width * 4 / Max(1, If(varVista1 = "Semana", CountRows(coleccion_semanas), CountRows(coleccion_meses)))
+      - btnRecalcularCronogramaProyectos:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(161, 159, 157, 1)
+            DisabledFill: =RGBA(242, 242, 241, 0)
+            Fill: '=Color.Transparent  '
+            Font: =Font.Lato
+            Height: =Parent.Height
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =ColorFade(Self.Color,15%)
+            HoverFill: =ColorFade(RGBA(0,0,0,0.00001),15%)
+            OnSelect: |-
+              =// Única copia de la construcción del cronograma en esta pantalla (OnVisible, flechas y Hoy la ejecutan con Select).
+              // Misma base que btnRecalcularCronogramaHitos en scrCronogramaHitos: si se cambia aquí, cambiarla allí.
+              /* ---------------- SEMANAS: 5 semanas desde el lunes de (hoy + varSemanaOffset semanas) ---------------- */
+              Set(varHoy, DateAdd(Today(), Coalesce(varSemanaOffset, 0) * 7, TimeUnit.Days));
+              Set(_inicioSemana, DateAdd(varHoy, -Weekday(varHoy, StartOfWeek.MondayZero), TimeUnit.Days));
+              ClearCollect(
+                  coleccion_semanas,
+                  ForAll(
+                      Sequence(5),
+                      With(
+                          {
+                              _ini: DateAdd(_inicioSemana, (Value - 1) * 7, TimeUnit.Days),
+                              _fin: DateAdd(_inicioSemana, (Value - 1) * 7 + 6, TimeUnit.Days)
+                          },
+                          {
+                              Inicio: _ini,
+                              Fin: _fin,
+                              RangoTexto: If(
+                                  Month(_ini) = Month(_fin),
+                                  Text(_ini, "[$-es-ES]mmm") & " " & Text(_ini, "[$-es-ES]d") & "-" & Text(_fin, "[$-es-ES]d"),
+                                  Text(_ini, "[$-es-ES]mmm d") & "-" & Text(_fin, "[$-es-ES]mmm d")
+                              ),
+                              MesTexto: Text(_ini, "[$-es-ES]mmmm yyyy")
+                          }
+                      )
+                  )
+              );
+              // Mes de la cabecera en vista Semana: el que ocupa más semanas de la ventana
+              With(
+                  {
+                      _m1: Date(Year(First(coleccion_semanas).Inicio), Month(First(coleccion_semanas).Inicio), 1),
+                      _m2: Date(Year(Last(coleccion_semanas).Inicio), Month(Last(coleccion_semanas).Inicio), 1)
+                  },
+                  With(
+                      {
+                          _c1: CountRows(Filter(coleccion_semanas, Year(Inicio) = Year(_m1) && Month(Inicio) = Month(_m1))),
+                          _c2: CountRows(Filter(coleccion_semanas, Year(Inicio) = Year(_m2) && Month(Inicio) = Month(_m2)))
+                      },
+                      Set(
+                          VarDiaActual,
+                          If(
+                              _c1 > 2 && _c1 >= _c2, _m1,
+                              _c2 > 2, _m2,
+                              With(
+                                  { _wkCentral: Last(FirstN(coleccion_semanas, 3)) },
+                                  Date(Year(_wkCentral.Inicio), Month(_wkCentral.Inicio), 1)
+                              )
+                          )
+                      )
+                  )
+              );
+              /* ---------------- MESES: 5 meses desde (mes actual + varMesOffset meses) ---------------- */
+              Set(VarMesActual, DateAdd(Date(Year(Today()), Month(Today()), 1), Coalesce(varMesOffset, 0), TimeUnit.Months));
+              ClearCollect(
+                  coleccion_meses,
+                  ForAll(
+                      Sequence(5),
+                      With(
+                          { _iniM: DateAdd(VarMesActual, Value - 1, TimeUnit.Months) },
+                          {
+                              InicioMes: _iniM,
+                              FinMes: DateAdd(DateAdd(_iniM, 1, TimeUnit.Months), -1, TimeUnit.Days),
+                              MesTexto: Text(_iniM, "[$-es-ES]mmmm yyyy")
+                          }
+                      )
+                  )
+              );/* ---------------- PROYECTOS EN LAS VENTANAS ---------------- */
+              With(
+                  {
+                      VentanaIni: First(coleccion_semanas).Inicio,
+                      VentanaFin: Last(coleccion_semanas).Fin
+                  },
+                  // Mismo esquema que Coll_subCollectionMes: galBarraProyectoGantt elige entre las dos con If, y si los registros
+                  // tienen columnas distintas la rama de Semana queda vacía (las barras no se veían en vista Semana).
+                  // La posición y el ancho de cada barra los calcula btnBarraProyectoGantt con las fechas, no hacen falta columnas extra.
+                  ClearCollect(
+                      Coll_SubCollection_Semanas,
+                      Filter(
+                          ColProyectos,
+                          'Fecha creación caso aprovisionamiento ' <= VentanaFin && Fecha_Fin >= VentanaIni
+                      )
+                  )
+              );
+              With(
+                  {
+                      ventanaIni: First(coleccion_meses).InicioMes,
+                      ventanaFin: Last(coleccion_meses).FinMes
+                  },
+                  ClearCollect(
+                      Coll_subCollectionMes,
+                      Filter(
+                          ColProyectos,
+                          'Fecha creación caso aprovisionamiento ' <= ventanaFin && Fecha_Fin >= ventanaIni
+                      )
+                  )
+              )
+            PressedBorderColor: =RGBA(0, 69, 120, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =ColorFade(Self.HoverFill, -30%)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: ="Recalcular cronograma"
+            Visible: =false
+            Width: =180

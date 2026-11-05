@@ -1,0 +1,150 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpPopupAgregar:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Fill: =Colores.Velo
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - cntFondoPopupAgregar:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: '=Parent.Width    '
+          Children:
+            - cntPopupAgregar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DropShadow: =DropShadow.Semibold
+                  Fill: =Colores.Blanco
+                  Height: =Min(App.Height* 55%, 270)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =Espacio.L
+                  PaddingBottom: =Espacio.L
+                  PaddingLeft: =Espacio.L
+                  PaddingRight: =Espacio.L
+                  PaddingTop: =Espacio.L
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Min(App.Width * If(App.ActiveScreenSize = ScreenSize.Small, 90%, 70%), 700)
+                  X: =(Parent.Width-Self.Width) / 2
+                  Y: =(Parent.Height-Self.Height)/2
+                Children:
+                  - cntCerrarPopupAgregar:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - icoCerrarPopupAgregar:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              Color: =MyTheme.Primary
+                              DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                              DisabledColor: =RGBA(225, 223, 221, 1)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              FocusedBorderThickness: =4
+                              Height: =30
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(16, 110, 190, 1)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Icon: =Icon.Cancel
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              OnSelect: =Set(varAgregar, false);
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedColor: =RGBA(16, 110, 190, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =30
+                  - btnCrearProyecto:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        BorderColor: =ColorFade(Color.Black, -15%)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: =MyTheme.Primary
+                        Font: =Font.Lato
+                        Height: =80
+                        HoverBorderColor: =btnCrearProyecto.BorderColor
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =Navigate(scrFormularioProyecto,ScreenTransition.Fade); NewForm(frmProyecto); Set(varAgregar,false);
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Normal
+                        Text: ="Crear Proyecto"
+                        Visible: =App.ActiveScreen.Name = "scrMisProyectos"
+                        Width: =230
+                  - btnCrearHito:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(MyTheme.Primary, -15%)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: =MyTheme.Primary
+                        Font: =Font.Lato
+                        Height: =80
+                        HoverBorderColor: =btnCrearHito.BorderColor
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =Navigate(scrFormularioHito,ScreenTransition.Fade); NewForm(frmHito); Set(varAgregar,false)
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Normal
+                        Text: ="Crear Hito"
+                        Visible: =App.ActiveScreen.Name = "scrMisHitos"
+                        Width: =230

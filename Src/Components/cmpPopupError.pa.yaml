@@ -1,0 +1,111 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpPopupError:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Fill: =Colores.Velo
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - cntPopupError:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Bold
+            Fill: =Colores.Blanco
+            Height: =Min(App.Width* 95%,250)
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Width: =Min(App.Width* 95%,400)
+            X: =(Parent.Width-Self.Width)/2
+            Y: =(Parent.Height-Self.Height)/2
+          Children:
+            - cntContenidoPopupError:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.None
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =Espacio.M
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  PaddingBottom: =Espacio.L
+                  PaddingLeft: =40
+                  PaddingRight: =40
+                  PaddingTop: =Espacio.L
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  X: =40
+                  Y: =40
+                Children:
+                  - imgError:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =ImagenError
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        X: =40
+                        Y: =40
+                  - lblMensajeError:
+                      Control: Text@0.0.51
+                      Properties:
+                        Align: ='TextCanvas.Align'.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Font: =Font.Lato
+                        FontColor: =RGBA(0, 0, 0, 1)
+                        Height: =50
+                        LayoutMinHeight: =16
+                        LayoutMinWidth: =16
+                        Size: =Fuente.Titulo
+                        Text: ="Caso no encontrado"
+                        Weight: ='TextCanvas.Weight'.Bold
+                  - btnAceptarError:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =MyTheme.Gray
+                        Color: =Color.Black
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: =Color.Transparent
+                        FocusedBorderThickness: =2
+                        Font: =Font.Lato
+                        Height: =32
+                        HoverBorderColor: =ColorFade(Self.BorderColor, -20%)
+                        HoverColor: =ColorFade(Self.Color, -20%)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: =ResetForm(frmProyecto); Set(varProyecto,Blank()); Back();Set(respuesta,Blank());
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =ColorFade(Self.Color, -20%)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Pequena
+                        Text: ="Aceptar"
+                        Width: =96

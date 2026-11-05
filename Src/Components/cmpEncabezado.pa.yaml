@@ -1,0 +1,429 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpEncabezado:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Height: =60
+      Width: =Max(App.Width, 300)
+    Children:
+      - cntEncabezado:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Regular
+            Fill: =Colores.Blanco
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutGap: =Espacio.M
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+            PaddingLeft: =Espacio.L
+            PaddingRight: =15
+            Width: =Parent.Width
+          Children:
+            - icoMenuEncabezado:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: ="Abrir menú"
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Color: =MyTheme.Primary
+                  FocusedBorderThickness: =4
+                  Height: =30
+                  HoverColor: =MyTheme.DarkBlue
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  Icon: =Icon.Hamburger
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =Set(VarMenu, !VarMenu)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Visible: =App.ActiveScreenSize = ScreenSize.Small
+                  Width: =30
+            - btnCrearEncabezado:
+                Control: Classic/Button@2.2.0
+                Properties:
+                  BorderColor: =ColorFade(Self.Fill, -15%)
+                  BorderStyle: =BorderStyle.None
+                  Color: =Colores.Blanco
+                  DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                  DisabledColor: =RGBA(161, 159, 157, 1)
+                  DisabledFill: =RGBA(242, 242, 241, 0)
+                  Fill: =MyTheme.Primary
+                  Font: =Font.Lato
+                  HoverBorderColor: =Self.Color
+                  HoverColor: =RGBA(255, 255, 255, 1)
+                  HoverFill: =ColorFade(Self.Fill, -10%)
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  OnSelect: =If(App.ActiveScreen.Name in ["scrMisProyectos"],Set(varProyecto, Blank()); Navigate(scrFormularioProyecto,ScreenTransition.Fade); NewForm(frmProyecto),Set(varHito, Blank()); Navigate(scrFormularioHito,ScreenTransition.Fade); NewForm(frmHito))
+                  PressedBorderColor: =Self.Color
+                  PressedColor: =RGBA(255, 255, 255, 1)
+                  PressedFill: =ColorFade(Self.Fill, -20%)
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Size: =Fuente.Pequena
+                  Text: ="+ Crear"
+                  Visible: =App.ActiveScreen.Name in ["scrMisProyectos", "scrMisHitos"]
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, 80, 100)
+            - cntActualizar:
+                Control: GroupContainer@1.5.0
+                Variant: ManualLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Center
+                  DropShadow: =DropShadow.None
+                  FillPortions: =0
+                  Height: =Parent.Height-10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =
+                  PaddingBottom: =Espacio.XS
+                  PaddingLeft: =Espacio.XS
+                  PaddingRight: =Espacio.XS
+                  PaddingTop: =Espacio.XS
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  Width: =Max(40, Parent.Width*0.04)
+                Children:
+                  - imgActualizar:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =Parent.Height
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =ImagenActualizar
+                        OnSelect: =
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        Width: =Parent.Width
+                  - btnActualizarDatos:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: '=Color.Transparent  '
+                        Font: =Font.'Segoe UI'
+                        Height: =Parent.Height
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =RGBA(190,190,240,0.1)
+                        OnSelect: |-
+                          =Refresh(Proyectos);
+                          Refresh(Hitos);
+                          Refresh(Roles);
+                          // ===== CARGA POR ROL (mantener idéntico en App.OnStart y en cmpEncabezado > botón Actualizar) =====
+                          // Roles, Proyectos e Hitos se descargan EN PARALELO y por lotes dinámicos; se vuelcan a las colecciones finales
+                          // al terminar (así las pantallas no se recalculan con cada lote). Los comentarios se leen por proyecto al abrirlo.
+                          // Hitos es la lista más grande: su rango de fechas de creación se parte en 4 tramos que se descargan a la vez.
+                          // Los cortes salen del primer y el último 'Creado' reales, así que se adaptan solos al volumen de datos.
+                          Concurrent(
+                              Set(varHitosDesde, First(Sort(Hitos, Created, SortOrder.Ascending)).Created),
+                              Set(varHitosHasta, First(Sort(Hitos, Created, SortOrder.Descending)).Created)
+                          );
+                          Set(varHitosPaso, RoundUp(DateDiff(varHitosDesde, varHitosHasta, TimeUnit.Seconds) / 4, 0));
+                          Set(varHitosCorte1, DateAdd(varHitosDesde, varHitosPaso, TimeUnit.Seconds));
+                          Set(varHitosCorte2, DateAdd(varHitosDesde, 2 * varHitosPaso, TimeUnit.Seconds));
+                          Set(varHitosCorte3, DateAdd(varHitosDesde, 3 * varHitosPaso, TimeUnit.Seconds));
+                          Concurrent(
+                              With({},
+                              // Lista Roles → colTmpRoles por lotes dinámicos (paginación por cursor sobre 'Creado', que sí es delegable en la fuente de datos;
+                              // la columna ID solo admite "=" y no sirve para rangos). Cada vuelta pide las siguientes TamanoLote filas creadas
+                              // desde la última ya descargada; se detiene sola cuando un lote llega incompleto. 200 vueltas = hasta 400.000 filas.
+                              Clear(colTmpRoles);
+                              ClearCollect(colFinRoles, { Fin: false });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinRoles).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpRoles, Created) },
+                                          With(
+                                              {
+                                                  _lote: If(
+                                                      IsBlank(_ultimo),
+                                                      Sort(Roles, Created, SortOrder.Ascending),
+                                                      Sort(Filter(Roles, Created >= _ultimo), Created, SortOrder.Ascending)
+                                                  )
+                                              },
+                                              With(
+                                                  // Filas con la misma fecha que el cursor pueden venir repetidas: solo se añaden las nuevas
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpRoles, Created = _ultimo).ID)) },
+                                                  Collect(colTmpRoles, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinRoles, First(colFinRoles), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                              With({},
+                              // Lista Proyectos → colTmpProyectos por lotes dinámicos (misma paginación por cursor sobre 'Creado')
+                              Clear(colTmpProyectos);
+                              ClearCollect(colFinProyectos, { Fin: false });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinProyectos).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpProyectos, Created) },
+                                          With(
+                                              {
+                                                  _lote: If(
+                                                      IsBlank(_ultimo),
+                                                      Sort(Proyectos, Created, SortOrder.Ascending),
+                                                      Sort(Filter(Proyectos, Created >= _ultimo), Created, SortOrder.Ascending)
+                                                  )
+                                              },
+                                              With(
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpProyectos, Created = _ultimo).ID)) },
+                                                  Collect(colTmpProyectos, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinProyectos, First(colFinProyectos), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                              With({},
+                              // Hitos, tramo 1 de 4: [primer Creado, corte 1)
+                              Clear(colTmpHitos1);
+                              ClearCollect(colFinHitos1, { Fin: IsBlank(varHitosDesde) });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinHitos1).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpHitos1, Created) },
+                                          With(
+                                              { _lote: Sort(Filter(Hitos, Created >= Coalesce(_ultimo, varHitosDesde), Created < varHitosCorte1), Created, SortOrder.Ascending) },
+                                              With(
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpHitos1, Created = _ultimo).ID)) },
+                                                  Collect(colTmpHitos1, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinHitos1, First(colFinHitos1), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                              With({},
+                              // Hitos, tramo 2 de 4: [corte 1, corte 2)
+                              Clear(colTmpHitos2);
+                              ClearCollect(colFinHitos2, { Fin: IsBlank(varHitosDesde) });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinHitos2).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpHitos2, Created) },
+                                          With(
+                                              { _lote: Sort(Filter(Hitos, Created >= Coalesce(_ultimo, varHitosCorte1), Created < varHitosCorte2), Created, SortOrder.Ascending) },
+                                              With(
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpHitos2, Created = _ultimo).ID)) },
+                                                  Collect(colTmpHitos2, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinHitos2, First(colFinHitos2), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                              With({},
+                              // Hitos, tramo 3 de 4: [corte 2, corte 3)
+                              Clear(colTmpHitos3);
+                              ClearCollect(colFinHitos3, { Fin: IsBlank(varHitosDesde) });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinHitos3).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpHitos3, Created) },
+                                          With(
+                                              { _lote: Sort(Filter(Hitos, Created >= Coalesce(_ultimo, varHitosCorte2), Created < varHitosCorte3), Created, SortOrder.Ascending) },
+                                              With(
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpHitos3, Created = _ultimo).ID)) },
+                                                  Collect(colTmpHitos3, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinHitos3, First(colFinHitos3), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
+                              With({},
+                              // Hitos, tramo 4 de 4: desde el corte 3 sin límite superior (incluye lo creado mientras se carga)
+                              Clear(colTmpHitos4);
+                              ClearCollect(colFinHitos4, { Fin: IsBlank(varHitosDesde) });
+                              ForAll(
+                                  Sequence(200),
+                                  If(
+                                      !First(colFinHitos4).Fin,
+                                      With(
+                                          { _ultimo: Max(colTmpHitos4, Created) },
+                                          With(
+                                              { _lote: Sort(Filter(Hitos, Created >= Coalesce(_ultimo, varHitosCorte3)), Created, SortOrder.Ascending) },
+                                              With(
+                                                  { _nuevos: Filter(_lote, IsBlank(_ultimo) || Created > _ultimo || !(ID in Filter(colTmpHitos4, Created = _ultimo).ID)) },
+                                                  Collect(colTmpHitos4, _nuevos);
+                                                  If(
+                                                      CountRows(_lote) < TamanoLote || IsEmpty(_nuevos),
+                                                      Patch(colFinHitos4, First(colFinHitos4), { Fin: true })
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          )
+                          );
+                          ClearCollect(colTmpHitos, colTmpHitos1, colTmpHitos2, colTmpHitos3, colTmpHitos4);
+                          Clear(colTmpHitos1);
+                          Clear(colTmpHitos2);
+                          Clear(colTmpHitos3);
+                          Clear(colTmpHitos4);
+                          ClearCollect(ColRoles, colTmpRoles);
+                          Set(UserRole, LookUp(ColRoles, Nombre.Email = dummie.Mail).Rol);
+                          Set(varAccesoTotal, UserRole.Value in ["Supervisor", "Gerente", "Lider funcional"]);
+                          If(
+                              varAccesoTotal,
+                              // Supervisor, Gerente y Lider funcional → todo
+                              ClearCollect(ColProyectos, colTmpProyectos);
+                              ClearCollect(ColHitos, colTmpHitos),
+                              UserRole.Value = "PM",
+                              // PM → sus proyectos; todos los hitos de esos proyectos (para el avance) + los hitos que tenga asignados en otros
+                              ClearCollect(ColProyectos, Filter(colTmpProyectos, dummie.Mail in Responsable.Email));
+                              ClearCollect(ColHitos, Filter(colTmpHitos, 'ID proyecto' in ColProyectos.ID || Encargado.Email = dummie.Mail)),
+                              // Otros → NO cargar nada
+                              Clear(ColProyectos);
+                              Clear(ColHitos)
+                          );
+                          Clear(colTmpRoles);
+                          Clear(colTmpProyectos);
+                          Clear(colTmpHitos);
+                          // ===== FIN CARGA POR ROL =====
+                          // Comentarios del proyecto abierto (si lo hay)
+                          If(!IsBlank(varProyecto), Refresh(ComentariosProyectos); ClearCollect(ColComentarios, Filter(ComentariosProyectos, 'ID proyecto' = varProyecto.ID)))
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedBorderColor: =RGBA(0, 69, 120, 1)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.HoverFill, -30%)
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Text: =
+                        Tooltip: ="Actualizar"
+                        Width: =Parent.Width
+                        X: =imgActualizar.X
+                        Y: =imgActualizar.Y
+            - cntUsuario:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  AlignInContainer: =AlignInContainer.Center
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - lblNombreUsuario:
+                      Control: Label@2.5.1
+                      Properties:
+                        Visible: =App.ActiveScreenSize > ScreenSize.Small
+                        Align: =Align.Right
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =Colores.Texto
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FillPortions: =1
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Segoe UI'
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        Text: =If(IsBlank(CurrentUser.GivenName),CurrentUser.DisplayName,CurrentUser.GivenName)
+                  - imgFotoUsuario:
+                      Control: Image@2.2.3
+                      Properties:
+                        BorderColor: =MyTheme.Gray
+                        BorderThickness: =1
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledFill: =RGBA(0, 0, 0, 0)
+                        FocusedBorderThickness: =4
+                        Height: =30
+                        HoverBorderColor: =RGBA(0, 0, 0, 0)
+                        HoverFill: =RGBA(0, 0, 0, 0)
+                        Image: =FotoUsuario
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        PressedBorderColor: =RGBA(0, 0, 0, 0)
+                        PressedFill: =RGBA(0, 0, 0, 0)
+                        RadiusBottomLeft: =15
+                        RadiusBottomRight: =15
+                        RadiusTopLeft: =15
+                        RadiusTopRight: =15
+                        Width: =30
+      - recBordeEncabezado:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            BorderThickness: =2
+            DisabledFill: =RGBA(161, 159, 157, 1)
+            Fill: =MyTheme.LightGray
+            FocusedBorderThickness: =4
+            Height: =1
+            HoverFill: =RGBA(0, 120, 212, 1)
+            PressedFill: =RGBA(0, 120, 212, 1)
+            Width: =Parent.Width
+            Y: =59

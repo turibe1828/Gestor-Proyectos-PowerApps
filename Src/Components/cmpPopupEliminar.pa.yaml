@@ -1,0 +1,219 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+ComponentDefinitions:
+  cmpPopupEliminar:
+    DefinitionType: CanvasComponent
+    AccessAppScope: true
+    Properties:
+      Fill: =Colores.Velo
+      Height: =App.Height
+      Width: =App.Width
+    Children:
+      - cntFondoPopupEliminar:
+          Control: GroupContainer@1.5.0
+          Variant: ManualLayout
+          Properties:
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: '=Parent.Width    '
+          Children:
+            - cntPopupEliminar:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  BorderStyle: =BorderStyle.None
+                  BorderThickness: =2
+                  DropShadow: =DropShadow.Semibold
+                  Fill: =Colores.Blanco
+                  Height: =Min(App.Height* 55%, 270)
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =Espacio.L
+                  PaddingBottom: =Espacio.L
+                  PaddingLeft: =Espacio.L
+                  PaddingRight: =Espacio.L
+                  PaddingTop: =Espacio.L
+                  RadiusBottomLeft: =10
+                  RadiusBottomRight: =10
+                  RadiusTopLeft: =10
+                  RadiusTopRight: =10
+                  Width: =Min(App.Width * If(App.ActiveScreenSize = ScreenSize.Small, 90%, 70%), 700)
+                  X: =(Parent.Width-Self.Width) / 2
+                  Y: =(Parent.Height-Self.Height)/2
+                Children:
+                  - cntCerrarPopupEliminar:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =50
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                      Children:
+                        - icoCerrarPopupEliminar:
+                            Control: Classic/Icon@2.5.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              Color: =MyTheme.Primary
+                              DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                              DisabledColor: =RGBA(225, 223, 221, 1)
+                              DisabledFill: =RGBA(0, 0, 0, 0)
+                              FocusedBorderThickness: =4
+                              Height: =30
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(16, 110, 190, 1)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              Icon: =Icon.Cancel
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              OnSelect: =Set(varEliminar, false);
+                              PressedBorderColor: =RGBA(0, 0, 0, 0)
+                              PressedColor: =RGBA(16, 110, 190, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              Width: =30
+                  - lblConfirmarEliminar:
+                      Control: Label@2.5.1
+                      Properties:
+                        Align: =Align.Center
+                        AlignInContainer: =AlignInContainer.Stretch
+                        BorderColor: =RGBA(0, 0, 0, 0)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =2
+                        Color: =Colores.Texto
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        FocusedBorderThickness: =4
+                        Font: =Font.'Lato Black'
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        Size: =Fuente.Subtitulo
+                        Text: ="Estas seguro que quieres eliminarlo?"
+                  - btnConfirmarEliminar:
+                      Control: Classic/Button@2.2.0
+                      Properties:
+                        BorderColor: =ColorFade(MyTheme.Primary, -15%)
+                        BorderStyle: =BorderStyle.None
+                        Color: =Colores.Blanco
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(161, 159, 157, 1)
+                        DisabledFill: =RGBA(242, 242, 241, 0)
+                        Fill: =MyTheme.Primary
+                        Font: =Font.Lato
+                        Height: =50
+                        HoverBorderColor: =btnConfirmarEliminar.BorderColor
+                        HoverColor: =RGBA(255, 255, 255, 1)
+                        HoverFill: =ColorFade(Self.Fill, -10%)
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        OnSelect: |-
+                          =If(
+                              !IsBlank(varHito),
+                              /* ELIMINAR UN HITO y recalcular el avance de su proyecto */
+                              With(
+                                  { _idP: varHito.'ID proyecto' },
+                                  IfError(
+                                      Remove(Hitos, varHito),
+                                      Notify("No se pudo eliminar el hito.", NotificationType.Error),
+                                      RemoveIf(ColHitos, ID = varHito.ID);
+                                      // RECALC-PROGRESO: Progreso y SPI del proyecto _idP con TODOS sus hitos (copia idéntica en scrFormularioHito, cmpPopupEliminar, scrInicio y scrMisHitos)
+                          With(
+                              {
+                                  _p: LookUp(Proyectos, ID = _idP),
+                                  _h: Filter(Hitos, 'ID proyecto' = _idP)
+                              },
+                              With(
+                                  {
+                                      _t: Sum(_h, Coalesce(Peso, 0)),
+                                      _c: Sum(_h, Coalesce(Peso, 0) * Coalesce(Avance, 0) / 100),
+                                      _ini: _p.'Fecha creación caso aprovisionamiento ',
+                                      _fin: _p.Fecha_Fin
+                                  },
+                                  With(
+                                      {
+                                          _real: If(_t = 0, 0, Round(_c / _t, 2)),
+                                          _plan: If(
+                                              IsBlank(_ini) || IsBlank(_fin), Blank(),
+                                              Today() <= _ini, 0,
+                                              Today() >= _fin, 1,
+                                              DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _fin, TimeUnit.Days))
+                                          )
+                                      },
+                                      With(
+                                          {
+                                              _cambios: {
+                                                  Progreso: _real * 100,
+                                                  SPI: If(IsBlank(_plan), Blank(), _plan = 0, If(_real = 0, 1, 0), _real / _plan)
+                                              }
+                                          },
+                                          If(
+                                              !IsBlank(_p),
+                                              If(
+                                                  IsError(Patch(Proyectos, _p, _cambios)),
+                                                  Notify("No se pudo actualizar Progreso/SPI del proyecto.", NotificationType.Error),
+                                                  If(
+                                                      !IsBlank(LookUp(ColProyectos, ID = _idP)),
+                                                      Patch(ColProyectos, LookUp(ColProyectos, ID = _idP), _cambios)
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          );
+                                      Set(varHito, Blank());
+                                      Back()
+                                  )
+                              ),
+                              !IsBlank(varProyecto),
+                              /* ELIMINAR PROYECTO COMPLETO: primero el proyecto; si falla no se toca nada más */
+                              With(
+                                  { _id: varProyecto.ID },
+                                  IfError(
+                                      Remove(Proyectos, varProyecto),
+                                      Notify("No se pudo eliminar el proyecto.", NotificationType.Error),
+                                      IfError(
+                                          Remove(Hitos, Filter(Hitos, 'ID proyecto' = _id)),
+                                          Notify("El proyecto se eliminó, pero no todos sus hitos.", NotificationType.Warning)
+                                      );
+                                      IfError(
+                                          Remove(ComentariosProyectos, Filter(ComentariosProyectos, 'ID proyecto' = _id)),
+                                          Notify("El proyecto se eliminó, pero no todos sus comentarios.", NotificationType.Warning)
+                                      );
+                                      RemoveIf(ColProyectos, ID = _id);
+                                      RemoveIf(ColHitos, 'ID proyecto' = _id);
+                                      RemoveIf(ColComentarios, 'ID proyecto' = _id);
+                                      Set(varProyecto, Blank());
+                                      Back()
+                                  )
+                              )
+                          );
+                          Set(varEliminar, false)
+                        PressedBorderColor: =Self.Color
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =ColorFade(Self.Fill, -20%)
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Size: =Fuente.Pequena
+                        Text: ="Eliminar"
+                        Width: =200

@@ -1,0 +1,42 @@
+# --- Power Apps / Power Platform ---
+# Paquetes generados (se crean con pac; no se versionan)
+*.msapp
+*.msapr
+*.zip
+dist/
+out/
+bin/
+obj/
+# Carpetas de trabajo de pac / SolutionPackager
+.pac/
+**/CanvasApps/
+**/Workflows/
+*.cdsproj.user
+
+# --- Secretos y configuración local ---
+.env
+.env.*
+*.pfx
+*.pem
+*.key
+*.publishsettings
+connections.json
+settings.local.json
+
+# --- Temporales y registros ---
+tmp/
+temp/
+*.tmp
+*.log
+*.bak
+*.orig
+*.binlog
+
+# --- Sistema operativo y editores ---
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+.vscode/
+.idea/
+*.swp

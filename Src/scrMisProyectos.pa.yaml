@@ -1,0 +1,1930 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  scrMisProyectos:
+    Properties:
+      Fill: =Colores.Blanco
+      LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+      OnVisible: |-
+        =Reset(cmbClienteMisProyectos);
+        Reset(cmbSegmentoMisProyectos);
+        Reset(cmbEstadoMisProyectos);
+        Reset(cmbResponsableMisProyectos);
+    Children:
+      - cntPantallaMisProyectos:
+          Control: GroupContainer@1.5.0
+          Variant: AutoLayout
+          Properties:
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Height: =Parent.Height
+            LayoutDirection: =LayoutDirection.Horizontal
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+          Children:
+            - cmpMenuLateralMisProyectos:
+                Control: CanvasComponent
+                ComponentName: cmpMenuLateral
+                Properties:
+                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Height: =Parent.Height
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+            - cntPrincipalMisProyectos:
+                Control: GroupContainer@1.5.0
+                Variant: AutoLayout
+                Properties:
+                  LayoutMinWidth: =0
+                  FillPortions: =1
+                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  BorderStyle: =BorderStyle.None
+                  DropShadow: =DropShadow.None
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutMaxHeight: =
+                  LayoutMaxWidth: =
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                Children:
+                  - cmpEncabezadoMisProyectos:
+                      Control: CanvasComponent
+                      ComponentName: cmpEncabezado
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Start
+                        Height: =60
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        Width: =Max(Parent.Width, 300)
+                  - cntBarraHerramientasMisProyectos:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        FillPortions: =0
+                        Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 110, Max(60, Parent.Height * 0.08))
+                        LayoutDirection: =If(App.ActiveScreenSize <= ScreenSize.Medium, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Width: =Parent.Width
+                      Children:
+                        - lblTituloMisProyectos:
+                            Control: Label@2.5.1
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Align: =If(App.ActiveScreenSize <= ScreenSize.Medium, Align.Left, Align.Center)
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =If(IsBlank(varFiltroRapidoP) && IsBlank(varRespFoco), RGBA(50, 49, 48, 1), MyTheme.Primary)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Lato Black'
+                              Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 45, Parent.Height)
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              OnSelect: |-
+                                =// Clic en el título con filtros rápidos activos: los quita
+                                Set(varFiltroRapidoP, Blank());
+                                Set(varRespFoco, Blank());
+                                Set(varRespFocoNombre, Blank())
+                              PaddingLeft: =Espacio.L
+                              Size: =If(IsBlank(varFiltroRapidoP) && IsBlank(varRespFoco), 14, 12)
+                              Text: |-
+                                ="Proyectos" &
+                                If(
+                                    IsBlank(varFiltroRapidoP) && IsBlank(varRespFoco),
+                                    "",
+                                    "  ·  " & Concat(Filter(Table({ t: varFiltroRapidoP }, { t: varRespFocoNombre }), !IsBlank(t)), t, " + ") & "  ✕"
+                                )
+                              Tooltip: =If(IsBlank(varFiltroRapidoP) && IsBlank(varRespFoco), "", "Clic para quitar los filtros rápidos")
+                              Width: =If(IsBlank(varFiltroRapidoP) && IsBlank(varRespFoco), 250, 380)
+                        - cntFiltrosMisProyectos:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              BorderColor: =Blank()
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =Colores.Blanco
+                              Height: =60
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =Espacio.XS
+                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingRight: =Espacio.L
+                              PaddingTop: =Espacio.XS
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =If(App.ActiveScreenSize <= ScreenSize.Medium, Parent.Width, Parent.Width - lblTituloMisProyectos.Width)
+                            Children:
+                              - txtBuscarMisProyectos:
+                                  Control: TextInput@0.0.54
+                                  Properties:
+                                    BorderRadius: =4
+                                    Font: =Font.Lato
+                                    FontColor: =MyTheme.Gray
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Placeholder: ="Buscar"
+                                    TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
+                                    Value: =
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                              - btnBuscarMisProyectos:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AccessibleLabel: ="Buscar"
+                                    Align: =Align.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BorderThickness: =0
+                                    FontColor: =RGBA(15, 108, 189, 1)
+                                    FontSize: =30
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                    Icon: ="Search"
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Text: =""
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =Self.Height
+                              - cmbResponsableMisProyectos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="PM"
+                                    Items: |-
+                                      =// PM disponibles según Segmento, Estado y texto de búsqueda
+                                      With(
+                                          {   
+                                              _cli: cmbClienteMisProyectos.Selected.Value,
+                                              _seg: cmbSegmentoMisProyectos.Selected.Value,
+                                              _est: cmbEstadoMisProyectos.Selected.Value,
+                                              _txt: Trim(txtBuscarMisProyectos.Value)   // usa .Text si es TextInput
+                                          },
+                                          With(
+                                              {
+                                                  _src: Filter(
+                                                      ColProyectos,
+                                                      // Segmento
+                                                      IsBlank(_seg) || Segmento.Value = _seg,
+                                                      IsBlank(_cli) || 'Nombre del Cliente' = _cli,
+                                                      // Estado
+                                                      IsBlank(_est) || Estado.Value = _est,
+                                                      // Texto (si quieres más delegable, cambia "in" por StartsWith)
+                                                      IsBlank(_txt)
+                                                          || _txt in 'Nombre del proyecto'
+                                                          || _txt in NumeroCaso
+                                                          || _txt in 'Nombre del Cliente'
+                                                  )
+                                              },
+                                              With(
+                                                  { _flat: Ungroup(AddColumns(_src, R, Responsable), R) },
+                                                  With(
+                                                      // Calculamos el email en minúsculas para evitar duplicados por mayúsculas
+                                                      { _flat2: AddColumns(_flat, eLower_1, Lower(Coalesce(Email, ""))) },
+                                                      With(
+                                                          // Distinct devuelve "Result"; lo renombramos a "Value"
+                                                          { _emails: RenameColumns(Distinct(_flat2, eLower_1), Value, Value) },
+                                                          SortByColumns(
+                                                              // Para cada email único, tomamos 1 registro representativo
+                                                              ForAll(
+                                                                  _emails As E,
+                                                                  LookUp(_flat2, eLower_1 = E.Value)
+                                                              ),
+                                                              "DisplayName",
+                                                              SortOrder.Ascending
+                                                          )
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =30
+                                    OnChange: =
+                                    PaddingBottom: =Espacio.M
+                                    PaddingTop: =Espacio.M
+                                    SelectMultiple: =true
+                                    Visible: =varAccesoTotal && App.ActiveScreenSize > ScreenSize.Small
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                  Children:
+                                    - fldResponsableMisProyectos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="DisplayName"
+                                          FieldName: ="DisplayName"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbClienteMisProyectos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Cliente"
+                                    Items: =Distinct(ColProyectos.'Nombre del Cliente', ThisRecord.'Nombre del Cliente')
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =30
+                                    PaddingBottom: =Espacio.M
+                                    PaddingTop: =Espacio.M
+                                    SelectMultiple: =true
+                                    Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                    Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                  Children:
+                                    - fldClienteMisProyectos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbEstadoMisProyectos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Estado"
+                                    Items: =Distinct(ColProyectos.Estado, ThisRecord.Estado.Value)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                  Children:
+                                    - fldEstadoMisProyectos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - cmbSegmentoMisProyectos:
+                                  Control: ComboBox@0.0.51
+                                  Properties:
+                                    Font: =Font.Lato
+                                    FontSize: =12
+                                    Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
+                                    InputTextPlaceholder: ="Segmento"
+                                    Items: =Distinct(ColProyectos.Segmento, ThisRecord.Segmento.Value)
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    SelectMultiple: =true
+                                    Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                    Width: =Parent.Width * 0.15 - Parent.LayoutGap
+                                  Children:
+                                    - fldSegmentoMisProyectos:
+                                        Control: ComboBoxDataField@1.5.0
+                                        Variant: textualColumn
+                                        IsLocked: true
+                                        Properties:
+                                          FieldDisplayName: ="Value"
+                                          FieldName: ="Value"
+                                          FieldType: ="s"
+                                          Order: =1
+                              - btnQuitarFiltrosMisProyectos:
+                                  Control: Button@0.0.45
+                                  Properties:
+                                    AccessibleLabel: ="Quitar filtros"
+                                    Align: =Align.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BorderThickness: =0
+                                    FontColor: =RGBA(189, 49, 51, 1)
+                                    FontSize: =30
+                                    FontWeight: =FontWeight.Bold
+                                    Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
+                                    Icon: ="Eraser"
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    OnSelect: |-
+                                      =Reset(txtBuscarMisProyectos);
+                                      Reset(cmbEstadoMisProyectos);
+                                      Reset(cmbResponsableMisProyectos);
+                                      Reset(cmbSegmentoMisProyectos);
+                                      Reset(cmbClienteMisProyectos);
+                                      // Filtros rápidos (chips, indicadores de Inicio, responsable y columna ampliada)
+                                      Set(varFiltroRapidoP, Blank());
+                                      Set(varRespFoco, Blank());
+                                      Set(varRespFocoNombre, Blank());
+                                      Set(varEstadoFocoP, Blank())
+                                    Text: =""
+                                    VerticalAlign: =VerticalAlign.Middle
+                                    Width: =Self.Height
+                  - galVistasMisProyectos:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        BorderStyle: =BorderStyle.None
+                        FillPortions: =0
+                        Height: =40
+                        Items: |-
+                          =// 1-2: pestañas de vista. 3-5: filtros rápidos (un clic filtra, otro clic lo quita)
+                          [
+                              {ID:1, title:"Tablero"},
+                              {ID:2, title:"Lista"},
+                              {ID:3, title:"Vencidos"},
+                              {ID:4, title:"Vence ≤ 7 d"},
+                              {ID:5, title:"En riesgo"}
+                          ]
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinWidth: =0
+                        TemplatePadding: =0
+                        TemplateSize: =120
+                      Children:
+                        - btnVistaMisProyectos:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: |-
+                                =If(
+                                    ThisItem.ID <= 2, If(varVista = ThisItem.title, MyTheme.Primary, MyTheme.Gray),
+                                    varFiltroRapidoP = ThisItem.title, Color.White,
+                                    MyTheme.Gray
+                                )
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              Fill: =If(ThisItem.ID > 2 && varFiltroRapidoP = ThisItem.title, MyTheme.Primary, If(ThisItem.ID > 2, MyTheme.LightGray, RGBA(0, 0, 0, 0)))
+                              Font: =Font.'Lato Black'
+                              Height: =If(ThisItem.ID > 2, Parent.TemplateHeight - 8, Parent.TemplateHeight)
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =If(ThisItem.ID > 2 && varFiltroRapidoP = ThisItem.title, Color.White, MyTheme.Primary)
+                              HoverFill: =If(ThisItem.ID > 2, ColorFade(Self.Fill, -8%), Color.Transparent)
+                              OnSelect: |-
+                                =If(
+                                    ThisItem.ID <= 2,
+                                    Set(varVista, ThisItem.title),
+                                    Set(varFiltroRapidoP, If(varFiltroRapidoP = ThisItem.title, Blank(), ThisItem.title))
+                                )
+                              PressedBorderColor: =Color.Transparent
+                              PressedColor: =ColorFade(Self.HoverColor, -20%)
+                              PressedFill: =Color.Transparent
+                              RadiusBottomLeft: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusBottomRight: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusTopLeft: =If(ThisItem.ID > 2, 16, 0)
+                              RadiusTopRight: =If(ThisItem.ID > 2, 16, 0)
+                              Size: =If(ThisItem.ID > 2, 11, 14)
+                              Text: =ThisItem.title
+                              Tooltip: =If(ThisItem.ID > 2, "Clic para filtrar; otro clic quita el filtro", "")
+                              Width: =If(ThisItem.ID > 2, Parent.TemplateWidth - 8, Parent.TemplateWidth)
+                              Y: =If(ThisItem.ID > 2, 4, 0)
+                  - galTableroProyectos:
+                      Control: Gallery@2.15.0
+                      Variant: Horizontal
+                      Properties:
+                        BorderColor: =Colores.FondoSuave
+                        BorderStyle: =BorderStyle.None
+                        DelayItemLoading: =false
+                        Fill: =MyTheme.LightGray
+                        Items: |-
+                          =// Clic en el título de una columna: se muestra solo esa columna, a todo el ancho y en cuadrícula
+                          If(IsBlank(varEstadoFocoP), EstadosProyecto, Filter(EstadosProyecto, Value = varEstadoFocoP))
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        ShowScrollbar: =false
+                        TemplatePadding: =0
+                        TemplateSize: =If(IsBlank(varEstadoFocoP), If(App.ActiveScreenSize = ScreenSize.Small, Self.Width * 0.85, 290), Max(290, Self.Width))
+                        Visible: =varVista= "Tablero"
+                        Width: =Parent.Width
+                      Children:
+                        - lblColumnaTableroProyectos:
+                            Control: Label@2.5.1
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =2
+                              Color: =If(IsBlank(varEstadoFocoP), RGBA(50, 49, 48, 1), MyTheme.Primary)
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              FocusedBorderThickness: =4
+                              Font: =Font.'Lato Black'
+                              HoverColor: =MyTheme.Primary
+                              OnSelect: =Set(varEstadoFocoP, If(IsBlank(varEstadoFocoP), ThisItem.Value, Blank()))
+                              Size: =Fuente.Media
+                              Text: =ThisItem.Value & "  (" & galTarjetasProyectos.AllItemsCount & ")" & If(IsBlank(varEstadoFocoP), "", "   ‹ volver")
+                              Tooltip: =If(IsBlank(varEstadoFocoP), "Clic para ampliar esta columna", "Clic para volver a ver todas las columnas")
+                              Width: =Parent.TemplateWidth-Self.X
+                              X: =50
+                              Y: =15
+                        - btnColorColumnaProyectos:
+                            Control: Classic/Button@2.2.0
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              BorderStyle: =BorderStyle.None
+                              Color: =Colores.Blanco
+                              DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                              DisabledColor: =RGBA(161, 159, 157, 1)
+                              DisabledFill: =RGBA(242, 242, 241, 0)
+                              DisplayMode: =DisplayMode.View
+                              Fill: |-
+                                =Switch(
+                                    ThisItem.Value,
+                                    "Completado",MyTheme.Green,
+                                    "En progreso",MyTheme.DarkBlue,
+                                    "Stand By", MyTheme.Yellow,
+                                    "Cancelado", MyTheme.Orange,
+                                    Color.Transparent
+                                )
+                              Font: =Font.'Segoe UI'
+                              HoverBorderColor: =RGBA(0, 0, 0, 0)
+                              HoverColor: =RGBA(255, 255, 255, 1)
+                              HoverFill: =RGBA(16, 110, 190, 1)
+                              PressedBorderColor: =RGBA(0, 69, 120, 1)
+                              PressedColor: =RGBA(255, 255, 255, 1)
+                              PressedFill: =RGBA(16, 110, 190, 1)
+                              Text: =
+                              Width: =20
+                              X: =15
+                              Y: =15
+                        - galTarjetasProyectos:
+                            Control: Gallery@2.15.0
+                            Variant: Vertical
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              DelayItemLoading: =false
+                              Height: =Parent.Height-Self.Y
+                              Items: |-
+                                =// Mismo filtro que la vista Lista (galTablaProyectos). ColProyectos ya viene filtrada por rol desde la carga.
+                                With(
+                                    {
+                                        _txt: txtBuscarMisProyectos.Value,
+                                        _est: cmbEstadoMisProyectos.Selected.Value,
+                                        _resp: ForAll(cmbResponsableMisProyectos.SelectedItems, Lower(Email)),
+                                        _seg: ForAll(cmbSegmentoMisProyectos.SelectedItems, Lower(Value)),
+                                        _cli: ForAll(cmbClienteMisProyectos.SelectedItems, Lower(Value))
+                                    },
+                                    Filter(
+                                        ColProyectos,
+                                        Estado.Value = ThisItem.Value,
+                                        IsBlank(_est) || Estado.Value = _est,
+                                        IsBlank(_txt) || _txt in 'Nombre del proyecto' || _txt in Text(NumeroCaso) || _txt in 'Nombre del Cliente',
+                                        IsEmpty(_resp) || CountIf(Responsable, Lower(Email) in _resp) > 0,
+                                        IsEmpty(_seg) || Lower(Segmento.Value) in _seg,
+                                        IsEmpty(_cli) || Lower('Nombre del Cliente') in _cli,
+                                        // FILTRO-RAPIDO-PROYECTOS (copia idéntica en galTablaProyectos): chips, indicadores de Inicio y responsable
+                                        IsBlank(varFiltroRapidoP) || Switch(
+                                            varFiltroRapidoP,
+                                            "Vencidos", Estado.Value = "En progreso" && !IsBlank(Fecha_Fin) && Fecha_Fin < Today(),
+                                            "Vence ≤ 7 d", Estado.Value = "En progreso" && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() && Fecha_Fin <= DateAdd(Today(), 7, TimeUnit.Days),
+                                            "Completados 30 d", Estado.Value = "Completado" && Fecha_Completado >= DateAdd(Today(), -30, TimeUnit.Days),
+                                            // Mismo criterio que el semáforo: abierto, no vencido y avance real < 90 % del planificado
+                                            "En riesgo", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() &&
+                                                With(
+                                                    { _id: ID, _ini: 'Fecha creación caso aprovisionamiento ', _ff: Fecha_Fin },
+                                                    With(
+                                                        { _r: LookUp(ResumenHitosProyecto, IDproyecto = _id) },
+                                                        !IsBlank(_ini) && Today() > _ini &&
+                                                        If(Coalesce(_r.PesoTotal, 0) = 0, 0, _r.PesoHecho / _r.PesoTotal) <
+                                                            0.9 * Min(1, DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _ff, TimeUnit.Days)))
+                                                    )
+                                                ),
+                                            true
+                                        ),
+                                        IsBlank(varRespFoco) || CountIf(Responsable, Lower(Email) = varRespFoco) > 0
+                                    )
+                                )
+                              ShowScrollbar: =false
+                              TemplatePadding: =15
+                              TemplateSize: =160
+                              Width: =Parent.TemplateWidth
+                              WrapCount: =If(IsBlank(varEstadoFocoP), 1, Max(1, RoundDown(Self.Width / 290, 0)))
+                              Y: =80
+                            Children:
+                              - cntTarjetaProyecto:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    Fill: =Colores.Blanco
+                                    Height: =Parent.TemplateHeight
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =Espacio.XS
+                                    PaddingBottom: =Espacio.XS
+                                    PaddingLeft: =15
+                                    PaddingRight: =15
+                                    PaddingTop: =Espacio.XS
+                                    RadiusBottomLeft: =10
+                                    RadiusBottomRight: =10
+                                    RadiusTopLeft: =10
+                                    RadiusTopRight: =10
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - cntCabeceraTarjetaProyecto:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          DropShadow: =DropShadow.None
+                                          Height: =
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =35
+                                          LayoutMinWidth: =0
+                                          PaddingTop: =Espacio.M
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - lblClienteTarjetaProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Lato Black'
+                                                Height: =30
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =0
+                                                OnSelect: =Set(varProyecto, ThisItem); Navigate(scrFormularioProyecto, ScreenTransition.Fade)
+                                                Size: =Fuente.Etiqueta
+                                                Text: =ThisItem.'Nombre del Cliente'
+                                                Wrap: =false
+                                                X: =40
+                                                Y: =40
+                                          - btnAvanceTarjetaProyecto:
+                                              Control: Classic/Button@2.2.0
+                                              Properties:
+                                                BorderColor: =RGBA(0, 0, 0, 0)
+                                                BorderStyle: =BorderStyle.None
+                                                Color: =Colores.Blanco
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                DisabledFill: =RGBA(242, 242, 241, 0)
+                                                Fill: |-
+                                                  =// Semáforo: verde completado, rojo vencido, ámbar en riesgo (avance real < 90 % del planificado), gris cancelado, azul al día
+                                                  Switch(
+                                                      First(Split(Self.Tooltip, " ·")).Value,
+                                                      "Completado", ColorValue("#16A34A"),
+                                                      "Vencido", ColorValue("#DC2626"),
+                                                      "En riesgo", ColorValue("#D97706"),
+                                                      "Cancelado", MyTheme.Gray,
+                                                      MyTheme.Primary
+                                                  )
+                                                Font: =Font.'Segoe UI'
+                                                Height: =25
+                                                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                HoverColor: =RGBA(255, 255, 255, 1)
+                                                HoverFill: =ColorFade(Self.Fill, -15%)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                OnSelect: |-
+                                                  =// Clic en el semáforo: resumen de salud y avance del proyecto
+                                                  With(
+                                                      { _r: LookUp(ResumenHitosProyecto, IDproyecto = ThisItem.ID) },
+                                                      Notify(
+                                                          ThisItem.'Nombre del proyecto' & " — " & Self.Tooltip &
+                                                          " · Hitos completados " & Coalesce(_r.NumCompletados, 0) & " de " & Coalesce(_r.NumHitos, 0),
+                                                          Switch(
+                                                              First(Split(Self.Tooltip, " ·")).Value,
+                                                              "Vencido", NotificationType.Error,
+                                                              "En riesgo", NotificationType.Warning,
+                                                              "Completado", NotificationType.Success,
+                                                              NotificationType.Information
+                                                          )
+                                                      )
+                                                  )
+                                                PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                PressedColor: =RGBA(255, 255, 255, 1)
+                                                PressedFill: =RGBA(16, 110, 190, 1)
+                                                RadiusBottomLeft: =20
+                                                RadiusBottomRight: =20
+                                                RadiusTopLeft: =20
+                                                RadiusTopRight: =20
+                                                Size: =Fuente.Normal
+                                                Text: |-
+                                                  =IfError(
+                                                  With(
+                                                      { _r: LookUp(ResumenHitosProyecto, IDproyecto = ThisItem.ID) },
+                                                      With(
+                                                          {
+                                                              totalPeso: Coalesce(_r.PesoTotal, 0),
+                                                              completedPeso: Coalesce(_r.PesoHecho, 0)
+                                                          },
+                                                          Text(
+                                                              If(totalPeso = 0, 0, Round(completedPeso / totalPeso * 100, 2)),
+                                                              "[$-es-ES]0%"
+                                                          )
+                                                      )
+                                                  ),Blank())
+                                                Tooltip: |-
+                                                  =// Salud del proyecto (se calcula una vez aquí; Fill la lee con Self.Tooltip). Pesos desde ResumenHitosProyecto (App.Formulas)
+                                                  With(
+                                                      {
+                                                          _r: LookUp(ResumenHitosProyecto, IDproyecto = ThisItem.ID),
+                                                          _ini: ThisItem.'Fecha creación caso aprovisionamiento ',
+                                                          _fin: ThisItem.Fecha_Fin
+                                                      },
+                                                      With(
+                                                          {
+                                                              _t: Coalesce(_r.PesoTotal, 0),
+                                                              _c: Coalesce(_r.PesoHecho, 0),
+                                                              _plan: If(
+                                                                  IsBlank(_ini) || IsBlank(_fin), Blank(),
+                                                                  Today() <= _ini, 0,
+                                                                  Today() >= _fin, 1,
+                                                                  DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _fin, TimeUnit.Days))
+                                                              )
+                                                          },
+                                                          With(
+                                                              { _real: If(_t = 0, 0, _c / _t) },
+                                                              If(
+                                                                  ThisItem.Estado.Value = "Completado", "Completado",
+                                                                  ThisItem.Estado.Value = "Cancelado", "Cancelado",
+                                                                  !IsBlank(_fin) && _fin < Today(), "Vencido",
+                                                                  !IsBlank(_plan) && _plan > 0 && _real < _plan * 0.9, "En riesgo",
+                                                                  "Al día"
+                                                              ) & " · Avance real " & Text(Round(_real * 100, 0)) & "% · Planificado " &
+                                                              If(IsBlank(_plan), "—", Text(Round(_plan * 100, 0)) & "%")
+                                                          )
+                                                      )
+                                                  )
+                                                Width: =60
+                                    - lblNombreTarjetaProyecto:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          Height: =45
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinWidth: =0
+                                          Size: =Fuente.Mini
+                                          Text: =ThisItem.'Nombre del proyecto'
+                                          VerticalAlign: =VerticalAlign.Top
+                                    - lblFechasTarjetaProyecto:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          Align: =Align.Right
+                                          AlignInContainer: =AlignInContainer.End
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: |-
+                                            =// Rojo vencido, ámbar si vence en 7 días o menos (solo proyectos abiertos)
+                                            With(
+                                                { _d: If(IsBlank(ThisItem.Fecha_Fin) || ThisItem.Estado.Value in ["Completado", "Cancelado"], Blank(), DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days)) },
+                                                If(IsBlank(_d), RGBA(50, 49, 48, 1), _d < 0, ColorValue("#DC2626"), _d <= 7, ColorValue("#D97706"), RGBA(50, 49, 48, 1))
+                                            )
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          FontWeight: =FontWeight.Semibold
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =20
+                                          Size: =Fuente.Etiqueta
+                                          Text: |-
+                                            =Text(ThisItem.'Fecha creación caso aprovisionamiento ', "mmm d") & " - " & Text(ThisItem.Fecha_Fin, "mmm d") &
+                                            With(
+                                                { _d: If(IsBlank(ThisItem.Fecha_Fin) || ThisItem.Estado.Value in ["Completado", "Cancelado"], Blank(), DateDiff(Today(), ThisItem.Fecha_Fin, TimeUnit.Days)) },
+                                                If(IsBlank(_d), "", _d < 0, "  · Vencido", _d = 0, "  · Vence hoy", _d <= 7, "  · Vence en " & _d & " d", "")
+                                            )
+                                          Width: =Parent.Width
+                                    - sldHitosCompletadosProyecto:
+                                        Control: Classic/Slider@2.1.0
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Default: =Coalesce(LookUp(ResumenHitosProyecto, IDproyecto = ThisItem.ID).NumCompletados, 0)
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          HandleActiveFill: =RGBA(255, 255, 255, 1)
+                                          HandleHoverFill: =RGBA(255, 255, 255, 1)
+                                          HandleSize: =7
+                                          Height: =10
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinWidth: =0
+                                          Max: =Coalesce(LookUp(ResumenHitosProyecto, IDproyecto = ThisItem.ID).NumHitos, 0)
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          RailFill: =MyTheme.LightGray
+                                          RailHoverFill: =RGBA(222, 236, 249, 1)
+                                          RailThickness: =5
+                                          ShowValue: =false
+                                          ValueFill: =MyTheme.Primary
+                                          ValueHoverFill: =RGBA(0, 120, 212, 1)
+                                    - lblHitosCompletadosProyecto:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =2
+                                          Color: =MyTheme.Primary
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.Lato
+                                          FontWeight: =FontWeight.Semibold
+                                          Height: =30
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinWidth: =0
+                                          Size: =Fuente.Mini
+                                          Text: =sldHitosCompletadosProyecto.Value & " / " & sldHitosCompletadosProyecto.Max & " Hitos completados"
+                                          VerticalAlign: =VerticalAlign.Top
+                              - btnAbrirTarjetaProyecto:
+                                  Control: Classic/Button@2.2.0
+                                  Properties:
+                                    BorderColor: =RGBA(0, 0, 0, 0)
+                                    BorderStyle: =BorderStyle.None
+                                    Color: =Colores.Blanco
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    DisabledFill: =RGBA(242, 242, 241, 0)
+                                    Fill: '=Color.Transparent  '
+                                    Font: =Font.'Segoe UI'
+                                    Height: =Parent.TemplateHeight - Self.Y
+                                    HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                    HoverColor: =RGBA(255, 255, 255, 1)
+                                    HoverFill: =RGBA(190,190,240,0.1)
+                                    OnSelect: '=Set(varProyecto, ThisItem); Navigate(scrFormularioProyecto,ScreenTransition.Fade); '
+                                    PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                    PressedColor: =RGBA(255, 255, 255, 1)
+                                    PressedFill: =ColorFade(Self.HoverFill, -30%)
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Text: =
+                                    Width: =Parent.TemplateWidth
+                                    Y: |-
+                                      =// Deja libre la cabecera de la tarjeta (cliente y semáforo) para que se pueda pulsar
+                                      48
+                  - cntTablaProyectos:
+                      Control: GroupContainer@1.5.0
+                      Variant: AutoLayout
+                      Properties:
+                        BorderStyle: =BorderStyle.None
+                        DropShadow: =DropShadow.None
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMaxHeight: =
+                        LayoutMaxWidth: =
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        LayoutOverflowX: =LayoutOverflow.Scroll
+                        LayoutOverflowY: =LayoutOverflow.Scroll
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        Visible: =varVista="Lista"
+                        Width: =Parent.Width
+                      Children:
+                        - cntCabeceraTablaProyectos:
+                            Control: GroupContainer@1.5.0
+                            Variant: AutoLayout
+                            Properties:
+                              BorderStyle: =BorderStyle.None
+                              DropShadow: =DropShadow.None
+                              Fill: =MyTheme.LightGray
+                              FillPortions: =0
+                              Height: =50
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinWidth: =1100
+                              PaddingLeft: =50
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              Width: =Max(Parent.Width, 1100)
+                            Children:
+                              - cntColumnaClienteProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =1.2
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                  Children:
+                                    - lblColumnaClienteProyectos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Cliente"
+                                    - icoOrdenarClienteProyectos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="NombredelCliente" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="NombredelCliente" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "NombredelCliente");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="NombredelCliente",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaProyecto:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =1.2
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                  Children:
+                                    - lblColumnaProyecto:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Proyecto"
+                                    - icoOrdenarProyecto:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="Nombredelproyecto" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="Nombredelproyecto" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "Nombredelproyecto");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="Nombredelproyecto",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaInicioProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0.8
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/10)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                  Children:
+                                    - lblColumnaInicioProyectos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =(Parent.Width/7)-chkProyectoCompletado.Width
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Inicio"
+                                          Width: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                    - icoOrdenarInicioProyectos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="Fecha_Inicio" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="Fecha_Inicio" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "Fecha_Inicio");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="Fecha_Inicio",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaFinProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    FillPortions: =0.8
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/10)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaFinProyectos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Fin"
+                                    - icoOrdenarFinProyectos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="Fecha_Fin" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="Fecha_Fin" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "Fecha_Fin");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="Fecha_Fin",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaEstadoProyectos:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaEstadoProyectos:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Estado"
+                                    - icoOrdenarEstadoProyectos:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="EstadoValue" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="EstadoValue" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "EstadoValue");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="EstadoValue",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Width: =40
+                              - cntColumnaFacturacionTotal:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaFacturacionTotal:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Facturación Total"
+                                    - icoOrdenarFacturacionTotal:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="Financiaci_x00f3_noPresupuesto" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="Financiaci_x00f3_noPresupuesto" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "Financiaci_x00f3_noPresupuesto");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="Financiaci_x00f3_noPresupuesto",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Visible: =false
+                                          Width: =40
+                              - cntColumnaFacturacionPendiente:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: AutoLayout
+                                  Properties:
+                                    BorderStyle: =BorderStyle.None
+                                    DropShadow: =DropShadow.None
+                                    Height: =50
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                  Children:
+                                    - lblColumnaFacturacionPendiente:
+                                        Control: Label@2.5.1
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          BorderColor: =MyTheme.LightGray
+                                          BorderStyle: =BorderStyle.None
+                                          BorderThickness: =4
+                                          Color: =Colores.Texto
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          Fill: =MyTheme.LightGray
+                                          FillPortions: =1
+                                          FocusedBorderThickness: =4
+                                          Font: =Font.'Lato Black'
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =(Parent.Width/6)-chkProyectoCompletado.Width
+                                          PaddingLeft: =Espacio.M
+                                          Size: =Fuente.Normal
+                                          Text: ="Facturación pendiente"
+                                    - icoOrdenarFacturacionPendiente:
+                                        Control: Classic/Icon@2.5.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          Color: =MyTheme.Gray
+                                          DisabledBorderColor: =RGBA(245, 245, 245, 1)
+                                          DisabledColor: =RGBA(225, 223, 221, 1)
+                                          DisabledFill: =RGBA(0, 0, 0, 0)
+                                          FocusedBorderThickness: =4
+                                          Height: =55
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(16, 110, 190, 1)
+                                          HoverFill: =RGBA(0, 0, 0, 0)
+                                          Icon: |-
+                                            =Switch(
+                                                true,
+                                                varOrdenColumna1="Facturacion_Pendiente" && !varOrdenDescendente1, Icon.ArrowUp,
+                                                varOrdenColumna1="Facturacion_Pendiente" && varOrdenDescendente1, Icon.ArrowDown,
+                                                Icon.Sort
+                                            )
+                                          LayoutMaxHeight: =
+                                          LayoutMaxWidth: =
+                                          LayoutMinHeight: =0
+                                          OnSelect: |-
+                                            =Set(varOrdenColumna1, "Facturacion_Pendiente");
+
+                                            Set(varOrdenDescendente1, If(varOrdenColumna1="Facturacion_Pendiente",!varOrdenDescendente1, false));
+                                          PaddingBottom: =15
+                                          PaddingTop: =15
+                                          PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                          PressedColor: =RGBA(16, 110, 190, 1)
+                                          PressedFill: =RGBA(0, 0, 0, 0)
+                                          Visible: =false
+                                          Width: =40
+                              - lblColumnaResponsablesProyectos:
+                                  Control: Label@2.5.1
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    AutoHeight: =true
+                                    BorderColor: =MyTheme.LightGray
+                                    BorderThickness: =2
+                                    Color: =Colores.Texto
+                                    DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                    DisabledColor: =RGBA(161, 159, 157, 1)
+                                    Fill: =MyTheme.LightGray
+                                    FillPortions: =1
+                                    FocusedBorderThickness: =4
+                                    Font: =Font.'Lato Black'
+                                    LayoutMaxHeight: =
+                                    LayoutMaxWidth: =
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width+70
+                                    PaddingLeft: =Espacio.M
+                                    Size: =Fuente.Normal
+                                    Text: ="Responsable"
+                        - galTablaProyectos:
+                            Control: Gallery@2.15.0
+                            Variant: Vertical
+                            Properties:
+                              BorderColor: =Colores.FondoSuave
+                              Fill: =MyTheme.LightGray
+                              Items: |-
+                                =// Mismo filtro que la vista Tablero. ColProyectos ya viene filtrada por rol desde la carga.
+                                With(
+                                    {
+                                        _txt: txtBuscarMisProyectos.Value,
+                                        _est: cmbEstadoMisProyectos.Selected.Value,
+                                        _resp: ForAll(cmbResponsableMisProyectos.SelectedItems, Lower(Email)),
+                                        _seg: ForAll(cmbSegmentoMisProyectos.SelectedItems, Lower(Value)),
+                                        _cli: ForAll(cmbClienteMisProyectos.SelectedItems, Lower(Value))
+                                    },
+                                    SortByColumns(
+                                        AddColumns(
+                                            Filter(
+                                                ColProyectos,
+                                                IsBlank(_est) || Estado.Value = _est,
+                                                IsBlank(_txt) || _txt in 'Nombre del proyecto' || _txt in Text(NumeroCaso) || _txt in 'Nombre del Cliente',
+                                                IsEmpty(_resp) || CountIf(Responsable, Lower(Email) in _resp) > 0,
+                                                IsEmpty(_seg) || Lower(Segmento.Value) in _seg,
+                                                IsEmpty(_cli) || Lower('Nombre del Cliente') in _cli,
+                                                // FILTRO-RAPIDO-PROYECTOS (copia idéntica en galTarjetasProyectos): chips, indicadores de Inicio y responsable
+                                                IsBlank(varFiltroRapidoP) || Switch(
+                                                    varFiltroRapidoP,
+                                                    "Vencidos", Estado.Value = "En progreso" && !IsBlank(Fecha_Fin) && Fecha_Fin < Today(),
+                                                    "Vence ≤ 7 d", Estado.Value = "En progreso" && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() && Fecha_Fin <= DateAdd(Today(), 7, TimeUnit.Days),
+                                                    "Completados 30 d", Estado.Value = "Completado" && Fecha_Completado >= DateAdd(Today(), -30, TimeUnit.Days),
+                                                    // Mismo criterio que el semáforo: abierto, no vencido y avance real < 90 % del planificado
+                                                    "En riesgo", !(Estado.Value in ["Completado", "Cancelado"]) && !IsBlank(Fecha_Fin) && Fecha_Fin >= Today() &&
+                                                        With(
+                                                            { _id: ID, _ini: 'Fecha creación caso aprovisionamiento ', _ff: Fecha_Fin },
+                                                            With(
+                                                                { _r: LookUp(ResumenHitosProyecto, IDproyecto = _id) },
+                                                                !IsBlank(_ini) && Today() > _ini &&
+                                                                If(Coalesce(_r.PesoTotal, 0) = 0, 0, _r.PesoHecho / _r.PesoTotal) <
+                                                                    0.9 * Min(1, DateDiff(_ini, Today(), TimeUnit.Days) / Max(1, DateDiff(_ini, _ff, TimeUnit.Days)))
+                                                            )
+                                                        ),
+                                                    true
+                                                ),
+                                                IsBlank(varRespFoco) || CountIf(Responsable, Lower(Email) = varRespFoco) > 0
+                                            ),
+                                            // Columnas auxiliares para ordenar/mostrar
+                                            EstadoValue, Estado.Value,
+                                            Fecha_Inicio, 'Fecha creación caso aprovisionamiento '
+                                        ),
+                                        Coalesce(varOrdenColumna1, "Nombredelproyecto"),
+                                        If(varOrdenDescendente1, SortOrder.Descending, SortOrder.Ascending)
+                                    )
+                                )
+                              LayoutMaxHeight: =
+                              LayoutMaxWidth: =
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =1100
+                              TemplatePadding: =0
+                              TemplateSize: =50
+                              Width: =Max(Parent.Width, 1100)
+                            Children:
+                              - cntFilaTablaProyecto:
+                                  Control: GroupContainer@1.5.0
+                                  Variant: ManualLayout
+                                  Properties:
+                                    BorderColor: =MyTheme.LightGray
+                                    BorderThickness: =4
+                                    DropShadow: =DropShadow.None
+                                    Height: =50
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - cntCeldasTablaProyecto:
+                                        Control: GroupContainer@1.5.0
+                                        Variant: AutoLayout
+                                        Properties:
+                                          BorderStyle: =BorderStyle.None
+                                          DropShadow: =DropShadow.None
+                                          Fill: =MyTheme.LightGray
+                                          Height: =50
+                                          LayoutAlignItems: =LayoutAlignItems.Stretch
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Width: =Parent.Width
+                                        Children:
+                                          - chkProyectoCompletado:
+                                              Control: Classic/CheckBox@2.1.0
+                                              Properties:
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                CheckboxBackgroundFill: =Color.Transparent
+                                                CheckboxBorderColor: =Color.Transparent
+                                                CheckmarkFill: =RGBA(0, 120, 212, 1)
+                                                Color: =Colores.Texto
+                                                Default: =ThisItem.Estado.Value="Completado"
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.'Segoe UI'
+                                                HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                HoverColor: =RGBA(50, 49, 48, 1)
+                                                HoverFill: =RGBA(0, 0, 0, 0)
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =Parent.Height
+                                                OnCheck: |-
+                                                  =// Completar: guarda el estado anterior para poder restaurarlo al desmarcar
+                                                  If(
+                                                      ThisItem.Estado.Value <> "Completado",
+                                                      RemoveIf(colEstadoPrevio, Tipo = "Proyecto" && ID = ThisItem.ID);
+                                                      Collect(colEstadoPrevio, { Tipo: "Proyecto", ID: ThisItem.ID, Estado: ThisItem.Estado.Value, Avance: 0 });
+                                                      If(
+                                                          IsError(
+                                                              Patch(
+                                                                  ColProyectos,
+                                                                  LookUp(ColProyectos, ID = ThisItem.ID),
+                                                                  Patch(Proyectos, LookUp(Proyectos, ID = ThisItem.ID), { Estado: { Value: "Completado" }, Fecha_Completado:Today() })
+                                                              )
+                                                          ),
+                                                          Notify("No se pudo actualizar el estado del proyecto.", NotificationType.Error)
+                                                      )
+                                                  )
+                                                OnUncheck: |
+                                                  =// Desmarcar: vuelve al estado anterior (si se conoce en esta sesión); si no, "En progreso"
+                                                  If(
+                                                      ThisItem.Estado.Value = "Completado",
+                                                      With(
+                                                          { _prev: LookUp(colEstadoPrevio, Tipo = "Proyecto" && ID = ThisItem.ID) },
+                                                          If(
+                                                              IsError(
+                                                                  Patch(
+                                                                      Proyectos,
+                                                                      LookUp(Proyectos, ID = ThisItem.ID),
+                                                                      { Estado: { Value: Coalesce(_prev.Estado, "En progreso") }, Fecha_Completado: Blank() }
+                                                                  )
+                                                              ),
+                                                              Notify("No se pudo actualizar el estado del proyecto.", NotificationType.Error),
+                                                              Patch(
+                                                                  ColProyectos,
+                                                                  LookUp(ColProyectos, ID = ThisItem.ID),
+                                                                  { Estado: { Value: Coalesce(_prev.Estado, "En progreso") }, Fecha_Completado: Blank() }
+                                                              );
+                                                              RemoveIf(colEstadoPrevio, Tipo = "Proyecto" && ID = ThisItem.ID)
+                                                          )
+                                                      )
+                                                  )
+                                                PaddingBottom: =3
+                                                PaddingLeft: =Espacio.XS
+                                                PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                PressedColor: =RGBA(50, 49, 48, 1)
+                                                PressedFill: =RGBA(0, 0, 0, 0)
+                                                Text: =
+                                                Width: =50
+                                          - lblCeldaClienteProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1.2
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Strikethrough: =ThisItem.Estado.Value="Completado"
+                                                Text: =ThisItem.'Nombre del Cliente'
+                                                Wrap: =false
+                                          - lblCeldaNombreProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1.2
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/8)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Strikethrough: =ThisItem.Estado.Value="Completado"
+                                                Text: =ThisItem.'Nombre del proyecto'
+                                                Wrap: =false
+                                          - lblCeldaInicioProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =0.8
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/10)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =Text(ThisItem.'Fecha creación caso aprovisionamiento ', "yyyy-mm-dd")
+                                          - lblCeldaFinProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: |-
+                                                  =If(
+                                                      !IsBlank(ThisItem.Fecha_Fin) && ThisItem.Fecha_Fin < Today() && !(ThisItem.Estado.Value in ["Completado", "Cancelado"]),
+                                                      ColorValue("#DC2626"),
+                                                      RGBA(50, 49, 48, 1)
+                                                  )
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =0.8
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/10)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =Text(ThisItem.Fecha_Fin, "yyyy-mm-dd")
+                                          - lblCeldaEstadoProyecto:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =2
+                                                Color: |-
+                                                  =// Color semántico del estado (los estados no previstos ya no quedan invisibles)
+                                                  Switch(
+                                                      ThisItem.Estado.Value,
+                                                      "Pendiente", ColorValue("#D97706"),
+                                                      "En progreso", MyTheme.Primary,
+                                                      "Completado", ColorValue("#16A34A"),
+                                                      "Stand By", ColorValue("#7C3AED"),
+                                                      "Cancelado", MyTheme.Gray,
+                                                      MyTheme.Gray
+                                                  )
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: =ThisItem.Estado.Value
+                                          - lblCeldaFacturacionTotal:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: |-
+                                                  =If(IsBlank(ThisItem.Financiación) || ThisItem.Financiación=0,"$ 0", Text(ThisItem.Financiación, "[$-es-ES]$ #.##0"))
+                                                Wrap: =false
+                                          - lblCeldaFacturacionPendiente:
+                                              Control: Label@2.5.1
+                                              Properties:
+                                                AlignInContainer: =AlignInContainer.Stretch
+                                                AutoHeight: =true
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                Color: =Colores.Texto
+                                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                DisabledColor: =RGBA(161, 159, 157, 1)
+                                                Fill: =Colores.Blanco
+                                                FillPortions: =1
+                                                FocusedBorderThickness: =4
+                                                Font: =Font.Lato
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width
+                                                PaddingLeft: =Espacio.M
+                                                Size: =Fuente.Normal
+                                                Text: |-
+                                                  =If(IsBlank(ThisItem.Facturacion_Pendiente) || ThisItem.Facturacion_Pendiente=0,"$ 0", Text(ThisItem.Facturacion_Pendiente, "[$-es-ES]$ #.##0"))
+                                                Wrap: =false
+                                          - cntCeldaResponsablesProyecto:
+                                              Control: GroupContainer@1.5.0
+                                              Variant: ManualLayout
+                                              Properties:
+                                                BorderColor: =MyTheme.LightGray
+                                                BorderThickness: =4
+                                                DropShadow: =DropShadow.None
+                                                Fill: =Colores.Blanco
+                                                LayoutMaxHeight: =
+                                                LayoutMaxWidth: =
+                                                LayoutMinHeight: =0
+                                                LayoutMinWidth: =(Parent.Width/9)-chkProyectoCompletado.Width+70
+                                                RadiusBottomLeft: =0
+                                                RadiusBottomRight: =0
+                                                RadiusTopLeft: =0
+                                                RadiusTopRight: =0
+                                                Width: =125
+                                              Children:
+                                                - galFotosResponsables:
+                                                    Control: Gallery@2.15.0
+                                                    Variant: Horizontal
+                                                    Properties:
+                                                      BorderColor: =Colores.FondoSuave
+                                                      Height: =Parent.Height
+                                                      Items: |-
+                                                        =// 1-2 responsables por tarjeta: foto, o avatar con iniciales, o SampleImage
+                                                        ForAll(
+                                                            FirstN(ThisItem.Responsable, 2) As Responsable,
+                                                            {
+                                                                Email: Responsable.Email,
+                                                                Displayname: Responsable.DisplayName,
+                                                                UserPhoto: // Foto de Office 365 si la tiene; si no, avatar con iniciales; si no hay nombre, SampleImage
+                                                        If(
+                                                            // Foto desde la caché colFotos (App.OnStart): sin llamadas a Office 365 por tarjeta
+                                                            !IsBlank(LookUp(colFotos, Mail = Lower(Responsable.Email))),
+                                                            LookUp(colFotos, Mail = Lower(Responsable.Email)).Foto,
+                                                            // Avatar: círculo SVG con las iniciales y un color estable por persona; sin nombre → SampleImage
+                                                        With(
+                                                            { _partes: Split(Trim(Coalesce(Responsable.DisplayName, "")), " ") },
+                                                            With(
+                                                                { _ini: Upper(Left(First(_partes).Value, 1) & If(CountRows(_partes) > 1, Left(Last(_partes).Value, 1), "")) },
+                                                                If(
+                                                                    IsBlank(_ini),
+                                                                    SampleImage,
+                                                                    "data:image/svg+xml;utf8," & EncodeUrl(
+                                                                        "<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><circle cx='40' cy='40' r='40' fill='" &
+                                                                        Index(
+                                                                            ["#2563EB", "#0E9F6E", "#D97706", "#7C3AED", "#DB2777", "#0891B2"],
+                                                                            Mod(Coalesce(Find(Left(_ini, 1), "ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0) + Len(Responsable.DisplayName), 6) + 1
+                                                                        ).Value &
+                                                                        "'/><text x='40' y='40' dy='0.35em' text-anchor='middle' font-family='Segoe UI, Arial, sans-serif' font-size='30' font-weight='600' fill='#FFFFFF'>" &
+                                                                        _ini & "</text></svg>"
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                        ),
+                                                                UserInitials: ""
+                                                            }
+                                                        )
+                                                      ShowScrollbar: =false
+                                                      TemplatePadding: =0
+                                                      TemplateSize: =50
+                                                      Width: =Parent.Width
+                                                    Children:
+                                                      - imgFotoResponsable:
+                                                          Control: Image@2.2.3
+                                                          Properties:
+                                                            BorderColor: =If(varRespFoco = Lower(ThisItem.Email), MyTheme.Primary, RGBA(0, 0, 0, 0))
+                                                            BorderThickness: =If(varRespFoco = Lower(ThisItem.Email), 3, 0)
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledFill: =RGBA(0, 0, 0, 0)
+                                                            FocusedBorderThickness: =4
+                                                            Height: =35
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverFill: =
+                                                            Image: =ThisItem.UserPhoto
+                                                            OnSelect: |-
+                                                              =// Clic en un responsable: muestra solo sus proyectos (otro clic, o clic en el título, lo quita)
+                                                              If(
+                                                                  varRespFoco = Lower(ThisItem.Email),
+                                                                  Set(varRespFoco, Blank()); Set(varRespFocoNombre, Blank()),
+                                                                  Set(varRespFoco, Lower(ThisItem.Email)); Set(varRespFocoNombre, ThisItem.Displayname);
+                                                                  Notify("Mostrando los proyectos de " & ThisItem.Displayname, NotificationType.Information)
+                                                              )
+                                                            PressedBorderColor: =RGBA(0, 0, 0, 0)
+                                                            PressedFill: =RGBA(0, 0, 0, 0)
+                                                            RadiusBottomLeft: =25
+                                                            RadiusBottomRight: =25
+                                                            RadiusTopLeft: =25
+                                                            RadiusTopRight: =25
+                                                            Tooltip: =ThisItem.Displayname & " · clic para ver solo sus proyectos"
+                                                            Width: =35
+                                                            X: =15
+                                                            Y: =(Parent.TemplateHeight-Self.Height)/2
+                                                      - btnInicialesResponsable:
+                                                          Control: Classic/Button@2.2.0
+                                                          Properties:
+                                                            BorderColor: =RGBA(0, 0, 0, 0)
+                                                            BorderStyle: =BorderStyle.None
+                                                            Color: =MyTheme.Primary
+                                                            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                            DisabledColor: =RGBA(161, 159, 157, 1)
+                                                            DisabledFill: =RGBA(242, 242, 241, 0)
+                                                            Fill: =RGBA(181, 206, 245,255)
+                                                            Font: =Font.'Segoe UI'
+                                                            Height: =35
+                                                            HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                            HoverColor: =RGBA(255, 255, 255, 1)
+                                                            HoverFill: =RGBA(16, 110, 190, 1)
+                                                            PaddingBottom: =0
+                                                            PaddingLeft: =0
+                                                            PaddingRight: =0
+                                                            PaddingTop: =0
+                                                            PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                            PressedColor: =RGBA(255, 255, 255, 1)
+                                                            PressedFill: =RGBA(16, 110, 190, 1)
+                                                            RadiusBottomLeft: =25
+                                                            RadiusBottomRight: =25
+                                                            RadiusTopLeft: =25
+                                                            RadiusTopRight: =25
+                                                            Text: =IfError(ThisItem.UserInitials,"NA")
+                                                            Tooltip: =ThisItem.Displayname
+                                                            Visible: =false
+                                                            Width: =35
+                                                            X: =15
+                                                            Y: =(Parent.Height-Self.Height)/ 2
+                                                - btnMasResponsables:
+                                                    Control: Classic/Button@2.2.0
+                                                    Properties:
+                                                      BorderColor: =RGBA(0, 0, 0, 0)
+                                                      BorderStyle: =BorderStyle.None
+                                                      Color: =MyTheme.Gray
+                                                      DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                                      DisabledColor: =RGBA(161, 159, 157, 1)
+                                                      DisabledFill: =RGBA(242, 242, 241, 0)
+                                                      Fill: =RGBA(232,232,232,1)
+                                                      Font: =Font.'Segoe UI'
+                                                      Height: =35
+                                                      HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                                      HoverColor: =RGBA(255, 255, 255, 1)
+                                                      HoverFill: =RGBA(16, 110, 190, 1)
+                                                      OnSelect: |-
+                                                        =// Clic en "+N": lista todos los responsables del proyecto
+                                                        Notify("Responsables de " & ThisItem.'Nombre del proyecto' & ": " & Concat(ThisItem.Responsable, DisplayName, ", "), NotificationType.Information)
+                                                      PaddingBottom: =0
+                                                      PaddingLeft: =0
+                                                      PaddingRight: =0
+                                                      PaddingTop: =0
+                                                      PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                                      PressedColor: =RGBA(255, 255, 255, 1)
+                                                      PressedFill: =RGBA(16, 110, 190, 1)
+                                                      RadiusBottomLeft: =25
+                                                      RadiusBottomRight: =25
+                                                      RadiusTopLeft: =25
+                                                      RadiusTopRight: =25
+                                                      Text: =$"+{CountRows(ThisItem.Responsable)-2}"
+                                                      Tooltip: =Concat(ThisItem.Responsable, DisplayName, ", ")
+                                                      Visible: =CountRows(ThisItem.Responsable)>2
+                                                      Width: =35
+                                                      X: =120
+                                                      Y: =(Parent.Height-Self.Height)/ 2
+                                    - btnAbrirFilaProyecto:
+                                        Control: Classic/Button@2.2.0
+                                        Properties:
+                                          BorderColor: =RGBA(0, 0, 0, 0)
+                                          BorderStyle: =BorderStyle.None
+                                          Color: =Colores.Blanco
+                                          DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                          DisabledColor: =RGBA(161, 159, 157, 1)
+                                          DisabledFill: =RGBA(242, 242, 241, 0)
+                                          Fill: '=Color.Transparent  '
+                                          Font: =Font.'Segoe UI'
+                                          Height: =50
+                                          HoverBorderColor: =RGBA(0, 0, 0, 0)
+                                          HoverColor: =RGBA(255, 255, 255, 1)
+                                          HoverFill: =RGBA(190,190,240,0.1)
+                                          OnSelect: '=Set(varProyecto, LookUp(ColProyectos, ID=ThisItem.ID)); Navigate(scrFormularioProyecto,ScreenTransition.Fade); '
+                                          PressedBorderColor: =RGBA(0, 69, 120, 1)
+                                          PressedColor: =RGBA(255, 255, 255, 1)
+                                          PressedFill: =ColorFade(Self.HoverFill, -30%)
+                                          RadiusBottomLeft: =0
+                                          RadiusBottomRight: =0
+                                          RadiusTopLeft: =0
+                                          RadiusTopRight: =0
+                                          Text: =
+                                          Width: =Parent.Width-Self.X-cntCeldaResponsablesProyecto.Width
+                                          X: =55
+      - cmpPopupAgregarMisProyectos:
+          Control: CanvasComponent
+          ComponentName: cmpPopupAgregar
+          Properties:
+            Fill: =Colores.Velo
+            Height: =App.Height
+            Visible: =varAgregar
+            Width: =App.Width
