@@ -65,6 +65,7 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                         DropShadow: =DropShadow.None
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutMaxHeight: =

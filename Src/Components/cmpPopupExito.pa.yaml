@@ -19,6 +19,7 @@ ComponentDefinitions:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
+            LayoutOverflowY: =LayoutOverflow.Scroll
             DropShadow: =DropShadow.Bold
             Fill: =Colores.Blanco
             Height: =Min(App.Width* 95%,250)
@@ -36,6 +37,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowY: =LayoutOverflow.Scroll
                   DropShadow: =DropShadow.None
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
@@ -78,7 +80,7 @@ ComponentDefinitions:
                         Height: =50
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        Size: =Fuente.Titulo
+                        Size: =(Fuente.Titulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="El caso ya esta creado"
                         Weight: ='TextCanvas.Weight'.Bold
                   - btnAceptarExito:
@@ -106,6 +108,6 @@ ComponentDefinitions:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Pequena
+                        Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Aceptar"
                         Width: =96

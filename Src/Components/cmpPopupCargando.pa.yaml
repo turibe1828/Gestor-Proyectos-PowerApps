@@ -19,6 +19,7 @@ ComponentDefinitions:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
+            LayoutOverflowY: =LayoutOverflow.Scroll
             DropShadow: =DropShadow.Bold
             Fill: =Colores.Blanco
             Height: =Min(App.Width* 95%,450)
@@ -55,6 +56,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowY: =LayoutOverflow.Scroll
                   DropShadow: =DropShadow.None
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
@@ -107,6 +109,6 @@ ComponentDefinitions:
                         Font: =Font.Lato
                         LayoutMinHeight: =16
                         LayoutMinWidth: =16
-                        Size: =Fuente.Titulo
+                        Size: =(Fuente.Titulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Cargando, espera un momento..."
                         Weight: ='TextCanvas.Weight'.Bold

@@ -68,6 +68,7 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                         LayoutOverflowX: =LayoutOverflow.Scroll
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutMaxHeight: =
@@ -92,6 +93,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     Height: =Parent.Height
@@ -107,6 +109,7 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           DropShadow: =DropShadow.None
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
@@ -138,7 +141,7 @@ Screens:
                                                 LayoutMaxWidth: =
                                                 LayoutMinWidth: =0
                                                 TemplatePadding: =0
-                                                TemplateSize: =130
+                                                TemplateSize: =If(App.ActiveScreen.Size = ScreenSize.Small, 80, 130)
                                                 Width: =Parent.Width
                                               Children:
                                                 - btnVistaPeriodoCronoHitos:
@@ -164,7 +167,7 @@ Screens:
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
                                                       RadiusTopRight: =0
-                                                      Size: =Fuente.Media
+                                                      Size: =(Fuente.Media) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                       Text: =ThisItem.title
                                                       Width: =Parent.TemplateWidth
                                           - btnVolverCronoProyectos:
@@ -192,13 +195,14 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Etiqueta
+                                                Size: =(Fuente.Etiqueta) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: ="↩ Volver"
                                                 Width: =80
                                     - cntNavegacionCronoHitos:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           DropShadow: =DropShadow.None
                                           Height: =Parent.Height
                                           LayoutDirection: =LayoutDirection.Horizontal
@@ -230,6 +234,7 @@ Screens:
                                                     Control: GroupContainer@1.5.0
                                                     Variant: AutoLayout
                                                     Properties:
+                                                      LayoutOverflowX: =LayoutOverflow.Scroll
                                                       DropShadow: =DropShadow.None
                                                       Height: =Parent.Height
                                                       LayoutAlignItems: =LayoutAlignItems.Center
@@ -247,6 +252,7 @@ Screens:
                                                           Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
+                                                            LayoutOverflowX: =LayoutOverflow.Scroll
                                                             DropShadow: =DropShadow.None
                                                             LayoutAlignItems: =LayoutAlignItems.Center
                                                             LayoutDirection: =LayoutDirection.Horizontal
@@ -386,6 +392,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     DropShadow: =DropShadow.None
                                     Height: =Parent.Height
                                     LayoutDirection: =LayoutDirection.Vertical
@@ -420,6 +427,7 @@ Screens:
                                               Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
+                                                LayoutOverflowX: =LayoutOverflow.Scroll
                                                 DropShadow: =DropShadow.None
                                                 Height: =Parent.Height
                                                 LayoutDirection: =LayoutDirection.Horizontal
@@ -470,7 +478,7 @@ Screens:
                                                             PaddingLeft: =0
                                                             PaddingRight: =0
                                                             PaddingTop: =0
-                                                            Size: =Fuente.Subtitulo
+                                                            Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                             Text: ="Hitos"
                                                             Width: =Parent.Width
                                                 - cntCabeceraSemanasCronoHitos:
@@ -496,6 +504,7 @@ Screens:
                                                           Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
+                                                            LayoutOverflowY: =LayoutOverflow.Scroll
                                                             DropShadow: =DropShadow.None
                                                             Fill: =MyTheme.LightGray
                                                             Height: =Parent.Height
@@ -610,6 +619,7 @@ Screens:
                                                           Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
+                                                            LayoutOverflowY: =LayoutOverflow.Scroll
                                                             DropShadow: =DropShadow.None
                                                             Fill: =MyTheme.LightGray
                                                             Height: =Parent.Height
@@ -820,7 +830,7 @@ Screens:
                                                                   Font: =Font.Lato
                                                                   Height: =Parent.Height/2
                                                                   LayoutMinHeight: =0
-                                                                  Size: =9
+                                                                  Size: =(9) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                                   Text: =ThisItem.Descripción
                                                                   Width: =Parent.Width
                                                                   X: =

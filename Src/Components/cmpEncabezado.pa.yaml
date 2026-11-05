@@ -18,6 +18,7 @@ ComponentDefinitions:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
+            LayoutOverflowX: =LayoutOverflow.Scroll
             DropShadow: =DropShadow.Regular
             Fill: =Colores.Blanco
             Height: =Parent.Height
@@ -70,7 +71,7 @@ ComponentDefinitions:
                   RadiusBottomRight: =8
                   RadiusTopLeft: =8
                   RadiusTopRight: =8
-                  Size: =Fuente.Pequena
+                  Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                   Text: ="+ Crear"
                   Visible: =App.ActiveScreen.Name in ["scrMisProyectos", "scrMisHitos"]
                   Width: =If(App.ActiveScreen.Size = ScreenSize.Small, 80, 100)
@@ -357,6 +358,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowX: =LayoutOverflow.Scroll
                   FillPortions: =1
                   AlignInContainer: =AlignInContainer.Center
                   BorderStyle: =BorderStyle.None

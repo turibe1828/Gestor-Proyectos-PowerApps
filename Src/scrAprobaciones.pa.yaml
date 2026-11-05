@@ -50,6 +50,7 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         Fill: =Colores.Blanco
@@ -92,6 +93,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              LayoutOverflowY: =LayoutOverflow.Scroll
                               DropShadow: =DropShadow.None
                               Fill: =Colores.Blanco
                               FillPortions: =7
@@ -115,10 +117,10 @@ Screens:
                                     Align: ='TextCanvas.Align'.End
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
-                                    Size: =20
+                                    Size: =(20) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: ="Solicitar cambio"
                                     Weight: ='TextCanvas.Weight'.Semibold
-                                    Width: =180
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - 20, 180)
                               - frmSolicitudCambio:
                                   Control: Form@2.4.4
                                   Variant: Classic
@@ -206,7 +208,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width/2
                                                 X: =30
@@ -433,7 +435,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 60
                                                 X: =30
@@ -570,7 +572,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 60
                                                 X: =30
@@ -686,7 +688,7 @@ Screens:
                                               Control: DatePicker@0.0.46
                                               Properties:
                                                 Font: =Font.Lato
-                                                FontSize: =13
+                                                FontSize: =(13) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Format: ='DatePickerCanvas.Format'.Short
                                                 Height: =40
                                                 OnChange: |-
@@ -765,7 +767,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Tooltip: =Parent.DisplayName
                                                 Width: =Parent.Width - 60
                                                 X: =30
@@ -818,13 +820,14 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     FillPortions: =0
                                     Height: =Max(45, Parent.Height * 0.05)
                                     LayoutAlignItems: =LayoutAlignItems.Center
                                     LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =Espacio.XL
+                                    LayoutGap: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.S, Espacio.XL)
                                     LayoutJustifyContent: =LayoutJustifyContent.End
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
@@ -860,7 +863,7 @@ Screens:
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          Size: =Fuente.Pequena
+                                          Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Cancelar"
                                           Width: =100
                                     - btnEnviarSolicitud:
@@ -909,13 +912,14 @@ Screens:
                                           RadiusBottomRight: =8
                                           RadiusTopLeft: =8
                                           RadiusTopRight: =8
-                                          Size: =Fuente.Pequena
+                                          Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Enviar"
                                           Width: =100
                         - cntPanelSupervisor:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              LayoutOverflowY: =LayoutOverflow.Scroll
                               Fill: =Colores.Blanco
                               FillPortions: =2
                               LayoutAlignItems: =LayoutAlignItems.Center
@@ -939,7 +943,7 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Center
                                     LayoutMinHeight: =16
                                     LayoutMinWidth: =16
-                                    Size: =20
+                                    Size: =(20) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: ="Supervisor"
                                     Weight: ='TextCanvas.Weight'.Semibold
                                     Width: =Parent.Width*0.5

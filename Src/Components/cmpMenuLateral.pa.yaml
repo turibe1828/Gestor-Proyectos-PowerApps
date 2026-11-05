@@ -18,6 +18,7 @@ ComponentDefinitions:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
+            LayoutOverflowY: =LayoutOverflow.Scroll
             DropShadow: =DropShadow.None
             Height: =Parent.Height
             LayoutDirection: =LayoutDirection.Vertical
@@ -31,6 +32,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowX: =LayoutOverflow.Scroll
                   DropShadow: =DropShadow.None
                   FillPortions: =0
                   Height: =60
@@ -124,7 +126,7 @@ ComponentDefinitions:
                         LayoutMaxWidth: =
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
-                        Size: =16
+                        Size: =(16) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Menu"
                         Visible: =If(VarMenu, true, false)
             - galOpcionesMenu:
@@ -272,7 +274,7 @@ ComponentDefinitions:
                                     Height: =25
                                     LayoutMaxHeight: =
                                     LayoutMaxWidth: =
-                                    Size: =Fuente.Pequena
+                                    Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: =ThisItem.Name
                                     Visible: =VarMenu
                         - btnNavegarOpcionMenu:
@@ -322,6 +324,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
@@ -367,7 +370,7 @@ ComponentDefinitions:
                               Height: =25
                               LayoutMaxHeight: =
                               LayoutMaxWidth: =
-                              Size: =Fuente.Pequena
+                              Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: ="PowerBI"
                               Visible: =VarMenu
                               Width: =Parent.Width-imgIconoPowerBi.Width
@@ -424,6 +427,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
@@ -472,7 +476,7 @@ ComponentDefinitions:
                               Height: =25
                               LayoutMaxHeight: =
                               LayoutMaxWidth: =
-                              Size: =Fuente.Pequena
+                              Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: ="PowerBI Admin"
                               Visible: =VarMenu
                               Width: =Parent.Width-imgIconoPowerBiAdmin.Width
@@ -522,6 +526,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height*0.98

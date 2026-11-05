@@ -73,6 +73,7 @@ Screens:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                         LayoutOverflowX: =LayoutOverflow.Scroll
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutMaxHeight: =
@@ -97,6 +98,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     Height: =Parent.Height
@@ -112,6 +114,8 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          PaddingLeft: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.M, 0)
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           BorderColor: =Blank()
                                           BorderStyle: =BorderStyle.None
                                           DropShadow: =DropShadow.None
@@ -120,12 +124,12 @@ Screens:
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =Espacio.XS
-                                          LayoutJustifyContent: =LayoutJustifyContent.End
+                                          LayoutJustifyContent: =If(App.ActiveScreen.Size = ScreenSize.Small, LayoutJustifyContent.Start, LayoutJustifyContent.End)
                                           LayoutMaxHeight: =
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          PaddingRight: =Espacio.L
+                                          PaddingRight: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.M, Espacio.L)
                                           PaddingTop: =Espacio.XS
                                           RadiusBottomLeft: =0
                                           RadiusBottomRight: =0
@@ -139,13 +143,13 @@ Screens:
                                                 BorderRadius: =4
                                                 Font: =Font.Lato
                                                 FontColor: =MyTheme.Gray
-                                                FontSize: =12
+                                                FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                                 LayoutMaxHeight: =
                                                 LayoutMaxWidth: =
                                                 Placeholder: ="Buscar Proyecto"
                                                 TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
-                                                Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                                                Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * (Parent.Height - Parent.PaddingTop - Parent.PaddingBottom) - 3 * Parent.LayoutGap, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5) - Parent.LayoutGap)
                                           - btnBuscarCronoProyectos:
                                               Control: Button@0.0.45
                                               Properties:
@@ -154,7 +158,7 @@ Screens:
                                                 Appearance: ='ButtonCanvas.Appearance'.Secondary
                                                 BorderThickness: =0
                                                 FontColor: =RGBA(15, 108, 189, 1)
-                                                FontSize: =30
+                                                FontSize: =(30) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 FontWeight: =FontWeight.Bold
                                                 Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
                                                 Icon: ="Search"
@@ -167,7 +171,7 @@ Screens:
                                               Control: ComboBox@0.0.51
                                               Properties:
                                                 Font: =Font.Lato
-                                                FontSize: =12
+                                                FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                                 InputTextPlaceholder: ="PM"
                                                 Items: =ForAll(ColRoles, Nombre)
@@ -193,7 +197,7 @@ Screens:
                                                 Visible: =App.ActiveScreen.Size >= ScreenSize.Large
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Font: =Font.Lato
-                                                FontSize: =12
+                                                FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                                 InputTextPlaceholder: ="Cliente"
                                                 Items: =Distinct(ColProyectos, 'Nombre del Cliente')
@@ -207,7 +211,7 @@ Screens:
                                               Properties:
                                                 Visible: =App.ActiveScreen.Size > ScreenSize.Small
                                                 Font: =Font.Lato
-                                                FontSize: =12
+                                                FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                                 InputTextPlaceholder: ="Estado"
                                                 Items: =Distinct(ColProyectos.Estado, ThisRecord.Estado.Value)
@@ -228,7 +232,7 @@ Screens:
                                               Control: ComboBox@0.0.51
                                               Properties:
                                                 Font: =Font.Lato
-                                                FontSize: =12
+                                                FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                                 InputTextPlaceholder: ="Segmento"
                                                 Items: =Distinct(ColProyectos.Segmento, ThisRecord.Segmento.Value)
@@ -255,7 +259,7 @@ Screens:
                                                 Appearance: ='ButtonCanvas.Appearance'.Secondary
                                                 BorderThickness: =0
                                                 FontColor: =RGBA(189, 49, 51, 1)
-                                                FontSize: =30
+                                                FontSize: =(30) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 FontWeight: =FontWeight.Bold
                                                 Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
                                                 Icon: ="Eraser"
@@ -274,6 +278,7 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           DropShadow: =DropShadow.None
                                           Height: =Parent.Height
                                           LayoutDirection: =LayoutDirection.Horizontal
@@ -305,6 +310,7 @@ Screens:
                                                     Control: GroupContainer@1.5.0
                                                     Variant: AutoLayout
                                                     Properties:
+                                                      LayoutOverflowX: =LayoutOverflow.Scroll
                                                       DropShadow: =DropShadow.None
                                                       Height: =Parent.Height
                                                       LayoutAlignItems: =LayoutAlignItems.Center
@@ -335,7 +341,7 @@ Screens:
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =0
                                                             TemplatePadding: =0
-                                                            TemplateSize: =130
+                                                            TemplateSize: =If(App.ActiveScreen.Size = ScreenSize.Small, 80, 130)
                                                           Children:
                                                             - btnVistaPeriodoCronoProyectos:
                                                                 Control: Classic/Button@2.2.0
@@ -360,7 +366,7 @@ Screens:
                                                                   RadiusBottomRight: =0
                                                                   RadiusTopLeft: =0
                                                                   RadiusTopRight: =0
-                                                                  Size: =Fuente.Media
+                                                                  Size: =(Fuente.Media) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                                   Text: =ThisItem.title
                                                                   Width: =Parent.TemplateWidth
                                                       - icoPeriodoAnteriorCronoProyectos:
@@ -461,6 +467,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     DropShadow: =DropShadow.None
                                     Height: =Parent.Height
                                     LayoutDirection: =LayoutDirection.Vertical
@@ -495,6 +502,7 @@ Screens:
                                               Control: GroupContainer@1.5.0
                                               Variant: AutoLayout
                                               Properties:
+                                                LayoutOverflowX: =LayoutOverflow.Scroll
                                                 DropShadow: =DropShadow.None
                                                 Height: =Parent.Height
                                                 LayoutDirection: =LayoutDirection.Horizontal
@@ -545,7 +553,7 @@ Screens:
                                                             PaddingLeft: =0
                                                             PaddingRight: =0
                                                             PaddingTop: =0
-                                                            Size: =Fuente.Subtitulo
+                                                            Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                             Text: ="Proyecto"
                                                             Width: =Parent.Width
                                                 - cntCabeceraSemanasCronoProyectos:
@@ -572,6 +580,7 @@ Screens:
                                                           Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
+                                                            LayoutOverflowY: =LayoutOverflow.Scroll
                                                             DropShadow: =DropShadow.None
                                                             Fill: =MyTheme.LightGray
                                                             Height: =Parent.Height
@@ -682,6 +691,7 @@ Screens:
                                                           Control: GroupContainer@1.5.0
                                                           Variant: AutoLayout
                                                           Properties:
+                                                            LayoutOverflowY: =LayoutOverflow.Scroll
                                                             DropShadow: =DropShadow.None
                                                             Fill: =MyTheme.LightGray
                                                             Height: =Parent.Height
@@ -909,7 +919,7 @@ Screens:
                                                                   Font: =Font.Lato
                                                                   Height: =Parent.Height/2
                                                                   LayoutMinHeight: =0
-                                                                  Size: =9
+                                                                  Size: =(9) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                                   Text: =ThisItem.'Nombre del proyecto'
                                                                   Tooltip: =ThisItem.'Nombre del proyecto'
                                                                   Width: =Parent.Width

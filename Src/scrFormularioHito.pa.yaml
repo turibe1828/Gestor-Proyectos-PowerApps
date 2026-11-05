@@ -47,6 +47,7 @@ Screens:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowX: =LayoutOverflow.Scroll
                   AlignInContainer: =AlignInContainer.Center
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
@@ -109,10 +110,10 @@ Screens:
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         PaddingBottom: =0
-                        PaddingLeft: =60
+                        PaddingLeft: =If(App.ActiveScreen.Size = ScreenSize.Small, 0, 60)
                         PaddingRight: =0
                         PaddingTop: =0
-                        Size: =Fuente.Titulo
+                        Size: =(Fuente.Titulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: =If(IsBlank(varHito.'Nombre del hito'),"Hito",varHito.'Nombre del hito')
                         Width: =200
                   - icoEliminarHito:
@@ -286,7 +287,7 @@ Screens:
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 120, 212, 1)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -389,7 +390,7 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Visible: =cmbSegmentoHito.Selected.Value="Otros"|| !IsBlank(txtNombreHito.Text)
                               Width: =cmbProductoHito.Width
@@ -424,7 +425,7 @@ Screens:
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 120, 212, 1)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Visible: =cmbSegmentoHito.Selected.Value="Software"||cmbSegmentoHito.Selected.Value="Servicios"
                               Width: =Parent.Width/2-72
                               X: =(Parent.Width-Self.Width)-40
@@ -433,6 +434,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              LayoutOverflowX: =LayoutOverflow.Scroll
                               DropShadow: =DropShadow.None
                               Height: =38
                               LayoutDirection: =LayoutDirection.Horizontal
@@ -519,7 +521,7 @@ Screens:
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 120, 212, 1)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Visible: =frmHito.Mode<>FormMode.Edit
                               X: =30
                               Y: =(Parent.Height-Self.Height)-40
@@ -632,7 +634,7 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -713,7 +715,7 @@ Screens:
                               FontWeight: =FontWeight.Semibold
                               Height: =34
                               PaddingLeft: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: ="Responsable del hito"
                               Width: =Parent.Width - 60
                               Wrap: =false
@@ -755,7 +757,7 @@ Screens:
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 120, 212, 1)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -888,7 +890,7 @@ Screens:
                               SelectMultiple: =false
                               SelectionColor: =RGBA(255, 255, 255, 1)
                               SelectionFill: =RGBA(0, 120, 212, 1)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -1056,7 +1058,7 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -1172,7 +1174,7 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
                               X: =30
@@ -1304,7 +1306,7 @@ Screens:
                                 )
                               PaddingBottom: =0
                               PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               StartYear: =1899
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
@@ -1425,7 +1427,7 @@ Screens:
                                 )
                               PaddingBottom: =0
                               PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               StartYear: =1899
                               Tooltip: =Parent.DisplayName
                               Width: =Parent.Width - 60
@@ -1481,13 +1483,14 @@ Screens:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowX: =LayoutOverflow.Scroll
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   FillPortions: =0
                   Height: =70
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Horizontal
-                  LayoutGap: =Espacio.XL
+                  LayoutGap: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.S, Espacio.XL)
                   LayoutJustifyContent: =LayoutJustifyContent.Center
                   LayoutMaxHeight: =
                   LayoutMaxWidth: =
@@ -1522,7 +1525,7 @@ Screens:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Pequena
+                        Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Cancelar"
                         Width: =100
                   - btnGuardarHito:
@@ -1575,7 +1578,7 @@ Screens:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Pequena
+                        Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Guardar"
                         Width: =100
       - cmpPopupEliminarFormHito:

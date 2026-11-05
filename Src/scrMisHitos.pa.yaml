@@ -108,7 +108,7 @@ Screens:
                                 Set(varEncFoco, Blank());
                                 Set(varEncFocoNombre, Blank())
                               PaddingLeft: =Espacio.L
-                              Size: =If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), 14, 12)
+                              Size: =(If(IsBlank(varFiltroRapidoH) && IsBlank(varEncFoco), 14, 12)) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: |-
                                 ="Hitos" &
                                 If(
@@ -122,6 +122,8 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              PaddingLeft: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.M, 0)
+                              LayoutOverflowX: =LayoutOverflow.Scroll
                               FillPortions: =0
                               BorderColor: =Blank()
                               BorderStyle: =BorderStyle.None
@@ -131,12 +133,12 @@ Screens:
                               LayoutAlignItems: =LayoutAlignItems.Center
                               LayoutDirection: =LayoutDirection.Horizontal
                               LayoutGap: =Espacio.XS
-                              LayoutJustifyContent: =LayoutJustifyContent.End
+                              LayoutJustifyContent: =If(App.ActiveScreen.Size = ScreenSize.Small, LayoutJustifyContent.Start, LayoutJustifyContent.End)
                               LayoutMaxHeight: =
                               LayoutMaxWidth: =
                               LayoutMinHeight: =54
                               LayoutMinWidth: =0
-                              PaddingRight: =Espacio.L
+                              PaddingRight: =If(App.ActiveScreen.Size = ScreenSize.Small, Espacio.M, Espacio.L)
                               PaddingTop: =Espacio.XS
                               RadiusBottomLeft: =0
                               RadiusBottomRight: =0
@@ -150,13 +152,13 @@ Screens:
                                     BorderRadius: =4
                                     Font: =Font.Lato
                                     FontColor: =MyTheme.Gray
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     LayoutMaxHeight: =
                                     LayoutMaxWidth: =
                                     Placeholder: ="Buscar"
                                     TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
-                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * (Parent.Height - Parent.PaddingTop - Parent.PaddingBottom) - 3 * Parent.LayoutGap, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5) - Parent.LayoutGap)
                               - btnBuscarMisHitos:
                                   Control: Button@0.0.45
                                   Properties:
@@ -165,7 +167,7 @@ Screens:
                                     Appearance: ='ButtonCanvas.Appearance'.Secondary
                                     BorderThickness: =0
                                     FontColor: =RGBA(15, 108, 189, 1)
-                                    FontSize: =30
+                                    FontSize: =(30) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     FontWeight: =FontWeight.Bold
                                     Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
                                     Icon: ="Search"
@@ -178,7 +180,7 @@ Screens:
                                   Control: ComboBox@0.0.51
                                   Properties:
                                     Font: =Font.Lato
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     InputTextPlaceholder: ="Encargado"
                                     Items: =Distinct( UsuariosDemo,ThisRecord.DisplayName)
@@ -202,7 +204,7 @@ Screens:
                                   Properties:
                                     Visible: =App.ActiveScreen.Size > ScreenSize.Small
                                     Font: =Font.Lato
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     InputTextPlaceholder: ="Proyecto"
                                     Items: =Distinct(ColProyectos, 'Nombre del proyecto')
@@ -228,7 +230,7 @@ Screens:
                                   Properties:
                                     Visible: =App.ActiveScreen.Size >= ScreenSize.Large
                                     Font: =Font.Lato
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     InputTextPlaceholder: ="Cliente"
                                     Items: =Distinct(ColProyectos, 'Nombre del Cliente')
@@ -244,7 +246,7 @@ Screens:
                                   Properties:
                                     Visible: =App.ActiveScreen.Size > ScreenSize.Small
                                     Font: =Font.Lato
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     InputTextPlaceholder: ="Estado"
                                     Items: =Distinct(ColHitos.Estado, ThisRecord.Estado.Value)
@@ -265,7 +267,7 @@ Screens:
                                   Control: ComboBox@0.0.51
                                   Properties:
                                     Font: =Font.Lato
-                                    FontSize: =12
+                                    FontSize: =(12) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
                                     InputTextPlaceholder: ="Segmento"
                                     Items: =Distinct(ColProyectos.Segmento, ThisRecord.Segmento.Value)
@@ -292,7 +294,7 @@ Screens:
                                     Appearance: ='ButtonCanvas.Appearance'.Secondary
                                     BorderThickness: =0
                                     FontColor: =RGBA(189, 49, 51, 1)
-                                    FontSize: =30
+                                    FontSize: =(30) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     FontWeight: =FontWeight.Bold
                                     Height: =Parent.Height - Parent.PaddingTop - Parent.PaddingBottom
                                     Icon: ="Eraser"
@@ -334,7 +336,7 @@ Screens:
                         LayoutMaxWidth: =
                         LayoutMinWidth: =0
                         TemplatePadding: =0
-                        TemplateSize: =120
+                        TemplateSize: =If(App.ActiveScreen.Size = ScreenSize.Small, 95, 120)
                       Children:
                         - btnVistaMisHitos:
                             Control: Classic/Button@2.2.0
@@ -369,7 +371,7 @@ Screens:
                               RadiusBottomRight: =If(ThisItem.ID > 2, 16, 0)
                               RadiusTopLeft: =If(ThisItem.ID > 2, 16, 0)
                               RadiusTopRight: =If(ThisItem.ID > 2, 16, 0)
-                              Size: =If(ThisItem.ID > 2, 11, 14)
+                              Size: =(If(ThisItem.ID > 2, 11, 14)) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: =ThisItem.title
                               Tooltip: =If(ThisItem.ID > 2, "Clic para filtrar; otro clic quita el filtro", "")
                               Width: =If(ThisItem.ID > 2, Parent.TemplateWidth - 8, Parent.TemplateWidth)
@@ -407,7 +409,7 @@ Screens:
                               Font: =Font.'Lato Black'
                               HoverColor: =MyTheme.Primary
                               OnSelect: =Set(varEstadoFocoH, If(IsBlank(varEstadoFocoH), ThisItem.Value, Blank()))
-                              Size: =Fuente.Media
+                              Size: =(Fuente.Media) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: =ThisItem.Value & "  (" & galTarjetasHitos.AllItemsCount & ")" & If(IsBlank(varEstadoFocoH), "", "   ‹ volver")
                               Tooltip: =If(IsBlank(varEstadoFocoH), "Clic para ampliar esta columna", "Clic para volver a ver todas las columnas")
                               Width: =Parent.TemplateWidth-Self.X
@@ -559,7 +561,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =0
                                                 OnSelect: =Set(varHito, LookUp(ColHitos, ID = ThisItem.ID)); Navigate(scrFormularioHito, ScreenTransition.Fade)
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =ThisItem.'Nombre del hito'
                                                 Wrap: =false
                                           - btnAvanceTarjetaHito:
@@ -608,7 +610,7 @@ Screens:
                                                 RadiusBottomRight: =20
                                                 RadiusTopLeft: =20
                                                 RadiusTopRight: =20
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =Text(Coalesce(ThisItem.Avance, 0), "[$-es-ES]0%")
                                                 Width: =60
                                     - lblDescripcionTarjetaHito:
@@ -627,7 +629,7 @@ Screens:
                                           LayoutMaxHeight: =
                                           LayoutMaxWidth: =
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Mini
+                                          Size: =(Fuente.Mini) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: =ThisItem.Descripción
                                           VerticalAlign: =VerticalAlign.Top
                                     - lblFechasTarjetaHito:
@@ -653,7 +655,7 @@ Screens:
                                           LayoutMaxHeight: =
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
-                                          Size: =Fuente.Etiqueta
+                                          Size: =(Fuente.Etiqueta) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |-
                                             =Text(ThisItem.Fecha_Inicio, "mmm d") & " - " & Text(ThisItem.Fecha_Fin, "mmm d") &
                                             With(
@@ -715,6 +717,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              LayoutOverflowX: =LayoutOverflow.Scroll
                               BorderStyle: =BorderStyle.None
                               DropShadow: =DropShadow.None
                               Fill: =MyTheme.LightGray
@@ -736,6 +739,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -769,7 +773,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                           PaddingLeft: =Espacio.M
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Hito"
                                     - icoOrdenarHito:
                                         Control: Classic/Icon@2.5.0
@@ -808,6 +812,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -841,7 +846,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingLeft: =Espacio.M
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Inicio"
                                     - icoOrdenarInicioHitos:
                                         Control: Classic/Icon@2.5.0
@@ -880,6 +885,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -913,7 +919,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingLeft: =Espacio.M
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Fin"
                                     - icoOrdenarFinHitos:
                                         Control: Classic/Icon@2.5.0
@@ -952,6 +958,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -985,7 +992,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingLeft: =Espacio.M
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Estado"
                                     - icoOrdenarEstadoHitos:
                                         Control: Classic/Icon@2.5.0
@@ -1024,6 +1031,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowX: =LayoutOverflow.Scroll
                                     BorderStyle: =BorderStyle.None
                                     DropShadow: =DropShadow.None
                                     LayoutAlignItems: =LayoutAlignItems.Center
@@ -1057,7 +1065,7 @@ Screens:
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
                                           PaddingLeft: =Espacio.M
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Cliente"
                                     - icoOrdenarClienteHitos:
                                         Control: Classic/Icon@2.5.0
@@ -1111,7 +1119,7 @@ Screens:
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                     PaddingLeft: =Espacio.M
-                                    Size: =Fuente.Normal
+                                    Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: ="Responsable"
                         - galTablaHitos:
                             Control: Gallery@2.15.0
@@ -1402,7 +1410,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                                 PaddingLeft: =Espacio.M
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Strikethrough: =ThisItem.Estado.Value="Completado"
                                                 Text: =ThisItem.'Nombre del hito'
                                                 Wrap: =false
@@ -1425,7 +1433,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                                 PaddingLeft: =Espacio.M
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =Text(ThisItem.Fecha_Inicio, "yyyy-mm-dd")
                                           - lblCeldaFinHito:
                                               Control: Label@2.5.1
@@ -1451,7 +1459,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                                 PaddingLeft: =Espacio.M
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =Text(ThisItem.Fecha_Fin, "yyyy-mm-dd")
                                           - lblCeldaEstadoHito:
                                               Control: Label@2.5.1
@@ -1482,7 +1490,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                                 PaddingLeft: =Espacio.M
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =ThisItem.Estado.Value
                                           - lblCeldaClienteHito:
                                               Control: Label@2.5.1
@@ -1503,7 +1511,7 @@ Screens:
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =(Parent.Width/6)-chkHitoCompletado.Width
                                                 PaddingLeft: =Espacio.M
-                                                Size: =Fuente.Normal
+                                                Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: =Coalesce(ThisItem.NombreCliente, LookUp(ColProyectos, ID = ThisItem.'ID proyecto').'Nombre del Cliente')
                                                 Wrap: =false
                                           - cntCeldaEncargadoHito:

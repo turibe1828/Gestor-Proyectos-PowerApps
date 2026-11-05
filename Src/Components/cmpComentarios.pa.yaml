@@ -17,6 +17,7 @@ ComponentDefinitions:
           Control: GroupContainer@1.5.0
           Variant: AutoLayout
           Properties:
+            LayoutOverflowY: =LayoutOverflow.Scroll
             BorderStyle: =BorderStyle.None
             DropShadow: =DropShadow.None
             Height: =Parent.Height
@@ -52,6 +53,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowY: =LayoutOverflow.Scroll
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   FillPortions: =0
@@ -115,7 +117,7 @@ ComponentDefinitions:
                         SelectMultiple: =false
                         SelectionColor: =RGBA(255, 255, 255, 1)
                         SelectionFill: =RGBA(0, 120, 212, 1)
-                        Size: =Fuente.Pequena
+                        Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Tooltip: =
                         Width: =Parent.Width
                         X: =30
@@ -140,6 +142,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                         DropShadow: =DropShadow.None
                         Height: =Parent.Height
                         LayoutDirection: =LayoutDirection.Vertical
@@ -163,7 +166,7 @@ ComponentDefinitions:
                               LayoutMaxHeight: =
                               LayoutMaxWidth: =
                               PaddingLeft: =Espacio.M
-                              Size: =Fuente.Pequena
+                              Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               Text: =cmbTipoComentario.Selected.Value
                               Width: =126
                         - txtNuevoComentario:
@@ -198,7 +201,7 @@ ComponentDefinitions:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Size: =Fuente.Normal
+                              Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                               X: =40
                               Y: =40
                   - icoEnviarComentario:
@@ -377,7 +380,7 @@ ComponentDefinitions:
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Mini
+                                          Size: =(Fuente.Mini) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |+
                                             =ThisItem.CreadoPersona.DisplayName
                                           Width: =Parent.Width
@@ -399,7 +402,7 @@ ComponentDefinitions:
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
-                                          Size: =6
+                                          Size: =(6) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |+
                                             =ThisItem.Created
                                           Width: =Parent.Width
@@ -437,7 +440,7 @@ ComponentDefinitions:
                                     LayoutMaxWidth: =
                                     PaddingRight: =Espacio.M
                                     PaddingTop: =3
-                                    Size: =Fuente.Pequena
+                                    Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: =ThisItem.Tipo.Value
                                     Width: =Parent.Width
                                     X: =
@@ -474,7 +477,7 @@ ComponentDefinitions:
                                     PaddingLeft: =Espacio.M
                                     PaddingRight: =Espacio.M
                                     PaddingTop: =3
-                                    Size: =Fuente.Pequena
+                                    Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                     Text: =ThisItem.Comentario
                                     Width: =Parent.Width
                                     X: =

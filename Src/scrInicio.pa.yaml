@@ -84,6 +84,7 @@ Screens:
                             Control: GroupContainer@1.5.0
                             Variant: AutoLayout
                             Properties:
+                              LayoutOverflowX: =LayoutOverflow.Scroll
                               DropShadow: =DropShadow.None
                               Fill: =Colores.Blanco
                               FillPortions: =0
@@ -105,6 +106,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.None
                                     Fill: =Colores.Blanco
@@ -138,7 +140,7 @@ Screens:
                                           LayoutMaxHeight: =
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: =Text(Today(), "dddd dd ""de"" mmmm", "es-ES")
                                     - lblBienvenida:
                                         Control: Label@2.5.1
@@ -155,7 +157,7 @@ Screens:
                                           LayoutMaxHeight: =
                                           LayoutMaxWidth: =
                                           LayoutMinHeight: =0
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: =$"Bienvenido, {If(IsBlank(CurrentUser.GivenName),CurrentUser.DisplayName,CurrentUser.GivenName)} "
                         - cntIndicadores:
                             Control: GroupContainer@1.5.0
@@ -183,6 +185,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -211,7 +214,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          Size: =Fuente.Subtitulo
+                                          Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Completados"
                                     - btnVerProyectosCompletados:
                                         Control: Classic/Button@2.2.0
@@ -248,7 +251,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =Fuente.Pequena
+                                          Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Ver proyectos ›"
                                           Tooltip: ="Ver los proyectos completados en los últimos 30 días"
                                           Width: =150
@@ -263,7 +266,7 @@ Screens:
                                           Height: =24
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Destacada
+                                          Size: =(Fuente.Destacada) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Ultimos 30 días"
                                     - lblKpiCompletadosTotal:
                                         Control: ModernText@1.0.0
@@ -281,7 +284,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =22
+                                          Size: =(22) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |-
                                             =CountRows(
                                                 Filter(
@@ -302,6 +305,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -330,7 +334,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          Size: =Fuente.Subtitulo
+                                          Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Por vencerse"
                                     - btnVerProyectosPorVencer:
                                         Control: Classic/Button@2.2.0
@@ -367,7 +371,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =Fuente.Pequena
+                                          Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Ver proyectos ›"
                                           Tooltip: ="Ver los proyectos en progreso que vencen en los próximos 7 días"
                                           Width: =150
@@ -381,7 +385,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Destacada
+                                          Size: =(Fuente.Destacada) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Próximos 7 días"
                                     - lblKpiPorVencerTotal:
                                         Control: ModernText@1.0.0
@@ -399,7 +403,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =22
+                                          Size: =(22) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |-
                                             =CountRows(
                                                 Filter(
@@ -415,6 +419,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Center
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -443,7 +448,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =16
-                                          Size: =Fuente.Subtitulo
+                                          Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Vencidos"
                                     - btnVerProyectosVencidos:
                                         Control: Classic/Button@2.2.0
@@ -480,7 +485,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =Fuente.Pequena
+                                          Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Ver proyectos ›"
                                           Tooltip: ="Ver los proyectos en progreso ya vencidos"
                                           Width: =150
@@ -494,7 +499,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Destacada
+                                          Size: =(Fuente.Destacada) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="A la fecha"
                                     - lblKpiVencidosTotal:
                                         Control: ModernText@1.0.0
@@ -512,7 +517,7 @@ Screens:
                                           RadiusBottomRight: =0
                                           RadiusTopLeft: =0
                                           RadiusTopRight: =0
-                                          Size: =22
+                                          Size: =(22) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: |-
                                             =CountRows(
                                                 Filter(
@@ -578,6 +583,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Start
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -602,6 +608,7 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           DropShadow: =DropShadow.None
                                           FillPortions: =0
                                           Height: =30
@@ -628,7 +635,7 @@ Screens:
                                                 FontColor: =MyTheme.Gray
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =16
-                                                Size: =16
+                                                Size: =(16) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: ="Tareas recientes"
                                                 Wrap: =false
                                           - btnVerTodasTareas:
@@ -656,7 +663,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Etiqueta
+                                                Size: =(Fuente.Etiqueta) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: ="Ver todo"
                                                 Width: =80
                                     - galTareasRecientes:
@@ -899,7 +906,7 @@ Screens:
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =(Parent.Width/8)-chkTareaRecienteCompletada.Width
                                                             PaddingLeft: =Espacio.M
-                                                            Size: =Fuente.Pequena
+                                                            Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                             Text: =ThisItem.'Nombre del hito'
                                                             Wrap: =false
                                                 - btnAbrirTareaReciente:
@@ -925,7 +932,7 @@ Screens:
                                                       RadiusBottomRight: =0
                                                       RadiusTopLeft: =0
                                                       RadiusTopRight: =0
-                                                      Size: =Fuente.Destacada
+                                                      Size: =(Fuente.Destacada) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                       Text: =
                                                       Width: =Parent.Width-Self.X
                                                       X: |-
@@ -935,6 +942,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Start
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -959,6 +967,7 @@ Screens:
                                         Control: GroupContainer@1.5.0
                                         Variant: AutoLayout
                                         Properties:
+                                          LayoutOverflowX: =LayoutOverflow.Scroll
                                           DropShadow: =DropShadow.None
                                           FillPortions: =0
                                           Height: =30
@@ -985,7 +994,7 @@ Screens:
                                                 FontColor: =MyTheme.Gray
                                                 LayoutMinHeight: =0
                                                 LayoutMinWidth: =16
-                                                Size: =16
+                                                Size: =(16) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: ="Proyectos recientes"
                                                 Wrap: =false
                                           - btnVerTodosProyectos:
@@ -1013,7 +1022,7 @@ Screens:
                                                 RadiusBottomRight: =0
                                                 RadiusTopLeft: =0
                                                 RadiusTopRight: =0
-                                                Size: =Fuente.Etiqueta
+                                                Size: =(Fuente.Etiqueta) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                 Text: ="Ver todo"
                                                 Width: =80
                                     - galProyectosRecientes:
@@ -1158,7 +1167,7 @@ Screens:
                                                             LayoutMinHeight: =0
                                                             LayoutMinWidth: =(Parent.Width/8)-chkProyectoRecienteCompletado.Width
                                                             PaddingLeft: =Espacio.M
-                                                            Size: =Fuente.Pequena
+                                                            Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                                             Text: =ThisItem.'Nombre del proyecto'
                                                             Wrap: =false
                                                 - btnAbrirProyectoReciente:
@@ -1193,6 +1202,7 @@ Screens:
                                   Control: GroupContainer@1.5.0
                                   Variant: AutoLayout
                                   Properties:
+                                    LayoutOverflowY: =LayoutOverflow.Scroll
                                     AlignInContainer: =AlignInContainer.Start
                                     DropShadow: =DropShadow.Semilight
                                     Fill: =Colores.Blanco
@@ -1222,7 +1232,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =16
-                                          Size: =Fuente.Subtitulo
+                                          Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Proyectos completados"
                                           Width: =Parent.Width-Parent.PaddingLeft
                                     - lblGraficoCompletadosPeriodo:
@@ -1234,7 +1244,7 @@ Screens:
                                           FontColor: =MyTheme.Gray
                                           LayoutMinHeight: =16
                                           LayoutMinWidth: =0
-                                          Size: =Fuente.Destacada
+                                          Size: =(Fuente.Destacada) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           Text: ="Ultimos 6 meses"
                                     - chtProyectosCompletadosMes:
                                         Control: BarChart@2.4.0
@@ -1286,7 +1296,7 @@ Screens:
                                           PaddingLeft: =0
                                           PaddingRight: =0
                                           PressedBorderColor: =RGBA(0, 0, 0, 0)
-                                          Size: =Fuente.Normal
+                                          Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                                           X: =40
                                           XLabelAngle: =45
                                           Y: =70

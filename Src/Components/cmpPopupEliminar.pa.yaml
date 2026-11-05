@@ -31,6 +31,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowY: =LayoutOverflow.Scroll
                   BorderStyle: =BorderStyle.None
                   BorderThickness: =2
                   DropShadow: =DropShadow.Semibold
@@ -55,6 +56,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         DropShadow: =DropShadow.None
                         FillPortions: =0
                         Height: =50
@@ -105,7 +107,7 @@ ComponentDefinitions:
                         LayoutMaxHeight: =
                         LayoutMaxWidth: =
                         LayoutMinWidth: =0
-                        Size: =Fuente.Subtitulo
+                        Size: =(Fuente.Subtitulo) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Estas seguro que quieres eliminarlo?"
                   - btnConfirmarEliminar:
                       Control: Classic/Button@2.2.0
@@ -214,6 +216,6 @@ ComponentDefinitions:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Pequena
+                        Size: =(Fuente.Pequena) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Eliminar"
                         Width: =200

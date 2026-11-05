@@ -31,6 +31,7 @@ ComponentDefinitions:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
+                  LayoutOverflowY: =LayoutOverflow.Scroll
                   BorderStyle: =BorderStyle.None
                   BorderThickness: =2
                   DropShadow: =DropShadow.Semibold
@@ -55,6 +56,7 @@ ComponentDefinitions:
                       Control: GroupContainer@1.5.0
                       Variant: AutoLayout
                       Properties:
+                        LayoutOverflowX: =LayoutOverflow.Scroll
                         DropShadow: =DropShadow.None
                         FillPortions: =0
                         Height: =50
@@ -115,7 +117,7 @@ ComponentDefinitions:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Normal
+                        Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Crear Proyecto"
                         Visible: =App.ActiveScreen.Name = "scrMisProyectos"
                         Width: =230
@@ -144,7 +146,7 @@ ComponentDefinitions:
                         RadiusBottomRight: =8
                         RadiusTopLeft: =8
                         RadiusTopRight: =8
-                        Size: =Fuente.Normal
+                        Size: =(Fuente.Normal) * If(App.ActiveScreen.Size = ScreenSize.Small, 0.85, App.ActiveScreen.Size = ScreenSize.Medium, 0.92, 1)
                         Text: ="Crear Hito"
                         Visible: =App.ActiveScreen.Name = "scrMisHitos"
                         Width: =230
