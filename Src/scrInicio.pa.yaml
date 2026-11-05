@@ -30,17 +30,17 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: cmpMenuLateral
                 Properties:
-                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Visible: =App.ActiveScreen.Size > ScreenSize.Small || VarMenu
                   Height: =Parent.Height
                   LayoutMaxHeight: =
                   LayoutMaxWidth: =
-                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+                  Width: =If(App.ActiveScreen.Size = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
             - cntPrincipalInicio:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =1
-                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  Visible: =!(App.ActiveScreen.Size = ScreenSize.Small && VarMenu)
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   Fill: =MyTheme.LightGray
@@ -200,7 +200,7 @@ Screens:
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreenSize = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreen.Size = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
                                   Children:
                                     - lblKpiCompletadosTitulo:
                                         Control: Text@0.0.51
@@ -319,7 +319,7 @@ Screens:
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreenSize = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreen.Size = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
                                   Children:
                                     - lblKpiPorVencerTitulo:
                                         Control: Text@0.0.51
@@ -432,7 +432,7 @@ Screens:
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreenSize = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, If(App.ActiveScreen.Size = ScreenSize.Medium, (Parent.Width - Parent.PaddingLeft - Parent.PaddingRight - 2 * Parent.LayoutGap) / 3, 200))
                                   Children:
                                     - lblKpiVencidosTitulo:
                                         Control: Text@0.0.51
@@ -527,7 +527,7 @@ Screens:
                               - imgBannerInicio:
                                   Control: Image@2.2.3
                                   Properties:
-                                    Visible: =App.ActiveScreenSize >= ScreenSize.Large
+                                    Visible: =App.ActiveScreen.Size >= ScreenSize.Large
                                     AlignInContainer: =AlignInContainer.Center
                                     BorderColor: =RGBA(0, 0, 0, 0)
                                     BorderStyle: =BorderStyle.None
@@ -596,7 +596,7 @@ Screens:
                                     RadiusBottomRight: =8
                                     RadiusTopLeft: =8
                                     RadiusTopRight: =8
-                                    Width: =If(App.ActiveScreenSize <= ScreenSize.Medium, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, (Parent.Width - 55) / 2)
+                                    Width: =If(App.ActiveScreen.Size <= ScreenSize.Medium, Parent.Width - Parent.PaddingLeft - Parent.PaddingRight, (Parent.Width - 55) / 2)
                                   Children:
                                     - cntTareasRecientesTitulo:
                                         Control: GroupContainer@1.5.0

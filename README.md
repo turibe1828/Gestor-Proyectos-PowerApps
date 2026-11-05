@@ -48,7 +48,7 @@ Todo elemento empieza con un prefijo de 3 letras en minúscula que indica su tip
 
 ## Diseño responsive
 
-- **Puntos de quiebre:** `App.SizeBreakpoints = [600, 900, 1200]`, que dan celular, tablet y escritorio. Cada pantalla se adapta con `App.ActiveScreenSize`.
+- **Puntos de quiebre:** `App.SizeBreakpoints = [600, 900, 1200]`, que dan celular, tablet y escritorio. Cada pantalla se adapta con `App.ActiveScreen.Size`.
 - **Estructura de cada pantalla:** `cntPantalla…` (menú + principal) > `cntPrincipal…` (encabezado + contenido), con `LayoutDirection`, `FillPortions`, `LayoutWrap` y `LayoutOverflow`.
 - **En celular:**
   - El menú lateral se oculta y se abre con el botón ☰ del encabezado.

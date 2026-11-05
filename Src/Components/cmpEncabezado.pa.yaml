@@ -44,7 +44,7 @@ ComponentDefinitions:
                   LayoutMaxWidth: =
                   OnSelect: =Set(VarMenu, !VarMenu)
                   PressedFill: =RGBA(0, 0, 0, 0)
-                  Visible: =App.ActiveScreenSize = ScreenSize.Small
+                  Visible: =App.ActiveScreen.Size = ScreenSize.Small
                   Width: =30
             - btnCrearEncabezado:
                 Control: Classic/Button@2.2.0
@@ -73,7 +73,7 @@ ComponentDefinitions:
                   Size: =Fuente.Pequena
                   Text: ="+ Crear"
                   Visible: =App.ActiveScreen.Name in ["scrMisProyectos", "scrMisHitos"]
-                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, 80, 100)
+                  Width: =If(App.ActiveScreen.Size = ScreenSize.Small, 80, 100)
             - cntActualizar:
                 Control: GroupContainer@1.5.0
                 Variant: ManualLayout
@@ -376,7 +376,7 @@ ComponentDefinitions:
                   - lblNombreUsuario:
                       Control: Label@2.5.1
                       Properties:
-                        Visible: =App.ActiveScreenSize > ScreenSize.Small
+                        Visible: =App.ActiveScreen.Size > ScreenSize.Small
                         Align: =Align.Right
                         BorderColor: =RGBA(0, 0, 0, 0)
                         BorderStyle: =BorderStyle.None

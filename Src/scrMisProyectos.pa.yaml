@@ -35,18 +35,18 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: cmpMenuLateral
                 Properties:
-                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Visible: =App.ActiveScreen.Size > ScreenSize.Small || VarMenu
                   Height: =Parent.Height
                   LayoutMaxHeight: =
                   LayoutMaxWidth: =
-                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+                  Width: =If(App.ActiveScreen.Size = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
             - cntPrincipalMisProyectos:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   LayoutMinWidth: =0
                   FillPortions: =1
-                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  Visible: =!(App.ActiveScreen.Size = ScreenSize.Small && VarMenu)
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   LayoutDirection: =LayoutDirection.Vertical
@@ -74,8 +74,8 @@ Screens:
                         BorderStyle: =BorderStyle.None
                         DropShadow: =DropShadow.None
                         FillPortions: =0
-                        Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 110, Max(60, Parent.Height * 0.08))
-                        LayoutDirection: =If(App.ActiveScreenSize <= ScreenSize.Medium, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        Height: =If(App.ActiveScreen.Size <= ScreenSize.Medium, 110, Max(60, Parent.Height * 0.08))
+                        LayoutDirection: =If(App.ActiveScreen.Size <= ScreenSize.Medium, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                         LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                         LayoutMaxHeight: =
                         LayoutMaxWidth: =
@@ -90,7 +90,7 @@ Screens:
                             Control: Label@2.5.1
                             Properties:
                               AlignInContainer: =AlignInContainer.Stretch
-                              Align: =If(App.ActiveScreenSize <= ScreenSize.Medium, Align.Left, Align.Center)
+                              Align: =If(App.ActiveScreen.Size <= ScreenSize.Medium, Align.Left, Align.Center)
                               BorderColor: =RGBA(0, 0, 0, 0)
                               BorderStyle: =BorderStyle.None
                               BorderThickness: =2
@@ -99,7 +99,7 @@ Screens:
                               DisabledColor: =RGBA(161, 159, 157, 1)
                               FocusedBorderThickness: =4
                               Font: =Font.'Lato Black'
-                              Height: =If(App.ActiveScreenSize <= ScreenSize.Medium, 45, Parent.Height)
+                              Height: =If(App.ActiveScreen.Size <= ScreenSize.Medium, 45, Parent.Height)
                               LayoutMaxHeight: =
                               LayoutMaxWidth: =
                               OnSelect: |-
@@ -142,7 +142,7 @@ Screens:
                               RadiusBottomRight: =0
                               RadiusTopLeft: =0
                               RadiusTopRight: =0
-                              Width: =If(App.ActiveScreenSize <= ScreenSize.Medium, Parent.Width, Parent.Width - lblTituloMisProyectos.Width)
+                              Width: =If(App.ActiveScreen.Size <= ScreenSize.Medium, Parent.Width, Parent.Width - lblTituloMisProyectos.Width)
                             Children:
                               - txtBuscarMisProyectos:
                                   Control: TextInput@0.0.54
@@ -157,7 +157,7 @@ Screens:
                                     Placeholder: ="Buscar"
                                     TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
                                     Value: =
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
                               - btnBuscarMisProyectos:
                                   Control: Button@0.0.45
                                   Properties:
@@ -236,8 +236,8 @@ Screens:
                                     PaddingBottom: =Espacio.M
                                     PaddingTop: =Espacio.M
                                     SelectMultiple: =true
-                                    Visible: =varAccesoTotal && App.ActiveScreenSize > ScreenSize.Small
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                    Visible: =varAccesoTotal && App.ActiveScreen.Size > ScreenSize.Small
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
                                   Children:
                                     - fldResponsableMisProyectos:
                                         Control: ComboBoxDataField@1.5.0
@@ -262,7 +262,7 @@ Screens:
                                     PaddingBottom: =Espacio.M
                                     PaddingTop: =Espacio.M
                                     SelectMultiple: =true
-                                    Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                    Visible: =varAccesoTotal && App.ActiveScreen.Size >= ScreenSize.Large
                                     Width: =Parent.Width * 0.15 - Parent.LayoutGap
                                   Children:
                                     - fldClienteMisProyectos:
@@ -277,7 +277,7 @@ Screens:
                               - cmbEstadoMisProyectos:
                                   Control: ComboBox@0.0.51
                                   Properties:
-                                    Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                    Visible: =App.ActiveScreen.Size > ScreenSize.Small
                                     Font: =Font.Lato
                                     FontSize: =12
                                     Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
@@ -285,7 +285,7 @@ Screens:
                                     Items: =Distinct(ColProyectos.Estado, ThisRecord.Estado.Value)
                                     LayoutMaxHeight: =
                                     LayoutMaxWidth: =
-                                    Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                    Width: =If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
                                   Children:
                                     - fldEstadoMisProyectos:
                                         Control: ComboBoxDataField@1.5.0
@@ -307,7 +307,7 @@ Screens:
                                     LayoutMaxHeight: =
                                     LayoutMaxWidth: =
                                     SelectMultiple: =true
-                                    Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                    Visible: =varAccesoTotal && App.ActiveScreen.Size >= ScreenSize.Large
                                     Width: =Parent.Width * 0.15 - Parent.LayoutGap
                                   Children:
                                     - fldSegmentoMisProyectos:
@@ -425,7 +425,7 @@ Screens:
                         LayoutMinWidth: =0
                         ShowScrollbar: =false
                         TemplatePadding: =0
-                        TemplateSize: =If(IsBlank(varEstadoFocoP), If(App.ActiveScreenSize = ScreenSize.Small, Self.Width * 0.85, 290), Max(290, Self.Width))
+                        TemplateSize: =If(IsBlank(varEstadoFocoP), If(App.ActiveScreen.Size = ScreenSize.Small, Self.Width * 0.85, 290), Max(290, Self.Width))
                         Visible: =varVista= "Tablero"
                         Width: =Parent.Width
                       Children:

@@ -33,17 +33,17 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: cmpMenuLateral
                 Properties:
-                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Visible: =App.ActiveScreen.Size > ScreenSize.Small || VarMenu
                   Height: =Parent.Height
                   LayoutMaxHeight: =
                   LayoutMaxWidth: =
-                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+                  Width: =If(App.ActiveScreen.Size = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
             - cntPrincipalCronoHitos:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =1
-                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  Visible: =!(App.ActiveScreen.Size = ScreenSize.Small && VarMenu)
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   LayoutDirection: =LayoutDirection.Vertical
@@ -343,7 +343,7 @@ Screens:
                                                                   ),
                                                                   Blank()
                                                               )
-                                                            Width: =If(App.ActiveScreenSize = ScreenSize.Small, 120, 180)
+                                                            Width: =If(App.ActiveScreen.Size = ScreenSize.Small, 120, 180)
                                                       - icoPeriodoSiguienteCronoHitos:
                                                           Control: Classic/Icon@2.5.0
                                                           Properties:

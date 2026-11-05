@@ -290,7 +290,7 @@ ComponentDefinitions:
                               HoverBorderColor: =RGBA(0, 0, 0, 0)
                               HoverColor: =RGBA(255, 255, 255, 1)
                               HoverFill: =RGBA(190,190,240,0.1)
-                              OnSelect: =Navigate(ThisItem.Screen, ScreenTransition.Fade); Set(varProyecto,Blank()); If(App.ActiveScreenSize = ScreenSize.Small, Set(VarMenu, false));
+                              OnSelect: =Navigate(ThisItem.Screen, ScreenTransition.Fade); Set(varProyecto,Blank()); If(App.ActiveScreen.Size = ScreenSize.Small, Set(VarMenu, false));
                               PressedBorderColor: =RGBA(0, 69, 120, 1)
                               PressedColor: =RGBA(255, 255, 255, 1)
                               PressedFill: =ColorFade(Self.HoverFill, -30%)
@@ -491,7 +491,7 @@ ComponentDefinitions:
                         HoverBorderColor: =RGBA(0, 0, 0, 0)
                         HoverColor: =RGBA(255, 255, 255, 1)
                         HoverFill: =RGBA(190,190,240,0.1)
-                        OnSelect: =Navigate(scrInformePowerBi, ScreenTransition.Fade); If(App.ActiveScreenSize = ScreenSize.Small, Set(VarMenu, false))
+                        OnSelect: =Navigate(scrInformePowerBi, ScreenTransition.Fade); If(App.ActiveScreen.Size = ScreenSize.Small, Set(VarMenu, false))
                         PressedBorderColor: =RGBA(0, 69, 120, 1)
                         PressedColor: =RGBA(255, 255, 255, 1)
                         PressedFill: =ColorFade(Self.HoverFill, -30%)

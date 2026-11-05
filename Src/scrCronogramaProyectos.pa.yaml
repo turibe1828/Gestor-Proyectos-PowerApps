@@ -38,17 +38,17 @@ Screens:
                 Control: CanvasComponent
                 ComponentName: cmpMenuLateral
                 Properties:
-                  Visible: =App.ActiveScreenSize > ScreenSize.Small || VarMenu
+                  Visible: =App.ActiveScreen.Size > ScreenSize.Small || VarMenu
                   Height: =Parent.Height
                   LayoutMaxHeight: =
                   LayoutMaxWidth: =
-                  Width: =If(App.ActiveScreenSize = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
+                  Width: =If(App.ActiveScreen.Size = ScreenSize.Small, If(VarMenu, Parent.Width, 0), If(VarMenu, 200, 70))
             - cntPrincipalCronoProyectos:
                 Control: GroupContainer@1.5.0
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =1
-                  Visible: =!(App.ActiveScreenSize = ScreenSize.Small && VarMenu)
+                  Visible: =!(App.ActiveScreen.Size = ScreenSize.Small && VarMenu)
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
                   LayoutDirection: =LayoutDirection.Vertical
@@ -145,7 +145,7 @@ Screens:
                                                 LayoutMaxWidth: =
                                                 Placeholder: ="Buscar Proyecto"
                                                 TriggerOutput: ='TextInputCanvas.TriggerOutput'.Delayed
-                                                Width: =If(App.ActiveScreenSize = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
+                                                Width: =If(App.ActiveScreen.Size = ScreenSize.Small, Parent.Width * 0.65, If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.3, Parent.Width / 5)) - Parent.LayoutGap
                                           - btnBuscarCronoProyectos:
                                               Control: Button@0.0.45
                                               Properties:
@@ -175,8 +175,8 @@ Screens:
                                                 LayoutMaxWidth: =
                                                 LayoutMinHeight: =30
                                                 SelectMultiple: =true
-                                                Visible: =varAccesoTotal && App.ActiveScreenSize > ScreenSize.Small
-                                                Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                                Visible: =varAccesoTotal && App.ActiveScreen.Size > ScreenSize.Small
+                                                Width: =If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
                                               Children:
                                                 - fldResponsableCronoProyectos:
                                                     Control: ComboBoxDataField@1.5.0
@@ -190,7 +190,7 @@ Screens:
                                           - cmbClienteCronoProyectos:
                                               Control: ComboBox@0.0.51
                                               Properties:
-                                                Visible: =App.ActiveScreenSize >= ScreenSize.Large
+                                                Visible: =App.ActiveScreen.Size >= ScreenSize.Large
                                                 AlignInContainer: =AlignInContainer.Center
                                                 Font: =Font.Lato
                                                 FontSize: =12
@@ -205,7 +205,7 @@ Screens:
                                           - cmbEstadoCronoProyectos:
                                               Control: ComboBox@0.0.51
                                               Properties:
-                                                Visible: =App.ActiveScreenSize > ScreenSize.Small
+                                                Visible: =App.ActiveScreen.Size > ScreenSize.Small
                                                 Font: =Font.Lato
                                                 FontSize: =12
                                                 Height: =Parent.Height*0.8 - Parent.PaddingTop - Parent.PaddingBottom
@@ -213,7 +213,7 @@ Screens:
                                                 Items: =Distinct(ColProyectos.Estado, ThisRecord.Estado.Value)
                                                 LayoutMaxHeight: =
                                                 LayoutMaxWidth: =
-                                                Width: =If(App.ActiveScreenSize = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
+                                                Width: =If(App.ActiveScreen.Size = ScreenSize.Medium, Parent.Width * 0.22, Parent.Width * 0.15) - Parent.LayoutGap
                                               Children:
                                                 - fldEstadoCronoProyectos:
                                                     Control: ComboBoxDataField@1.5.0
@@ -235,7 +235,7 @@ Screens:
                                                 LayoutMaxHeight: =
                                                 LayoutMaxWidth: =
                                                 SelectMultiple: =true
-                                                Visible: =varAccesoTotal && App.ActiveScreenSize >= ScreenSize.Large
+                                                Visible: =varAccesoTotal && App.ActiveScreen.Size >= ScreenSize.Large
                                                 Width: =Parent.Width * 0.15 - Parent.LayoutGap
                                               Children:
                                                 - fldSegmentoCronoProyectos:
@@ -418,7 +418,7 @@ Screens:
                                                               If(Month(VarMesActual) <= 6, 1, 2) &
                                                               " " &
                                                               Text(Year(VarMesActual))),Blank())
-                                                            Width: =If(App.ActiveScreenSize = ScreenSize.Small, 120, 180)
+                                                            Width: =If(App.ActiveScreen.Size = ScreenSize.Small, 120, 180)
                                                       - icoPeriodoSiguienteCronoProyectos:
                                                           Control: Classic/Icon@2.5.0
                                                           Properties:

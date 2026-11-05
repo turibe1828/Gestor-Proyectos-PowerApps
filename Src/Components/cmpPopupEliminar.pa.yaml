@@ -47,7 +47,7 @@ ComponentDefinitions:
                   RadiusBottomRight: =10
                   RadiusTopLeft: =10
                   RadiusTopRight: =10
-                  Width: =Min(App.Width * If(App.ActiveScreenSize = ScreenSize.Small, 90%, 70%), 700)
+                  Width: =Min(App.Width * If(App.ActiveScreen.Size = ScreenSize.Small, 90%, 70%), 700)
                   X: =(Parent.Width-Self.Width) / 2
                   Y: =(Parent.Height-Self.Height)/2
                 Children:

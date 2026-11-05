@@ -29,9 +29,9 @@ Screens:
             DropShadow: =DropShadow.None
             Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
-            LayoutDirection: =If(App.ActiveScreenSize >= ScreenSize.Large, LayoutDirection.Horizontal, LayoutDirection.Vertical)
+            LayoutDirection: =If(App.ActiveScreen.Size >= ScreenSize.Large, LayoutDirection.Horizontal, LayoutDirection.Vertical)
             LayoutGap: =Espacio.M
-            LayoutOverflowY: =If(App.ActiveScreenSize >= ScreenSize.Large, LayoutOverflow.Hide, LayoutOverflow.Scroll)
+            LayoutOverflowY: =If(App.ActiveScreen.Size >= ScreenSize.Large, LayoutOverflow.Hide, LayoutOverflow.Scroll)
             Width: =Parent.Width
           Children:
             - cntContenidoFormProyecto:
@@ -39,7 +39,7 @@ Screens:
                 Variant: AutoLayout
                 Properties:
                   LayoutMinWidth: =0
-                  LayoutMinHeight: =If(App.ActiveScreenSize >= ScreenSize.Large, 0, App.Height)
+                  LayoutMinHeight: =If(App.ActiveScreen.Size >= ScreenSize.Large, 0, App.Height)
                   FillPortions: =1
                   BorderStyle: =BorderStyle.None
                   DropShadow: =DropShadow.None
@@ -3308,7 +3308,7 @@ Screens:
                         TemplateSize: =80
                         Visible: =!IsBlank(varProyecto)
                         Width: =Min(800, Parent.Width)
-                        WrapCount: =If(App.ActiveScreenSize <= ScreenSize.Medium, 1, 2)
+                        WrapCount: =If(App.ActiveScreen.Size <= ScreenSize.Medium, 1, 2)
                         Y: =80
                       Children:
                         - cntFilaHitoRelacionado:
@@ -3767,9 +3767,9 @@ Screens:
                 Properties:
                   FillPortions: =0
                   AlignInContainer: =AlignInContainer.Stretch
-                  Height: =If(App.ActiveScreenSize >= ScreenSize.Large, Parent.Height, 400)
+                  Height: =If(App.ActiveScreen.Size >= ScreenSize.Large, Parent.Height, 400)
                   Visible: =If(frmProyecto.Mode=FormMode.Edit,true,false)
-                  Width: =If(App.ActiveScreenSize >= ScreenSize.Large, 331, Parent.Width)
+                  Width: =If(App.ActiveScreen.Size >= ScreenSize.Large, 331, Parent.Width)
       - cmpPopupEliminarFormProyecto:
           Control: CanvasComponent
           ComponentName: cmpPopupEliminar
